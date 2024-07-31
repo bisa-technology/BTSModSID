@@ -4,7 +4,7 @@
  *
  * File ini bagian dari:
  *
- * OpenSID
+ * OpenSIDs
  *
  * Sistem informasi desa sumber terbuka untuk memajukan desa
  *
@@ -1253,7 +1253,7 @@ class Data_awal extends MY_Model
             [
                 'judul'      => 'Login Title',
                 'key'        => 'login_title',
-                'value'      => 'OpenSID',
+                'value'      => 'Website Sistem Informasi Desa',
                 'keterangan' => 'Judul tab browser halaman login modul administrasi',
                 'jenis'      => 'text',
                 'option'     => null,
@@ -18016,7 +18016,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Home',
                 'slug'       => 'home',
-                'url'        => 'hom_sid',
+                'url'        => 'beranda',
                 'aktif'      => 1,
                 'ikon'       => 'fa-home',
                 'urut'       => '10',
@@ -18076,7 +18076,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Bantuan',
                 'slug'       => 'bantuan',
-                'url'        => 'program_bantuan/clear',
+                'url'        => 'program_bantuan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-heart',
                 'urut'       => '100',
@@ -18196,7 +18196,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => '[Pemerintah Desa]',
                 'slug'       => 'pemerintah-desa',
-                'url'        => 'pengurus/clear',
+                'url'        => 'pengurus',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sitemap',
                 'urut'       => '3',
@@ -18208,7 +18208,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Wilayah Administratif',
                 'slug'       => 'wilayah-administratif',
-                'url'        => 'wilayah/clear',
+                'url'        => 'wilayah',
                 'aktif'      => 1,
                 'ikon'       => 'fa-map',
                 'urut'       => '2',
@@ -18220,7 +18220,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Penduduk',
                 'slug'       => 'penduduk',
-                'url'        => 'penduduk/clear',
+                'url'        => 'penduduk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-user',
                 'urut'       => '2',
@@ -18232,7 +18232,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Keluarga',
                 'slug'       => 'keluarga',
-                'url'        => 'keluarga/clear',
+                'url'        => 'keluarga',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => '3',
@@ -18244,7 +18244,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Rumah Tangga',
                 'slug'       => 'rumah-tangga',
-                'url'        => 'rtm/clear',
+                'url'        => 'rtm',
                 'aktif'      => 1,
                 'ikon'       => 'fa-venus-mars',
                 'urut'       => '4',
@@ -18256,7 +18256,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Kelompok',
                 'slug'       => 'kelompok',
-                'url'        => 'kelompok/clear',
+                'url'        => 'kelompok',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sitemap',
                 'urut'       => '5',
@@ -18268,7 +18268,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Data Suplemen',
                 'slug'       => 'data-suplemen',
-                'url'        => 'suplemen/clear',
+                'url'        => 'suplemen',
                 'aktif'      => 1,
                 'ikon'       => 'fa-slideshare',
                 'urut'       => '6',
@@ -18280,7 +18280,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Calon Pemilih',
                 'slug'       => 'calon-pemilih',
-                'url'        => 'dpt/clear',
+                'url'        => 'dpt',
                 'aktif'      => 1,
                 'ikon'       => 'fa-podcast',
                 'urut'       => '7',
@@ -18292,7 +18292,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Statistik Kependudukan',
                 'slug'       => 'statistik-kependudukan',
-                'url'        => 'statistik/clear',
+                'url'        => 'statistik',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bar-chart',
                 'urut'       => '1',
@@ -18304,7 +18304,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Laporan Bulanan',
                 'slug'       => 'laporan-bulanan',
-                'url'        => 'laporan/clear',
+                'url'        => 'laporan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-text',
                 'urut'       => '2',
@@ -18316,7 +18316,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Laporan Kelompok Rentan',
                 'slug'       => 'laporan-kelompok-rentan',
-                'url'        => 'laporan_rentan/clear',
+                'url'        => 'laporan_rentan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-wheelchair',
                 'urut'       => '3',
@@ -18352,7 +18352,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Arsip Layanan',
                 'slug'       => 'arsip-layanan',
-                'url'        => 'keluar/clear/masuk',
+                'url'        => 'keluar/masuk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-folder-open',
                 'urut'       => '4',
@@ -18388,7 +18388,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Modul',
                 'slug'       => 'modul',
-                'url'        => 'modul/clear',
+                'url'        => 'modul',
                 'aktif'      => 1,
                 'ikon'       => 'fa-tags',
                 'urut'       => '1',
@@ -18412,7 +18412,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Pengguna',
                 'slug'       => 'pengguna',
-                'url'        => 'man_user/clear',
+                'url'        => 'man_user',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => '3',
@@ -18448,7 +18448,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Artikel',
                 'slug'       => 'artikel',
-                'url'        => 'web/clear',
+                'url'        => 'web',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-movie-o',
                 'urut'       => '1',
@@ -18460,7 +18460,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Widget',
                 'slug'       => 'widget',
-                'url'        => 'web_widget/clear',
+                'url'        => 'web_widget',
                 'aktif'      => 1,
                 'ikon'       => 'fa-windows',
                 'urut'       => '2',
@@ -18472,7 +18472,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Menu',
                 'slug'       => 'menu',
-                'url'        => 'menu/clear',
+                'url'        => 'menu',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bars',
                 'urut'       => '3',
@@ -18484,7 +18484,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Komentar',
                 'slug'       => 'komentar',
-                'url'        => 'komentar/clear',
+                'url'        => 'komentar',
                 'aktif'      => 1,
                 'ikon'       => 'fa-comments',
                 'urut'       => '4',
@@ -18496,7 +18496,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Galeri',
                 'slug'       => 'galeri',
-                'url'        => 'gallery/clear',
+                'url'        => 'gallery',
                 'aktif'      => 1,
                 'ikon'       => 'fa-image',
                 'urut'       => '5',
@@ -18508,7 +18508,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Informasi Publik',
                 'slug'       => 'informasi-publik',
-                'url'        => 'dokumen/clear',
+                'url'        => 'dokumen',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-text',
                 'urut'       => '4',
@@ -18544,7 +18544,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Kotak Pesan',
                 'slug'       => 'kotak-pesan',
-                'url'        => 'mailbox/clear',
+                'url'        => 'mailbox',
                 'aktif'      => 1,
                 'ikon'       => 'fa-wechat',
                 'urut'       => '1',
@@ -18556,7 +18556,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Pendaftar Layanan Mandiri',
                 'slug'       => 'pendaftar-layanan-mandiri',
-                'url'        => 'mandiri/clear',
+                'url'        => 'mandiri',
                 'aktif'      => 1,
                 'ikon'       => 'fa-500px',
                 'urut'       => '2',
@@ -18568,7 +18568,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Surat Masuk',
                 'slug'       => 'surat-masuk',
-                'url'        => 'surat_masuk/clear',
+                'url'        => 'surat_masuk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sign-in',
                 'urut'       => '1',
@@ -18580,7 +18580,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Surat Keluar',
                 'slug'       => 'surat-keluar',
-                'url'        => 'surat_keluar/clear',
+                'url'        => 'surat_keluar',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sign-out',
                 'urut'       => '2',
@@ -18604,7 +18604,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Peta',
                 'slug'       => 'peta',
-                'url'        => 'gis/clear',
+                'url'        => 'gis',
                 'aktif'      => 1,
                 'ikon'       => 'fa-globe',
                 'urut'       => '1',
@@ -18616,7 +18616,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Klasfikasi Surat',
                 'slug'       => 'klasfikasi-surat',
-                'url'        => 'klasifikasi/clear',
+                'url'        => 'klasifikasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-code',
                 'urut'       => '10',
@@ -19048,7 +19048,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Pengaturan Grup',
                 'slug'       => 'pengaturan-grup',
-                'url'        => 'grup/clear',
+                'url'        => 'grup',
                 'aktif'      => 1,
                 'ikon'       => '',
                 'urut'       => '0',
@@ -19060,7 +19060,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Master Analisis',
                 'slug'       => 'master-analisis',
-                'url'        => 'analisis_master/clear',
+                'url'        => 'analisis_master',
                 'aktif'      => 1,
                 'ikon'       => 'fa-check-square-o',
                 'urut'       => '1',
@@ -19132,7 +19132,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Pengunjung',
                 'slug'       => 'pengunjung',
-                'url'        => 'pengunjung/clear',
+                'url'        => 'pengunjung',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bar-chart',
                 'urut'       => '10',
@@ -19216,7 +19216,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'QR Code',
                 'slug'       => 'qr-code',
-                'url'        => 'setting/qrcode/clear',
+                'url'        => 'setting/qrcode',
                 'aktif'      => 1,
                 'ikon'       => 'fa-qrcode',
                 'urut'       => '6',
@@ -19288,7 +19288,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Administrasi Penduduk',
                 'slug'       => 'administrasi-penduduk',
-                'url'        => 'bumindes_penduduk_induk/clear',
+                'url'        => 'bumindes_penduduk_induk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => '2',
@@ -19312,7 +19312,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Eskpedisi',
                 'slug'       => 'buku-eskpedisi',
-                'url'        => 'ekspedisi/clear',
+                'url'        => 'ekspedisi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19324,7 +19324,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Lembaran Dan Berita [Desa]',
                 'slug'       => 'buku-lembaran-dan-berita-desa',
-                'url'        => 'lembaran_desa/clear',
+                'url'        => 'lembaran_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19372,7 +19372,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Mutasi Penduduk',
                 'slug'       => 'buku-mutasi-penduduk',
-                'url'        => 'bumindes_penduduk_mutasi/clear',
+                'url'        => 'bumindes_penduduk_mutasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19384,7 +19384,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Rekapitulasi Jumlah Penduduk',
                 'slug'       => 'buku-rekapitulasi-jumlah-penduduk',
-                'url'        => 'bumindes_penduduk_rekapitulasi/clear',
+                'url'        => 'bumindes_penduduk_rekapitulasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19396,7 +19396,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Penduduk Sementara',
                 'slug'       => 'buku-penduduk-sementara',
-                'url'        => 'bumindes_penduduk_sementara/clear',
+                'url'        => 'bumindes_penduduk_sementara',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19408,7 +19408,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku KTP dan KK',
                 'slug'       => 'buku-ktp-dan-kk',
-                'url'        => 'bumindes_penduduk_ktpkk/clear',
+                'url'        => 'bumindes_penduduk_ktpkk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19420,7 +19420,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Tanah Kas [Desa]',
                 'slug'       => 'buku-tanah-kas-desa',
-                'url'        => 'bumindes_tanah_kas_desa/clear',
+                'url'        => 'bumindes_tanah_kas_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19432,7 +19432,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Buku Tanah di [Desa]',
                 'slug'       => 'buku-tanah-di-desa',
-                'url'        => 'bumindes_tanah_desa/clear',
+                'url'        => 'bumindes_tanah_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => '0',
@@ -19516,7 +19516,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Lembaga [Desa]',
                 'slug'       => 'lembaga-desa',
-                'url'        => 'lembaga/clear',
+                'url'        => 'lembaga',
                 'aktif'      => 1,
                 'ikon'       => 'fa-list',
                 'urut'       => '4',
@@ -19612,7 +19612,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Vaksin',
                 'slug'       => 'vaksin',
-                'url'        => 'vaksin_covid/clear',
+                'url'        => 'vaksin_covid',
                 'aktif'      => 1,
                 'ikon'       => 'fa-medkit',
                 'urut'       => '2',
@@ -19708,7 +19708,7 @@ class Data_awal extends MY_Model
             [
                 'modul'      => 'Pesan',
                 'slug'       => 'pesan',
-                'url'        => 'opendk_pesan/clear',
+                'url'        => 'opendk_pesan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-envelope',
                 'urut'       => '124',
@@ -19955,9 +19955,9 @@ class Data_awal extends MY_Model
         $data = [
             [
                 'kode'           => 'persetujuan_penggunaan',
-                'judul'          => '<i class="fa fa-file-text-o text-black"></i> &nbsp;Persetujuan Penggunaan OpenSID',
+                'judul'          => '<i class="fa fa-file-text-o text-black"></i> &nbsp;Persetujuan Penggunaan',
                 'jenis'          => 'persetujuan',
-                'isi'            => '<p><b>Untuk menggunakan OpenSID, anda dan desa anda perlu menyetujui ketentuan berikut:</b>\n                    <ol>\n                      <li>Pengguna telah membaca dan menyetujui <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">Lisensi GPL V3</a>.</li>\n                     <li>OpenSID gratis dan disediakan "SEBAGAIMANA ADANYA", di mana segala tanggung jawab termasuk keamanan data desa ada pada pengguna.</li>\n                       <li>Pengguna paham bahwa setiap ubahan OpenSID juga berlisensi GPL V3 yang tidak dapat dimusnahkan, dan aplikasi ubahan itu juga sumber terbuka yang bebas disebarkan oleh pihak yang menerima.</li>\n                      <li>Pengguna mengetahui, paham dan menyetujui bahwa OpenSID akan mengirim data penggunaan ke server OpenDesa secara berkala untuk tujuan menyempurnakan OpenSID, dengan pengertian bahwa data yang dikirim sama sekali tidak berisi data identitas penduduk atau data sensitif desa lainnya.</li>\n                 </ol></p>\n                 <b>Apakah anda dan desa anda setuju dengan ketentuan di atas?</b>',
+                'isi'            => '<p><b>Untuk menggunakan Website Sistem Informasi Desa, anda dan desa anda perlu menyetujui ketentuan berikut:</b>\n                    <ol>\n                      <li>Pengguna telah membaca dan menyetujui <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">Lisensi GPL V3</a>.</li>\n                     <li>Website Sistem Informasi Desa gratis dan disediakan "SEBAGAIMANA ADANYA", di mana segala tanggung jawab termasuk keamanan data desa ada pada pengguna.</li>\n                       <li>Pengguna paham bahwa setiap ubahan Website Sistem Informasi Desa juga berlisensi GPL V3 yang tidak dapat dimusnahkan, dan aplikasi ubahan itu juga sumber terbuka yang bebas disebarkan oleh pihak yang menerima.</li>\n                      <li>Pengguna mengetahui, paham dan menyetujui bahwa Website Sistem Informasi Desa akan mengirim data penggunaan ke server OpenDesa secara berkala untuk tujuan menyempurnakan Website Sistem Informasi Desa, dengan pengertian bahwa data yang dikirim sama sekali tidak berisi data identitas penduduk atau data sensitif desa lainnya.</li>\n                 </ol></p>\n                 <b>Apakah anda dan desa anda setuju dengan ketentuan di atas?</b>',
                 'server'         => 'client',
                 'tgl_berikutnya' => '2022-03-01 04:16:23',
                 'updated_at'     => '2021-12-01 04:16:23',

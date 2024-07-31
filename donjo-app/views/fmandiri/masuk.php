@@ -25,7 +25,7 @@
 	<link rel="stylesheet" href="<?= asset('bootstrap/css/font-awesome.min.css') ?>">
 	<!-- Google Font -->
 	<?php if (cek_koneksi_internet()): ?>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 	<?php endif ?>
 	<script src="<?= asset('bootstrap/js/jquery.min.js') ?>"></script>
 
@@ -37,13 +37,13 @@
 
 	<?php $this->load->view('head_tags') ?>
 	<style type="text/css">
-        body.login {
-            background-image: url('<?= default_file(LATAR_LOGIN . $this->setting->latar_login_mandiri, DEFAULT_LATAR_KEHADIRAN) ?>');
-        }
-    </style>
+		body.login {
+			background-image: url('<?= default_file(LATAR_LOGIN . $this->setting->latar_login_mandiri, DEFAULT_LATAR_KEHADIRAN) ?>');
+		}
+	</style>
 	<?php if (cek_koneksi_internet()): ?>
-	<!-- Form Wizard - smartWizard -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css">
+		<!-- Form Wizard - smartWizard -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/css/smart_wizard_all.min.css">
 	<?php endif ?>
 </head>
 
@@ -189,9 +189,6 @@
 									<?php endif; ?>
 								<?php endif; ?>
 							<?php endif; ?>
-							<div class="login-footer-bottom">
-								<a href="https://github.com/OpenSID/OpenSID" class="content-color-secondary" rel="noopener noreferrer" target="_blank">OpenSID <?= AmbilVersi() ?></a>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -225,8 +222,8 @@
 	<script src="<?= asset('js/localization/messages_id.js') ?>"></script>
 
 	<?php if (cek_koneksi_internet()): ?>
-	<!-- Form Wizard - jquery.smartWizard -->
-	<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+		<!-- Form Wizard - jquery.smartWizard -->
+		<script src="https://cdn.jsdelivr.net/npm/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 	<?php endif ?>
 
 	<?php if ($cek_anjungan) : ?>
@@ -324,7 +321,7 @@
 			});
 		<?php endif; ?>
 	</script>
-</script>
+	</script>
 </body>
 
 </html>

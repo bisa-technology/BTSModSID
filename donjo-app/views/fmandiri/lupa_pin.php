@@ -31,10 +31,10 @@
 
 	<?php $this->load->view('head_tags'); ?>
 	<style type="text/css">
-        body.login {
-            background-image: url('<?= default_file(LATAR_KEHADIRAN, DEFAULT_LATAR_KEHADIRAN) ?>');
-        }
-    </style>
+		body.login {
+			background-image: url('<?= default_file(LATAR_KEHADIRAN, DEFAULT_LATAR_KEHADIRAN) ?>');
+		}
+	</style>
 </head>
 
 <body class="login">
@@ -102,9 +102,6 @@
 										</div>
 									</div>
 							</form>
-							<div class="login-footer-bottom">
-								<a href="https://github.com/OpenSID/OpenSID" class="content-color-secondary" rel="noopener noreferrer" target="_blank">OpenSID <?= AmbilVersi() ?></a>
-							</div>
 						</div>
 					</div>
 				</div>

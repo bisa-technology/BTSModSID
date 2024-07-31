@@ -138,13 +138,6 @@
 						</div>
 					</div>
 					<div class="leaflet-bottom leaflet-left">
-						<div id="qrcode">
-							<div class="panel-body-lg">
-								<a href="https://github.com/OpenSID/OpenSID">
-									<img src="<?= to_base64(GAMBAR_QRCODE) ?>" alt="OpenSID">
-								</a>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -318,7 +311,7 @@
 							'<br/>' + penduduk[x].agama +
 							'<br/>' + penduduk[x].alamat +
 							info_lain + '</p>' +
-							'<a class="btn btn-sm btn-primary" href="' + link_detail  + '" style="color:black;" target="ajax-modalx" rel="content" header="Rincian Data ' + penduduk[x].nama + '" >Data Rincian</a></td>' +
+							'<a class="btn btn-sm btn-primary" href="' + link_detail + '" style="color:black;" target="ajax-modalx" rel="content" header="Rincian Data ' + penduduk[x].nama + '" >Data Rincian</a></td>' +
 							'</tr></table>';
 						//Menambahkan point ke marker
 						semua_marker.push(turf.point([Number(penduduk[x].lng), Number(penduduk[x].lat)], {

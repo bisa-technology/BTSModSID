@@ -65,7 +65,6 @@
                                 </div>
                             </form>
                             <hr />
-                            <div class="login-footer-bottom"><a href="https://github.com/OpenSID/OpenSID" target="_blank">OpenSID</a> <?= AmbilVersi() ?></div>
                         </div>
                     </div>
                 </div>

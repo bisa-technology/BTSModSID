@@ -181,17 +181,17 @@ class Migrasi_fitur_premium_2401 extends MY_model
     protected function migrasi_2023120751($hasil)
     {
         $hasil = $hasil && $this->ubah_modul(
-            ['slug' => 'data-suplemen', 'url' => 'suplemen/clear'],
+            ['slug' => 'data-suplemen', 'url' => 'suplemen'],
             ['url' => 'suplemen']
         );
 
         $hasil = $hasil && $this->ubah_modul(
-            ['slug' => 'wilayah-administratif', 'url' => 'wilayah/clear'],
+            ['slug' => 'wilayah-administratif', 'url' => 'wilayah'],
             ['url' => 'wilayah']
         );
 
         return $hasil && $this->ubah_modul(
-            ['slug' => 'pengunjung', 'url' => 'pengunjung/clear'],
+            ['slug' => 'pengunjung', 'url' => 'pengunjung'],
             ['url' => 'pengunjung']
         );
     }

@@ -61771,7 +61771,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 1,
                 'modul'      => 'Home',
-                'url'        => 'hom_sid',
+                'url'        => 'beranda',
                 'aktif'      => 1,
                 'ikon'       => 'fa-home',
                 'urut'       => 10,
@@ -61831,7 +61831,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 6,
                 'modul'      => 'Bantuan',
-                'url'        => 'program_bantuan/clear',
+                'url'        => 'program_bantuan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-heart',
                 'urut'       => 100,
@@ -61843,7 +61843,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 7,
                 'modul'      => 'Pertanahan',
-                'url'        => 'cdesa/clear',
+                'url'        => 'cdesa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-map-signs',
                 'urut'       => 110,
@@ -61951,7 +61951,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 18,
                 'modul'      => 'Pemerintahan [Desa]',
-                'url'        => 'pengurus/clear',
+                'url'        => 'pengurus',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sitemap',
                 'urut'       => 3,
@@ -61963,7 +61963,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 20,
                 'modul'      => 'Wilayah Administratif',
-                'url'        => 'sid_core/clear',
+                'url'        => 'sid_core',
                 'aktif'      => 1,
                 'ikon'       => 'fa-map',
                 'urut'       => 2,
@@ -61975,7 +61975,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 21,
                 'modul'      => 'Penduduk',
-                'url'        => 'penduduk/clear',
+                'url'        => 'penduduk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-user',
                 'urut'       => 2,
@@ -61987,7 +61987,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 22,
                 'modul'      => 'Keluarga',
-                'url'        => 'keluarga/clear',
+                'url'        => 'keluarga',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => 3,
@@ -61999,7 +61999,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 23,
                 'modul'      => 'Rumah Tangga',
-                'url'        => 'rtm/clear',
+                'url'        => 'rtm',
                 'aktif'      => 1,
                 'ikon'       => 'fa-venus-mars',
                 'urut'       => 4,
@@ -62011,7 +62011,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 24,
                 'modul'      => 'Kelompok',
-                'url'        => 'kelompok/clear',
+                'url'        => 'kelompok',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sitemap',
                 'urut'       => 5,
@@ -62023,7 +62023,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 25,
                 'modul'      => 'Data Suplemen',
-                'url'        => 'suplemen/clear',
+                'url'        => 'suplemen',
                 'aktif'      => 1,
                 'ikon'       => 'fa-slideshare',
                 'urut'       => 6,
@@ -62035,7 +62035,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 26,
                 'modul'      => 'Calon Pemilih',
-                'url'        => 'dpt/clear',
+                'url'        => 'dpt',
                 'aktif'      => 1,
                 'ikon'       => 'fa-podcast',
                 'urut'       => 7,
@@ -62047,7 +62047,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 27,
                 'modul'      => 'Statistik Kependudukan',
-                'url'        => 'statistik/clear',
+                'url'        => 'statistik',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bar-chart',
                 'urut'       => 1,
@@ -62059,7 +62059,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 28,
                 'modul'      => 'Laporan Bulanan',
-                'url'        => 'laporan/clear',
+                'url'        => 'laporan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-text',
                 'urut'       => 2,
@@ -62071,7 +62071,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 29,
                 'modul'      => 'Laporan Kelompok Rentan',
-                'url'        => 'laporan_rentan/clear',
+                'url'        => 'laporan_rentan',
                 'aktif'      => 1,
                 'ikon'       => 'fa-wheelchair',
                 'urut'       => 3,
@@ -62083,7 +62083,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 30,
                 'modul'      => 'Pengaturan Surat',
-                'url'        => 'surat_master/clear',
+                'url'        => 'surat_master',
                 'aktif'      => 1,
                 'ikon'       => 'fa-cog',
                 'urut'       => 1,
@@ -62107,7 +62107,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 32,
                 'modul'      => 'Arsip Layanan',
-                'url'        => 'keluar/clear',
+                'url'        => 'keluar',
                 'aktif'      => 1,
                 'ikon'       => 'fa-folder-open',
                 'urut'       => 3,
@@ -62167,7 +62167,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 42,
                 'modul'      => 'Modul',
-                'url'        => 'modul/clear',
+                'url'        => 'modul',
                 'aktif'      => 1,
                 'ikon'       => 'fa-tags',
                 'urut'       => 1,
@@ -62191,7 +62191,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 44,
                 'modul'      => 'Pengguna',
-                'url'        => 'man_user/clear',
+                'url'        => 'man_user',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => 3,
@@ -62227,7 +62227,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 47,
                 'modul'      => 'Artikel',
-                'url'        => 'web/clear',
+                'url'        => 'web',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-movie-o',
                 'urut'       => 1,
@@ -62239,7 +62239,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 48,
                 'modul'      => 'Widget',
-                'url'        => 'web_widget/clear',
+                'url'        => 'web_widget',
                 'aktif'      => 1,
                 'ikon'       => 'fa-windows',
                 'urut'       => 2,
@@ -62251,7 +62251,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 49,
                 'modul'      => 'Menu',
-                'url'        => 'menu/clear',
+                'url'        => 'menu',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bars',
                 'urut'       => 3,
@@ -62263,7 +62263,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 50,
                 'modul'      => 'Komentar',
-                'url'        => 'komentar/clear',
+                'url'        => 'komentar',
                 'aktif'      => 1,
                 'ikon'       => 'fa-comments',
                 'urut'       => 4,
@@ -62275,7 +62275,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 51,
                 'modul'      => 'Galeri',
-                'url'        => 'gallery/clear',
+                'url'        => 'gallery',
                 'aktif'      => 1,
                 'ikon'       => 'fa-image',
                 'urut'       => 5,
@@ -62287,7 +62287,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 52,
                 'modul'      => 'Informasi Publik',
-                'url'        => 'dokumen/clear',
+                'url'        => 'dokumen',
                 'aktif'      => 1,
                 'ikon'       => 'fa-file-text',
                 'urut'       => 4,
@@ -62323,7 +62323,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 55,
                 'modul'      => 'Kotak Pesan',
-                'url'        => 'mailbox/clear',
+                'url'        => 'mailbox',
                 'aktif'      => 1,
                 'ikon'       => 'fa-wechat',
                 'urut'       => 1,
@@ -62335,7 +62335,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 56,
                 'modul'      => 'Pendaftar Layanan Mandiri',
-                'url'        => 'mandiri/clear',
+                'url'        => 'mandiri',
                 'aktif'      => 1,
                 'ikon'       => 'fa-500px',
                 'urut'       => 2,
@@ -62347,7 +62347,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 57,
                 'modul'      => 'Surat Masuk',
-                'url'        => 'surat_masuk/clear',
+                'url'        => 'surat_masuk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sign-in',
                 'urut'       => 1,
@@ -62359,7 +62359,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 58,
                 'modul'      => 'Surat Keluar',
-                'url'        => 'surat_keluar/clear',
+                'url'        => 'surat_keluar',
                 'aktif'      => 1,
                 'ikon'       => 'fa-sign-out',
                 'urut'       => 2,
@@ -62383,7 +62383,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 62,
                 'modul'      => 'Peta',
-                'url'        => 'gis/clear',
+                'url'        => 'gis',
                 'aktif'      => 1,
                 'ikon'       => 'fa-globe',
                 'urut'       => 1,
@@ -62395,7 +62395,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 63,
                 'modul'      => 'Klasfikasi Surat',
-                'url'        => 'klasifikasi/clear',
+                'url'        => 'klasifikasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-code',
                 'urut'       => 10,
@@ -62803,7 +62803,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 98,
                 'modul'      => 'Permohonan Surat',
-                'url'        => 'permohonan_surat_admin/clear',
+                'url'        => 'permohonan_surat_admin',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -62827,7 +62827,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 102,
                 'modul'      => 'Pengaturan Grup',
-                'url'        => 'grup/clear',
+                'url'        => 'grup',
                 'aktif'      => 1,
                 'ikon'       => '',
                 'urut'       => 0,
@@ -62839,7 +62839,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 110,
                 'modul'      => 'Master Analisis',
-                'url'        => 'analisis_master/clear',
+                'url'        => 'analisis_master',
                 'aktif'      => 1,
                 'ikon'       => 'fa-check-square-o',
                 'urut'       => 1,
@@ -62911,7 +62911,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 205,
                 'modul'      => 'Pengunjung',
-                'url'        => 'pengunjung/clear',
+                'url'        => 'pengunjung',
                 'aktif'      => 1,
                 'ikon'       => 'fa-bar-chart',
                 'urut'       => 10,
@@ -62995,7 +62995,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 212,
                 'modul'      => 'QR Code',
-                'url'        => 'setting/qrcode/clear',
+                'url'        => 'setting/qrcode',
                 'aktif'      => 1,
                 'ikon'       => 'fa-qrcode',
                 'urut'       => 6,
@@ -63067,7 +63067,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 303,
                 'modul'      => 'Administrasi Penduduk',
-                'url'        => 'bumindes_penduduk_induk/clear',
+                'url'        => 'bumindes_penduduk_induk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-users',
                 'urut'       => 2,
@@ -63103,7 +63103,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 310,
                 'modul'      => 'Buku Eskpedisi',
-                'url'        => 'ekspedisi/clear',
+                'url'        => 'ekspedisi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63115,7 +63115,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 311,
                 'modul'      => 'Buku Lembaran Dan Berita [Desa]',
-                'url'        => 'lembaran_desa/clear',
+                'url'        => 'lembaran_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63163,7 +63163,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 315,
                 'modul'      => 'Buku Mutasi Penduduk',
-                'url'        => 'bumindes_penduduk_mutasi/clear',
+                'url'        => 'bumindes_penduduk_mutasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63175,7 +63175,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 316,
                 'modul'      => 'Buku Rekapitulasi Jumlah Penduduk',
-                'url'        => 'bumindes_penduduk_rekapitulasi/clear',
+                'url'        => 'bumindes_penduduk_rekapitulasi',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63187,7 +63187,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 317,
                 'modul'      => 'Buku Penduduk Sementara',
-                'url'        => 'bumindes_penduduk_sementara/clear',
+                'url'        => 'bumindes_penduduk_sementara',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63199,7 +63199,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 318,
                 'modul'      => 'Buku KTP dan KK',
-                'url'        => 'bumindes_penduduk_ktpkk/clear',
+                'url'        => 'bumindes_penduduk_ktpkk',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63211,7 +63211,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 319,
                 'modul'      => 'Buku Tanah Kas [Desa]',
-                'url'        => 'bumindes_tanah_kas_desa/clear',
+                'url'        => 'bumindes_tanah_kas_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63223,7 +63223,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 320,
                 'modul'      => 'Buku Tanah di [Desa]',
-                'url'        => 'bumindes_tanah_desa/clear',
+                'url'        => 'bumindes_tanah_desa',
                 'aktif'      => 1,
                 'ikon'       => 'fa-files-o',
                 'urut'       => 0,
@@ -63307,7 +63307,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 327,
                 'modul'      => 'Lembaga [Desa]',
-                'url'        => 'lembaga/clear',
+                'url'        => 'lembaga',
                 'aktif'      => 1,
                 'ikon'       => 'fa-list',
                 'urut'       => 4,
@@ -63403,7 +63403,7 @@ class Data_awal_seeder extends CI_Model
             [
                 'id'         => 335,
                 'modul'      => 'Vaksin',
-                'url'        => 'vaksin_covid/clear',
+                'url'        => 'vaksin_covid',
                 'aktif'      => 1,
                 'ikon'       => 'fa fa-medkit',
                 'urut'       => 2,

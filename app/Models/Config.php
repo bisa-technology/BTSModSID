@@ -160,7 +160,7 @@ class Config extends BaseModel
         $logo = LOKASI_LOGO_DESA . $this->attributes['logo'];
 
         if (empty($this->attributes['logo']) || ! file_exists(FCPATH . $logo)) {
-            return 'assets/files/logo/opensid_logo.png';
+            return 'assets/files/logo/logo_default.png';
         }
 
         return $this->attributes['logo'];

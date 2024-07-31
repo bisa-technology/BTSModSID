@@ -33,7 +33,7 @@
 					<div class="col-sm-4 col-sm-offset-4 form-box">
 						<div class="form-top">
 							<a href="<?= site_url() ?>">
-								<img src="<?= gambar_desa($header['logo']) ?>" alt="<?= $header['nama_desa'] ?>" class="img-responsive" />
+								<img src="<?= gambar_desa($header['logo']) ?>" alt="<?= $header['nama_desa'] ?>" style="height: 140px; width: auto;" />
 								<?php if (setting('tte')) : ?>
 									<img src="<?= $logo_bsre ?>" alt="Bsre" class="img-responsive" style="width: 185px;" />
 								<?php endif ?>
@@ -83,7 +83,6 @@
 								<?php endif ?>
 							</form>
 							<hr />
-							<div class="login-footer-bottom"><a href="https://github.com/OpenSID/OpenSID" target="_blank">OpenSID</a> <?= AmbilVersi() ?></div>
 						</div>
 					</div>
 				</div>

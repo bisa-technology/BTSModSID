@@ -212,7 +212,7 @@ class Migrasi_multidb extends MY_model
         $tabel = 'tweb_wil_clusterdesa';
 
         // Ubah url modul wilayah
-        $hasil = $hasil && $this->ubah_modul(20, ['url' => 'wilayah/clear']);
+        $hasil = $hasil && $this->ubah_modul(20, ['url' => 'wilayah']);
 
         // Tambah kolom config_id pada tabel tweb_wil_clusterdesa
         $hasil = $hasil && $this->tambah_config_id($tabel);

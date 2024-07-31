@@ -40,13 +40,6 @@
           <?php $this->load->view('gis/content_rt_web.php', ['rt_gis' => $rt_gis, 'list_ref' => $list_ref, 'wilayah' => ucwords($this->setting->sebutan_dusun . ' ')]) ?>
         </div>
         <div class="leaflet-bottom leaflet-left">
-          <div id="qrcode">
-            <div class="panel-body-lg">
-              <a href="https://github.com/OpenSID/OpenSID">
-                <img src="<?= to_base64(GAMBAR_QRCODE) ?>" alt="OpenSID">
-              </a>
-            </div>
-          </div>
         </div>
       </div>
     </div>

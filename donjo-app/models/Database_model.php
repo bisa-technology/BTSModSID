@@ -43,96 +43,96 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
 class Database_model extends MY_Model
 {
-    private $user             = 1;
-    private $engine           = 'InnoDB';
+    private $user = 1;
+    private $engine = 'InnoDB';
     private int $showProgress = 0;
 
     // define versi opensid dan script migrasi yang harus dijalankan
     private array $versionMigrate = [
-        '2.4'     => ['migrate' => 'migrasi_24_ke_25', 'nextVersion' => '2.5'],
+        '2.4' => ['migrate' => 'migrasi_24_ke_25', 'nextVersion' => '2.5'],
         'pra-2.5' => ['migrate' => 'migrasi_24_ke_25', 'nextVersion' => '2.5'],
-        '2.5'     => ['migrate' => 'migrasi_25_ke_26', 'nextVersion' => '2.6'],
-        '2.6'     => ['migrate' => 'migrasi_26_ke_27', 'nextVersion' => '2.7'],
-        '2.7'     => ['migrate' => 'migrasi_27_ke_28', 'nextVersion' => '2.8'],
-        '2.8'     => ['migrate' => 'migrasi_28_ke_29', 'nextVersion' => '2.9'],
-        '2.9'     => ['migrate' => 'migrasi_29_ke_210', 'nextVersion' => '2.10'],
-        '2.10'    => ['migrate' => 'migrasi_210_ke_211', 'nextVersion' => '2.11'],
-        '2.11'    => ['migrate' => 'migrasi_211_ke_1806', 'nextVersion' => '18.06'],
-        '2.12'    => ['migrate' => 'migrasi_211_ke_1806', 'nextVersion' => '18.06'],
-        '18.06'   => ['migrate' => 'migrasi_1806_ke_1807', 'nextVersion' => '18.08'],
-        '18.07'   => ['migrate' => 'migrasi_1806_ke_1807', 'nextVersion' => '18.08'],
-        '18.08'   => ['migrate' => 'migrasi_1808_ke_1809', 'nextVersion' => '18.09'],
-        '18.09'   => ['migrate' => 'migrasi_1809_ke_1810', 'nextVersion' => '18.10'],
-        '18.10'   => ['migrate' => 'migrasi_1810_ke_1811', 'nextVersion' => '18.11'],
-        '18.11'   => ['migrate' => 'migrasi_1811_ke_1812', 'nextVersion' => '18.12'],
-        '18.12'   => ['migrate' => 'migrasi_1812_ke_1901', 'nextVersion' => '19.01'],
-        '19.01'   => ['migrate' => 'migrasi_1901_ke_1902', 'nextVersion' => '19.02'],
-        '19.02'   => ['migrate' => 'nop', 'nextVersion' => '19.03'],
-        '19.03'   => ['migrate' => 'migrasi_1903_ke_1904', 'nextVersion' => '19.04'],
-        '19.04'   => ['migrate' => 'migrasi_1904_ke_1905', 'nextVersion' => '19.05'],
-        '19.05'   => ['migrate' => 'migrasi_1905_ke_1906', 'nextVersion' => '19.06'],
-        '19.06'   => ['migrate' => 'migrasi_1906_ke_1907', 'nextVersion' => '19.07'],
-        '19.07'   => ['migrate' => 'migrasi_1907_ke_1908', 'nextVersion' => '19.08'],
-        '19.08'   => ['migrate' => 'migrasi_1908_ke_1909', 'nextVersion' => '19.09'],
-        '19.09'   => ['migrate' => 'migrasi_1909_ke_1910', 'nextVersion' => '19.10'],
-        '19.10'   => ['migrate' => 'migrasi_1910_ke_1911', 'nextVersion' => '19.11'],
-        '19.11'   => ['migrate' => 'migrasi_1911_ke_1912', 'nextVersion' => '19.12'],
-        '19.12'   => ['migrate' => 'migrasi_1912_ke_2001', 'nextVersion' => '20.01'],
-        '20.01'   => ['migrate' => 'migrasi_2001_ke_2002', 'nextVersion' => '20.02'],
-        '20.02'   => ['migrate' => 'migrasi_2002_ke_2003', 'nextVersion' => '20.03'],
-        '20.03'   => ['migrate' => 'migrasi_2003_ke_2004', 'nextVersion' => '20.04'],
-        '20.04'   => ['migrate' => 'migrasi_2004_ke_2005', 'nextVersion' => '20.05'],
-        '20.05'   => ['migrate' => 'migrasi_2005_ke_2006', 'nextVersion' => '20.06'],
-        '20.06'   => ['migrate' => 'migrasi_2006_ke_2007', 'nextVersion' => '20.07'],
-        '20.07'   => ['migrate' => 'migrasi_2007_ke_2008', 'nextVersion' => '20.08'],
-        '20.08'   => ['migrate' => 'migrasi_2008_ke_2009', 'nextVersion' => '20.09'],
-        '20.09'   => ['migrate' => 'migrasi_2009_ke_2010', 'nextVersion' => '20.10'],
-        '20.10'   => ['migrate' => 'migrasi_2010_ke_2011', 'nextVersion' => '20.11'],
-        '20.11'   => ['migrate' => 'migrasi_2011_ke_2012', 'nextVersion' => '20.12'],
-        '20.12'   => ['migrate' => 'migrasi_2012_ke_2101', 'nextVersion' => '21.01'],
-        '21.01'   => ['migrate' => 'migrasi_2101_ke_2102', 'nextVersion' => '21.02'],
-        '21.02'   => ['migrate' => 'migrasi_2102_ke_2103', 'nextVersion' => '21.03'],
-        '21.03'   => ['migrate' => 'migrasi_2103_ke_2104', 'nextVersion' => '21.04'],
-        '21.04'   => ['migrate' => 'migrasi_2104_ke_2105', 'nextVersion' => '21.05'],
-        '21.05'   => ['migrate' => 'migrasi_2105_ke_2106', 'nextVersion' => '21.06'],
-        '21.06'   => ['migrate' => 'migrasi_2106_ke_2107', 'nextVersion' => '21.07'],
-        '21.07'   => ['migrate' => 'migrasi_2107_ke_2108', 'nextVersion' => '21.08'],
-        '21.08'   => ['migrate' => 'migrasi_2108_ke_2109', 'nextVersion' => '21.09'],
-        '21.09'   => ['migrate' => 'migrasi_2109_ke_2110', 'nextVersion' => '21.10'],
-        '21.10'   => ['migrate' => 'migrasi_2110_ke_2111', 'nextVersion' => '21.11'],
-        '21.11'   => ['migrate' => 'migrasi_2111_ke_2112', 'nextVersion' => '21.12'],
-        '21.12'   => ['migrate' => 'migrasi_2112_ke_2201', 'nextVersion' => '22.01'],
-        '22.01'   => ['migrate' => 'migrasi_2201_ke_2202', 'nextVersion' => '22.02'],
-        '22.02'   => ['migrate' => 'migrasi_2202_ke_2203', 'nextVersion' => '22.03'],
-        '22.03'   => ['migrate' => 'migrasi_2203_ke_2204', 'nextVersion' => '22.04'],
-        '22.04'   => ['migrate' => 'migrasi_2204_ke_2205', 'nextVersion' => '22.05'],
-        '22.05'   => ['migrate' => 'migrasi_2205_ke_2206', 'nextVersion' => '22.06'],
-        '22.06'   => ['migrate' => 'migrasi_2206_ke_2207', 'nextVersion' => '22.07'],
-        '22.07'   => ['migrate' => 'migrasi_2207_ke_2208', 'nextVersion' => '22.08'],
-        '22.08'   => ['migrate' => 'migrasi_2208_ke_2209', 'nextVersion' => '22.09'],
-        '22.09'   => ['migrate' => 'migrasi_2209_ke_2210', 'nextVersion' => '22.10'],
-        '22.10'   => ['migrate' => 'migrasi_2210_ke_2211', 'nextVersion' => '22.11'],
-        '22.11'   => ['migrate' => 'migrasi_2211_ke_2212', 'nextVersion' => '22.12'],
-        '22.12'   => ['migrate' => 'migrasi_2212_ke_2301', 'nextVersion' => '23.01'],
-        '23.01'   => ['migrate' => 'migrasi_2301_ke_2302', 'nextVersion' => '23.02'],
-        '23.02'   => ['migrate' => 'migrasi_2302_ke_2303', 'nextVersion' => '23.03'],
-        '23.03'   => ['migrate' => 'migrasi_2303_ke_2304', 'nextVersion' => '23.04'],
-        '23.04'   => ['migrate' => 'migrasi_2304_ke_2305', 'nextVersion' => '23.05'],
-        '23.05'   => ['migrate' => 'migrasi_2305_ke_2306', 'nextVersion' => '23.06'],
-        '23.06'   => ['migrate' => 'migrasi_2306_ke_2307', 'nextVersion' => '23.07'],
-        '23.07'   => ['migrate' => 'migrasi_2307_ke_2308', 'nextVersion' => '23.08'],
-        '23.08'   => ['migrate' => 'migrasi_2308_ke_2309', 'nextVersion' => '23.09'],
-        '23.09'   => ['migrate' => 'migrasi_2309_ke_2310', 'nextVersion' => '23.10'],
-        '23.10'   => ['migrate' => 'migrasi_2310_ke_2311', 'nextVersion' => '23.11'],
-        '23.11'   => ['migrate' => 'migrasi_2311_ke_2312', 'nextVersion' => '23.12'],
-        '23.12'   => ['migrate' => 'migrasi_2312_ke_2401', 'nextVersion' => '24.01'],
-        '24.01'   => ['migrate' => 'migrasi_2401_ke_2402', 'nextVersion' => '24.02'],
-        '24.02'   => ['migrate' => 'migrasi_2402_ke_2403', 'nextVersion' => '24.03'],
-        '24.03'   => ['migrate' => 'migrasi_2403_ke_2404', 'nextVersion' => '24.04'],
-        '24.04'   => ['migrate' => 'migrasi_2404_ke_2405', 'nextVersion' => '24.05'],
-        '24.05'   => ['migrate' => 'migrasi_2405_ke_2406', 'nextVersion' => '24.06'],
-        '24.06'   => ['migrate' => 'migrasi_2406_ke_2407', 'nextVersion' => '24.07'],
-        '24.07'   => ['migrate' => 'migrasi_2407_ke_2408', 'nextVersion' => null],
+        '2.5' => ['migrate' => 'migrasi_25_ke_26', 'nextVersion' => '2.6'],
+        '2.6' => ['migrate' => 'migrasi_26_ke_27', 'nextVersion' => '2.7'],
+        '2.7' => ['migrate' => 'migrasi_27_ke_28', 'nextVersion' => '2.8'],
+        '2.8' => ['migrate' => 'migrasi_28_ke_29', 'nextVersion' => '2.9'],
+        '2.9' => ['migrate' => 'migrasi_29_ke_210', 'nextVersion' => '2.10'],
+        '2.10' => ['migrate' => 'migrasi_210_ke_211', 'nextVersion' => '2.11'],
+        '2.11' => ['migrate' => 'migrasi_211_ke_1806', 'nextVersion' => '18.06'],
+        '2.12' => ['migrate' => 'migrasi_211_ke_1806', 'nextVersion' => '18.06'],
+        '18.06' => ['migrate' => 'migrasi_1806_ke_1807', 'nextVersion' => '18.08'],
+        '18.07' => ['migrate' => 'migrasi_1806_ke_1807', 'nextVersion' => '18.08'],
+        '18.08' => ['migrate' => 'migrasi_1808_ke_1809', 'nextVersion' => '18.09'],
+        '18.09' => ['migrate' => 'migrasi_1809_ke_1810', 'nextVersion' => '18.10'],
+        '18.10' => ['migrate' => 'migrasi_1810_ke_1811', 'nextVersion' => '18.11'],
+        '18.11' => ['migrate' => 'migrasi_1811_ke_1812', 'nextVersion' => '18.12'],
+        '18.12' => ['migrate' => 'migrasi_1812_ke_1901', 'nextVersion' => '19.01'],
+        '19.01' => ['migrate' => 'migrasi_1901_ke_1902', 'nextVersion' => '19.02'],
+        '19.02' => ['migrate' => 'nop', 'nextVersion' => '19.03'],
+        '19.03' => ['migrate' => 'migrasi_1903_ke_1904', 'nextVersion' => '19.04'],
+        '19.04' => ['migrate' => 'migrasi_1904_ke_1905', 'nextVersion' => '19.05'],
+        '19.05' => ['migrate' => 'migrasi_1905_ke_1906', 'nextVersion' => '19.06'],
+        '19.06' => ['migrate' => 'migrasi_1906_ke_1907', 'nextVersion' => '19.07'],
+        '19.07' => ['migrate' => 'migrasi_1907_ke_1908', 'nextVersion' => '19.08'],
+        '19.08' => ['migrate' => 'migrasi_1908_ke_1909', 'nextVersion' => '19.09'],
+        '19.09' => ['migrate' => 'migrasi_1909_ke_1910', 'nextVersion' => '19.10'],
+        '19.10' => ['migrate' => 'migrasi_1910_ke_1911', 'nextVersion' => '19.11'],
+        '19.11' => ['migrate' => 'migrasi_1911_ke_1912', 'nextVersion' => '19.12'],
+        '19.12' => ['migrate' => 'migrasi_1912_ke_2001', 'nextVersion' => '20.01'],
+        '20.01' => ['migrate' => 'migrasi_2001_ke_2002', 'nextVersion' => '20.02'],
+        '20.02' => ['migrate' => 'migrasi_2002_ke_2003', 'nextVersion' => '20.03'],
+        '20.03' => ['migrate' => 'migrasi_2003_ke_2004', 'nextVersion' => '20.04'],
+        '20.04' => ['migrate' => 'migrasi_2004_ke_2005', 'nextVersion' => '20.05'],
+        '20.05' => ['migrate' => 'migrasi_2005_ke_2006', 'nextVersion' => '20.06'],
+        '20.06' => ['migrate' => 'migrasi_2006_ke_2007', 'nextVersion' => '20.07'],
+        '20.07' => ['migrate' => 'migrasi_2007_ke_2008', 'nextVersion' => '20.08'],
+        '20.08' => ['migrate' => 'migrasi_2008_ke_2009', 'nextVersion' => '20.09'],
+        '20.09' => ['migrate' => 'migrasi_2009_ke_2010', 'nextVersion' => '20.10'],
+        '20.10' => ['migrate' => 'migrasi_2010_ke_2011', 'nextVersion' => '20.11'],
+        '20.11' => ['migrate' => 'migrasi_2011_ke_2012', 'nextVersion' => '20.12'],
+        '20.12' => ['migrate' => 'migrasi_2012_ke_2101', 'nextVersion' => '21.01'],
+        '21.01' => ['migrate' => 'migrasi_2101_ke_2102', 'nextVersion' => '21.02'],
+        '21.02' => ['migrate' => 'migrasi_2102_ke_2103', 'nextVersion' => '21.03'],
+        '21.03' => ['migrate' => 'migrasi_2103_ke_2104', 'nextVersion' => '21.04'],
+        '21.04' => ['migrate' => 'migrasi_2104_ke_2105', 'nextVersion' => '21.05'],
+        '21.05' => ['migrate' => 'migrasi_2105_ke_2106', 'nextVersion' => '21.06'],
+        '21.06' => ['migrate' => 'migrasi_2106_ke_2107', 'nextVersion' => '21.07'],
+        '21.07' => ['migrate' => 'migrasi_2107_ke_2108', 'nextVersion' => '21.08'],
+        '21.08' => ['migrate' => 'migrasi_2108_ke_2109', 'nextVersion' => '21.09'],
+        '21.09' => ['migrate' => 'migrasi_2109_ke_2110', 'nextVersion' => '21.10'],
+        '21.10' => ['migrate' => 'migrasi_2110_ke_2111', 'nextVersion' => '21.11'],
+        '21.11' => ['migrate' => 'migrasi_2111_ke_2112', 'nextVersion' => '21.12'],
+        '21.12' => ['migrate' => 'migrasi_2112_ke_2201', 'nextVersion' => '22.01'],
+        '22.01' => ['migrate' => 'migrasi_2201_ke_2202', 'nextVersion' => '22.02'],
+        '22.02' => ['migrate' => 'migrasi_2202_ke_2203', 'nextVersion' => '22.03'],
+        '22.03' => ['migrate' => 'migrasi_2203_ke_2204', 'nextVersion' => '22.04'],
+        '22.04' => ['migrate' => 'migrasi_2204_ke_2205', 'nextVersion' => '22.05'],
+        '22.05' => ['migrate' => 'migrasi_2205_ke_2206', 'nextVersion' => '22.06'],
+        '22.06' => ['migrate' => 'migrasi_2206_ke_2207', 'nextVersion' => '22.07'],
+        '22.07' => ['migrate' => 'migrasi_2207_ke_2208', 'nextVersion' => '22.08'],
+        '22.08' => ['migrate' => 'migrasi_2208_ke_2209', 'nextVersion' => '22.09'],
+        '22.09' => ['migrate' => 'migrasi_2209_ke_2210', 'nextVersion' => '22.10'],
+        '22.10' => ['migrate' => 'migrasi_2210_ke_2211', 'nextVersion' => '22.11'],
+        '22.11' => ['migrate' => 'migrasi_2211_ke_2212', 'nextVersion' => '22.12'],
+        '22.12' => ['migrate' => 'migrasi_2212_ke_2301', 'nextVersion' => '23.01'],
+        '23.01' => ['migrate' => 'migrasi_2301_ke_2302', 'nextVersion' => '23.02'],
+        '23.02' => ['migrate' => 'migrasi_2302_ke_2303', 'nextVersion' => '23.03'],
+        '23.03' => ['migrate' => 'migrasi_2303_ke_2304', 'nextVersion' => '23.04'],
+        '23.04' => ['migrate' => 'migrasi_2304_ke_2305', 'nextVersion' => '23.05'],
+        '23.05' => ['migrate' => 'migrasi_2305_ke_2306', 'nextVersion' => '23.06'],
+        '23.06' => ['migrate' => 'migrasi_2306_ke_2307', 'nextVersion' => '23.07'],
+        '23.07' => ['migrate' => 'migrasi_2307_ke_2308', 'nextVersion' => '23.08'],
+        '23.08' => ['migrate' => 'migrasi_2308_ke_2309', 'nextVersion' => '23.09'],
+        '23.09' => ['migrate' => 'migrasi_2309_ke_2310', 'nextVersion' => '23.10'],
+        '23.10' => ['migrate' => 'migrasi_2310_ke_2311', 'nextVersion' => '23.11'],
+        '23.11' => ['migrate' => 'migrasi_2311_ke_2312', 'nextVersion' => '23.12'],
+        '23.12' => ['migrate' => 'migrasi_2312_ke_2401', 'nextVersion' => '24.01'],
+        '24.01' => ['migrate' => 'migrasi_2401_ke_2402', 'nextVersion' => '24.02'],
+        '24.02' => ['migrate' => 'migrasi_2402_ke_2403', 'nextVersion' => '24.03'],
+        '24.03' => ['migrate' => 'migrasi_2403_ke_2404', 'nextVersion' => '24.04'],
+        '24.04' => ['migrate' => 'migrasi_2404_ke_2405', 'nextVersion' => '24.05'],
+        '24.05' => ['migrate' => 'migrasi_2405_ke_2406', 'nextVersion' => '24.06'],
+        '24.06' => ['migrate' => 'migrasi_2406_ke_2407', 'nextVersion' => '24.07'],
+        '24.07' => ['migrate' => 'migrasi_2407_ke_2408', 'nextVersion' => null],
     ];
 
     // versi lain
@@ -145,7 +145,7 @@ class Database_model extends MY_Model
         parent::__construct();
 
         $this->load->dbutil();
-        if (! $this->dbutil->database_exists($this->db->database)) {
+        if (!$this->dbutil->database_exists($this->db->database)) {
             return;
         }
 
@@ -156,7 +156,7 @@ class Database_model extends MY_Model
 
     private function cek_engine_db(): void
     {
-        $db_debug           = $this->db->db_debug;
+        $db_debug = $this->db->db_debug;
         $this->db->db_debug = false; //disable debugging for queries
 
         $query = $this->db->query("SELECT `engine` FROM INFORMATION_SCHEMA.TABLES WHERE table_schema= '" . $this->db->database . "' AND table_name = 'user'");
@@ -188,7 +188,7 @@ class Database_model extends MY_Model
 
         // Jika $version kosong atau tidak terdaftar di $versionMigrate,
         // Gunakan versi terakhir dari $versionMigrate
-        elseif (empty($version) || ! array_key_exists($version, $this->versionMigrate)) {
+        elseif (empty($version) || !array_key_exists($version, $this->versionMigrate)) {
             $version = array_key_last($this->versionMigrate);
         }
 
@@ -204,16 +204,16 @@ class Database_model extends MY_Model
 
         // Catat migrasi yg sdh dijalankan, supaya tidak diulang
         $this->session->daftar_migrasi = Schema::hasColumn('migrasi', 'premium') ? Migrasi::where('versi_database', '=', VERSI_DATABASE)->first()->premium : null;
-        $this->session->success        = 1;
+        $this->session->success = 1;
 
-        $versi          = $this->cekCurrentVersion();
-        $nextVersion    = $versi;
+        $versi = $this->cekCurrentVersion();
+        $nextVersion = $versi;
         $versionMigrate = $this->versionMigrate;
 
         if (isset($versionMigrate[$versi])) {
             try {
-                while (! empty($nextVersion) && ! empty($versionMigrate[$nextVersion]['migrate'])) {
-                    $migrate     = $versionMigrate[$nextVersion]['migrate'];
+                while (!empty($nextVersion) && !empty($versionMigrate[$nextVersion]['migrate'])) {
+                    $migrate = $versionMigrate[$nextVersion]['migrate'];
                     $nextVersion = $versionMigrate[$nextVersion]['nextVersion'];
                     if (method_exists($this, $migrate)) {
                         log_message('notice', 'Jalankan ' . $migrate);
@@ -360,29 +360,29 @@ class Database_model extends MY_Model
         }
 
         // Tambah kolom waktu update dan user pengupdate
-        if (! $this->db->field_exists('created_at', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('created_at', 'tweb_penduduk')) {
             // Tambah kolom
             $this->dbforge->add_field('created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP');
-            $fields               = [];
+            $fields = [];
             $fields['created_by'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 11,
-                'null'       => false,
+                'null' => false,
             ];
             $this->dbforge->add_column('tweb_penduduk', $fields);
         }
-        if (! $this->db->field_exists('updated_at', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('updated_at', 'tweb_penduduk')) {
             // Tambah kolom
             $this->dbforge->add_field('updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP');
         }
-        $fields               = [];
+        $fields = [];
         $fields['updated_by'] = [
-            'type'       => 'int',
+            'type' => 'int',
             'constraint' => 11,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
-        if (! $this->db->field_exists('updated_by', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('updated_by', 'tweb_penduduk')) {
             $this->dbforge->add_column('tweb_penduduk', $fields);
         } else {
             $this->dbforge->modify_column('tweb_penduduk', $fields);
@@ -390,21 +390,21 @@ class Database_model extends MY_Model
 
         // Tambah menu teks berjalan
         $data = [
-            'id'         => '64',
-            'modul'      => 'Teks Berjalan',
-            'url'        => 'teks_berjalan',
-            'aktif'      => '1',
-            'ikon'       => 'fa-ellipsis-h',
-            'urut'       => '9',
-            'level'      => '2',
-            'parent'     => '13',
-            'hidden'     => '0',
+            'id' => '64',
+            'modul' => 'Teks Berjalan',
+            'url' => 'teks_berjalan',
+            'aktif' => '1',
+            'ikon' => 'fa-ellipsis-h',
+            'urut' => '9',
+            'level' => '2',
+            'parent' => '13',
+            'hidden' => '0',
             'ikon_kecil' => 'fa-ellipsis-h',
         ];
         $sql = $this->db->insert_string('setting_modul', $data) . ' ON DUPLICATE KEY UPDATE url = VALUES(url), ikon = VALUES(ikon), ikon_kecil = VALUES(ikon_kecil)';
         $this->db->query($sql);
 
-        if (! $this->db->table_exists('teks_berjalan')) {
+        if (!$this->db->table_exists('teks_berjalan')) {
             $query = "
             CREATE TABLE `teks_berjalan` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -425,8 +425,8 @@ class Database_model extends MY_Model
                 // ambil teks, tulis ke tabel teks_berjalan
                 // hapus setting
                 $isi_teks = $setting_teks_berjalan->value;
-                $data     = [
-                    'teks'       => $isi_teks,
+                $data = [
+                    'teks' => $isi_teks,
                     'created_by' => $this->user,
                 ];
                 $this->db->insert('teks_berjalan', $data);
@@ -445,9 +445,9 @@ class Database_model extends MY_Model
 
                     foreach ($teks as $data) {
                         $isi_teks = strip_tags($data['isi']);
-                        $isi      = [
-                            'teks'       => $isi_teks,
-                            'status'     => $data['enabled'],
+                        $isi = [
+                            'teks' => $isi_teks,
+                            'status' => $data['enabled'],
                             'created_by' => $this->user,
                         ];
                         $this->db->insert('teks_berjalan', $isi);
@@ -459,15 +459,15 @@ class Database_model extends MY_Model
             }
         }
         // Tambah tautan pada teks berjalan
-        if (! $this->db->field_exists('tautan', 'teks_berjalan')) {
+        if (!$this->db->field_exists('tautan', 'teks_berjalan')) {
             // Tambah kolom
-            $fields           = [];
+            $fields = [];
             $fields['tautan'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 150,
             ];
             $fields['judul_tautan'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 150,
             ];
             $this->dbforge->add_column('teks_berjalan', $fields);
@@ -477,8 +477,8 @@ class Database_model extends MY_Model
         $this->db->where('id', 16)->delete('setting_modul');
         $this->db->where('id', 19)->delete('setting_modul');
 
-        $fields            = $this->db->field_data('tweb_penduduk');
-        $lookup            = array_column($fields, null, 'name');   // re-index by 'name'
+        $fields = $this->db->field_data('tweb_penduduk');
+        $lookup = array_column($fields, null, 'name');   // re-index by 'name'
         $field_berat_lahir = $lookup['berat_lahir'];
         if (strtolower($field_berat_lahir->type) == 'varchar') {
             // Ubah berat lahir dari kg menjadi gram
@@ -499,48 +499,48 @@ class Database_model extends MY_Model
         $this->dbforge->modify_column('tweb_penduduk', ['kelahiran_anak_ke' => ['type' => 'TINYINT', 'constraint' => 2, 'default' => null]]);
 
         // Ubah kolom tweb_penduduk supaya boleh null
-        $fields           = [];
+        $fields = [];
         $fields['ktp_el'] = [
-            'type'       => 'TINYINT',
+            'type' => 'TINYINT',
             'constraint' => 4,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['status_rekam'] = [
-            'type'       => 'TINYINT',
+            'type' => 'TINYINT',
             'constraint' => 4,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['tempat_dilahirkan'] = [
-            'type'       => 'TINYINT',
+            'type' => 'TINYINT',
             'constraint' => 2,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['jenis_kelahiran'] = [
-            'type'       => 'TINYINT',
+            'type' => 'TINYINT',
             'constraint' => 2,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['penolong_kelahiran'] = [
-            'type'       => 'TINYINT',
+            'type' => 'TINYINT',
             'constraint' => 2,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['panjang_lahir'] = [
-            'type'       => 'VARCHAR',
+            'type' => 'VARCHAR',
             'constraint' => 10,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $fields['sakit_menahun_id'] = [
-            'type'       => 'INT',
+            'type' => 'INT',
             'constraint' => 11,
-            'null'       => true,
-            'default'    => null,
+            'null' => true,
+            'default' => null,
         ];
         $this->dbforge->modify_column('tweb_penduduk', $fields);
     }
@@ -548,13 +548,13 @@ class Database_model extends MY_Model
     private function migrasi_1904_ke_1905(): void
     {
         // Tambah kolom penduduk
-        if (! $this->db->field_exists('tag_id_card', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('tag_id_card', 'tweb_penduduk')) {
             // Tambah kolom
-            $fields                = [];
+            $fields = [];
             $fields['tag_id_card'] = [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 15,
-                'default'    => null,
+                'default' => null,
             ];
             $this->dbforge->add_column('tweb_penduduk', $fields);
         }
@@ -582,13 +582,13 @@ class Database_model extends MY_Model
             }
         }
 
-        $this->db->where('id', 62)->update('setting_modul', ['url' => 'gis/clear', 'aktif' => '1']);
+        $this->db->where('id', 62)->update('setting_modul', ['url' => 'gis', 'aktif' => '1']);
         // Tambah surat keterangan penghasilan orangtua
         $data = [
-            'nama'       => 'Keterangan Penghasilan Orangtua',
-            'url_surat'  => 'surat_ket_penghasilan_orangtua',
+            'nama' => 'Keterangan Penghasilan Orangtua',
+            'url_surat' => 'surat_ket_penghasilan_orangtua',
             'kode_surat' => 'S-42',
-            'jenis'      => 1,
+            'jenis' => 1,
         ];
         $sql = $this->db->insert_string('tweb_surat_format', $data);
         $sql .= ' ON DUPLICATE KEY UPDATE
@@ -601,30 +601,30 @@ class Database_model extends MY_Model
 
     private function migrasi_1903_ke_1904(): void
     {
-        $this->db->where('id', 59)->update('setting_modul', ['url' => 'dokumen_sekretariat/clear/2', 'aktif' => '1']);
-        $this->db->where('id', 60)->update('setting_modul', ['url' => 'dokumen_sekretariat/clear/3', 'aktif' => '1']);
+        $this->db->where('id', 59)->update('setting_modul', ['url' => 'dokumen_sekretariat/2', 'aktif' => '1']);
+        $this->db->where('id', 60)->update('setting_modul', ['url' => 'dokumen_sekretariat/3', 'aktif' => '1']);
         // Tambah tabel agenda
         $tb = 'agenda';
-        if (! $this->db->table_exists($tb)) {
+        if (!$this->db->table_exists($tb)) {
             $this->dbforge->add_field([
                 'id' => [
-                    'type'           => 'INT',
-                    'constraint'     => 11,
+                    'type' => 'INT',
+                    'constraint' => 11,
                     'auto_increment' => true,
                 ],
                 'id_artikel' => [
-                    'type'       => 'INT',
+                    'type' => 'INT',
                     'constraint' => 11,
                 ],
                 'tgl_agenda' => [
                     'type' => 'timestamp',
                 ],
                 'koordinator_kegiatan' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 50,
                 ],
                 'lokasi_kegiatan' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 100,
                 ],
             ]);
@@ -659,11 +659,11 @@ class Database_model extends MY_Model
         $this->db->query($query);
         // Tambahkan setting aplikasi untuk mengubah warna tema komponen Admin
         $query = $this->db->select('1')->where('key', 'warna_tema_admin')->get('setting_aplikasi');
-        if (! $query->result()) {
+        if (!$query->result()) {
             $data = [
-                'key'        => 'warna_tema_admin',
-                'value'      => $query->value ?? 'skin-purple',
-                'jenis'      => 'option-value',
+                'key' => 'warna_tema_admin',
+                'value' => $query->value ?? 'skin-purple',
+                'jenis' => 'option-value',
                 'keterangan' => 'Warna dasar tema komponen Admin',
             ];
             $this->db->insert('setting_aplikasi', $data);
@@ -693,8 +693,8 @@ class Database_model extends MY_Model
         // Ubah judul status hubungan dalam keluarga
         $this->db->where('id', 9)->update('tweb_penduduk_hubungan', ['nama' => 'FAMILI']);
         // Perpanjang nomor surat di surat masuk dan keluar
-        $this->dbforge->modify_column('surat_masuk', ['nomor_surat' => ['name' => 'nomor_surat', 'type' => 'VARCHAR',  'constraint' => 35]]);
-        $this->dbforge->modify_column('surat_keluar', ['nomor_surat' => ['name' => 'nomor_surat', 'type' => 'VARCHAR',  'constraint' => 35]]);
+        $this->dbforge->modify_column('surat_masuk', ['nomor_surat' => ['name' => 'nomor_surat', 'type' => 'VARCHAR', 'constraint' => 35]]);
+        $this->dbforge->modify_column('surat_keluar', ['nomor_surat' => ['name' => 'nomor_surat', 'type' => 'VARCHAR', 'constraint' => 35]]);
         // Tambah setting program bantuan yg ditampilkan di dashboard
         $query = $this->db->select('1')->where('key', 'dashboard_program_bantuan')->get('setting_aplikasi');
         $query->result() || $this->db->insert('setting_aplikasi', ['key' => 'dashboard_program_bantuan', 'value' => '1	', 'jenis' => 'int', 'keterangan' => 'ID program bantuan yang ditampilkan di dashboard', 'kategori' => 'dashboard']);
@@ -703,14 +703,14 @@ class Database_model extends MY_Model
         $query->result() || $this->db->insert('setting_aplikasi', ['key' => 'panjang_nomor_surat', 'value' => '', 'jenis' => 'int', 'keterangan' => "Nomor akan diisi '0' di sebelah kiri, kalau perlu", 'kategori' => 'surat']);
         // Tambah rincian pindah di log_penduduk
         $tb_option = 'ref_pindah';
-        if (! $this->db->table_exists($tb_option)) {
+        if (!$this->db->table_exists($tb_option)) {
             $this->dbforge->add_field([
                 'id' => [
-                    'type'       => 'TINYINT',
+                    'type' => 'TINYINT',
                     'constraint' => 4,
                 ],
                 'nama' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 50,
                 ],
             ]);
@@ -726,13 +726,13 @@ class Database_model extends MY_Model
                 ]
             );
         }
-        if (! $this->db->field_exists('ref_pindah', 'log_penduduk')) {
+        if (!$this->db->field_exists('ref_pindah', 'log_penduduk')) {
             // Tambah kolom
-            $fields               = [];
+            $fields = [];
             $fields['ref_pindah'] = [
-                'type'       => 'TINYINT',
+                'type' => 'TINYINT',
                 'constraint' => 4,
-                'default'    => 1,
+                'default' => 1,
             ];
             $this->dbforge->add_column('log_penduduk', $fields);
             $this->dbforge->add_column(
@@ -746,7 +746,7 @@ class Database_model extends MY_Model
     {
         // Tambah status dasar 'Tidak Valid'
         $data = [
-            'id'   => 9,
+            'id' => 9,
             'nama' => 'TIDAK VALID',
         ];
         $sql = $this->db->insert_string('tweb_status_dasar', $data);
@@ -755,104 +755,104 @@ class Database_model extends MY_Model
                 nama = VALUES(nama)';
         $this->db->query($sql);
         // Tambah kolom tweb_desa_pamong
-        if (! $this->db->field_exists('no_hp', 'komentar')) {
+        if (!$this->db->field_exists('no_hp', 'komentar')) {
             // Tambah kolom
-            $fields          = [];
+            $fields = [];
             $fields['no_hp'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 15,
-                'default'    => null,
+                'default' => null,
             ];
             $this->dbforge->add_column('komentar', $fields);
         }
 
         // Tambah kolom tweb_desa_pamong
-        if (! $this->db->field_exists('pamong_pangkat', 'tweb_desa_pamong')) {
+        if (!$this->db->field_exists('pamong_pangkat', 'tweb_desa_pamong')) {
             // Tambah kolom
-            $fields                = [];
+            $fields = [];
             $fields['pamong_niap'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 20,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_pangkat'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 20,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_nohenti'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 20,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_tglhenti'] = [
-                'type'    => 'date',
+                'type' => 'date',
                 'default' => null,
             ];
             $this->dbforge->add_column('tweb_desa_pamong', $fields);
         }
 
         // Urut tabel tweb_desa_pamong
-        if (! $this->db->field_exists('urut', 'tweb_desa_pamong')) {
+        if (!$this->db->field_exists('urut', 'tweb_desa_pamong')) {
             // Tambah kolom
-            $fields         = [];
+            $fields = [];
             $fields['urut'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 5,
             ];
             $this->dbforge->add_column('tweb_desa_pamong', $fields);
         }
-        $this->db->where('id', 18)->update('setting_modul', ['url' => 'pengurus/clear', 'aktif' => '1']);
-        $this->db->where('id', 48)->update('setting_modul', ['url' => 'web_widget/clear', 'aktif' => '1']);
+        $this->db->where('id', 18)->update('setting_modul', ['url' => 'pengurus', 'aktif' => '1']);
+        $this->db->where('id', 48)->update('setting_modul', ['url' => 'web_widget', 'aktif' => '1']);
     }
 
     private function migrasi_1811_ke_1812(): void
     {
         // Ubah struktur tabel tweb_desa_pamong
-        if (! $this->db->field_exists('id_pend', 'tweb_desa_pamong')) {
+        if (!$this->db->field_exists('id_pend', 'tweb_desa_pamong')) {
             // Tambah kolom
-            $fields            = [];
+            $fields = [];
             $fields['id_pend'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 11,
             ];
             $fields['pamong_tempatlahir'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 100,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_tanggallahir'] = [
-                'type'    => 'date',
+                'type' => 'date',
                 'default' => null,
             ];
             $fields['pamong_sex'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 4,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_pendidikan'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 10,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_agama'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 10,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_nosk'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 20,
-                'default'    => null,
+                'default' => null,
             ];
             $fields['pamong_tglsk'] = [
-                'type'    => 'date',
+                'type' => 'date',
                 'default' => null,
             ];
             $fields['pamong_masajab'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 120,
-                'default'    => null,
+                'default' => null,
             ];
             $this->dbforge->add_column('tweb_desa_pamong', $fields);
         }
@@ -870,10 +870,10 @@ class Database_model extends MY_Model
 
         // Tambah surat keterangan domisili
         $data = [
-            'nama'       => 'Keterangan Domisili',
-            'url_surat'  => 'surat_ket_domisili',
+            'nama' => 'Keterangan Domisili',
+            'url_surat' => 'surat_ket_domisili',
             'kode_surat' => 'S-41',
-            'jenis'      => 1,
+            'jenis' => 1,
         ];
         $sql = $this->db->insert_string('tweb_surat_format', $data);
         $sql .= ' ON DUPLICATE KEY UPDATE
@@ -886,7 +886,7 @@ class Database_model extends MY_Model
         $query = $this->db->select('1')->where('key', 'web_artikel_per_page')->get('setting_aplikasi');
         $query->result() || $this->db->insert('setting_aplikasi', ['key' => 'web_artikel_per_page', 'value' => 8, 'jenis' => 'int', 'keterangan' => 'Jumlah artikel dalam satu halaman', 'kategori' => 'web_theme']);
 
-        $this->db->where('id', 42)->update('setting_modul', ['url' => 'modul/clear', 'aktif' => '1']);
+        $this->db->where('id', 42)->update('setting_modul', ['url' => 'modul', 'aktif' => '1']);
 
         // tambah setting penomoran_surat
         if ($this->setting->penomoran_surat == null) {
@@ -897,9 +897,9 @@ class Database_model extends MY_Model
             $this->db->insert(
                 'setting_aplikasi',
                 [
-                    'key'        => 'penomoran_surat',
-                    'value'      => $setting->value ?: 2,
-                    'jenis'      => 'option',
+                    'key' => 'penomoran_surat',
+                    'value' => $setting->value ?: 2,
+                    'jenis' => 'option',
                     'keterangan' => 'Penomoran surat mulai dari satu (1) setiap tahun',
                 ]
             );
@@ -908,21 +908,21 @@ class Database_model extends MY_Model
         }
 
         $tb_option = 'setting_aplikasi_options';
-        if (! $this->db->table_exists($tb_option)) {
+        if (!$this->db->table_exists($tb_option)) {
             $this->dbforge->add_field([
                 'id' => [
-                    'type'           => 'INT',
-                    'constraint'     => 11,
-                    'unsigned'       => false,
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => false,
                     'auto_increment' => true,
                 ],
                 'id_setting' => [
-                    'type'       => 'INT',
+                    'type' => 'INT',
                     'constraint' => 11,
-                    'unsigned'   => false,
+                    'unsigned' => false,
                 ],
                 'value' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 512,
                 ],
             ]);
@@ -939,7 +939,7 @@ class Database_model extends MY_Model
             ->join("{$tb_option} o", 's.id=o.id_setting', 'LEFT')
             ->get('setting_aplikasi s')
             ->row();
-        if (! $set->oid) {
+        if (!$set->oid) {
             $this->db->insert_batch(
                 $tb_option,
                 [
@@ -955,11 +955,11 @@ class Database_model extends MY_Model
     {
         // Ubah url untuk Admin Web > Artikel, Admin Web > Dokumen, Admin Web > Menu,
         // Admin Web > Komentar
-        $this->db->where('id', 47)->update('setting_modul', ['url' => 'web/clear', 'aktif' => '1']);
-        $this->db->where('id', 52)->update('setting_modul', ['url' => 'dokumen/clear', 'aktif' => '1']);
-        $this->db->where('id', 50)->update('setting_modul', ['url' => 'komentar/clear', 'aktif' => '1']);
-        $this->db->where('id', 49)->update('setting_modul', ['url' => 'menu/clear', 'aktif' => '1']);
-        $this->db->where('id', 20)->update('setting_modul', ['url' => 'sid_core/clear', 'aktif' => '1']);
+        $this->db->where('id', 47)->update('setting_modul', ['url' => 'web', 'aktif' => '1']);
+        $this->db->where('id', 52)->update('setting_modul', ['url' => 'dokumen', 'aktif' => '1']);
+        $this->db->where('id', 50)->update('setting_modul', ['url' => 'komentar', 'aktif' => '1']);
+        $this->db->where('id', 49)->update('setting_modul', ['url' => 'menu', 'aktif' => '1']);
+        $this->db->where('id', 20)->update('setting_modul', ['url' => 'sid_core', 'aktif' => '1']);
         // Ubah nama kolom 'nik' menjadi 'id_pend' dan hanya gunakan untuk pemilik desa
         if ($this->db->field_exists('nik', 'data_persil')) {
             $data = $this->db->select('d.*, d.nik as nama_pemilik, p.id as id_pend')
@@ -972,7 +972,7 @@ class Database_model extends MY_Model
                 // Kalau pemilik luar pindahkan isi kolom 'nik' sebagai nama pemilik luar
                 if ($persil['jenis_pemilik'] == 2 && empty($persil['pemilik_luar'])) {
                     $tulis['pemilik_luar'] = $persil['nama_pemilik'];
-                    $tulis['nik']          = null;
+                    $tulis['nik'] = null;
                 } else { // Untuk pemilik desa ganti menjadi id penduduk
                     $tulis['nik'] = $persil['id_pend'];
                 }
@@ -981,7 +981,7 @@ class Database_model extends MY_Model
             // Tambahkan relational constraint
             $this->dbforge->modify_column(
                 'data_persil',
-                ['nik' => ['name' => 'id_pend',    'type' => 'int', 'constraint' => 11]]
+                ['nik' => ['name' => 'id_pend', 'type' => 'int', 'constraint' => 11]]
             );
             $this->db->query('ALTER TABLE `data_persil` ADD INDEX `id_pend` (`id_pend`)');
             $this->dbforge->add_column('data_persil', [
@@ -1007,7 +1007,7 @@ class Database_model extends MY_Model
         // Tambah perubahan database di sini
         // Tambah setting tombol_cetak_surat
         $setting = $this->db->where('key', 'tombol_cetak_surat')->get('setting_aplikasi')->row()->id;
-        if (! $setting) {
+        if (!$setting) {
             $this->db->insert('setting_aplikasi', ['key' => 'tombol_cetak_surat', 'value' => false, 'jenis' => 'boolean', 'keterangan' => 'Tampilkan tombol cetak langsung di form surat']);
         }
     }
@@ -1016,8 +1016,8 @@ class Database_model extends MY_Model
     {
         // Tambah tabel surat_keluar
         //Perbaiki url untuk modul Surat Keluar
-        $this->db->where('id', 58)->update('setting_modul', ['url' => 'surat_keluar/clear', 'aktif' => '1']);
-        if (! $this->db->table_exists('surat_keluar')) {
+        $this->db->where('id', 58)->update('setting_modul', ['url' => 'surat_keluar', 'aktif' => '1']);
+        if (!$this->db->table_exists('surat_keluar')) {
             $query = '
                 CREATE TABLE `surat_keluar` (
                     `id` int NOT NULL AUTO_INCREMENT,
@@ -1036,17 +1036,17 @@ class Database_model extends MY_Model
         }
 
         // Tambah klasifikasi surat
-        if (! $this->db->table_exists('klasifikasi_surat')) {
+        if (!$this->db->table_exists('klasifikasi_surat')) {
             $data = [
-                'id'         => '63',
-                'modul'      => 'Klasfikasi Surat',
-                'url'        => 'klasifikasi/clear',
-                'aktif'      => '1',
-                'ikon'       => 'fa-code',
-                'urut'       => '10',
-                'level'      => '2',
-                'parent'     => '15',
-                'hidden'     => '0',
+                'id' => '63',
+                'modul' => 'Klasfikasi Surat',
+                'url' => 'klasifikasi',
+                'aktif' => '1',
+                'ikon' => 'fa-code',
+                'urut' => '10',
+                'level' => '2',
+                'parent' => '15',
+                'hidden' => '0',
                 'ikon_kecil' => 'fa-code',
             ];
             $sql = $this->db->insert_string('setting_modul', $data) . ' ON DUPLICATE KEY UPDATE url=VALUES(url)';
@@ -1068,12 +1068,12 @@ class Database_model extends MY_Model
         }
 
         //Perbaiki url untuk modul Surat Masuk dan Arsip Layanan
-        $this->db->where('url', 'surat_masuk')->update('setting_modul', ['url' => 'surat_masuk/clear']);
-        $this->db->where('url', 'keluar')->update('setting_modul', ['url' => 'keluar/clear']);
+        $this->db->where('url', 'surat_masuk')->update('setting_modul', ['url' => 'surat_masuk']);
+        $this->db->where('url', 'keluar')->update('setting_modul', ['url' => 'keluar']);
         //Perbaiki ikon untuk modul Sekretariat
         $this->db->where('url', 'sekretariat')->update('setting_modul', ['ikon' => 'fa-archive']);
         // Buat view untuk penduduk hidup -- untuk memudahkan query
-        if (! $this->db->table_exists('penduduk_hidup')) {
+        if (!$this->db->table_exists('penduduk_hidup')) {
             $this->db->query('CREATE VIEW penduduk_hidup AS SELECT * FROM tweb_penduduk WHERE status_dasar = 1');
         }
         // update jenis pekerjaan PETANI/PERKEBUNAN ke 'PETANI/PEKEBUN'
@@ -1085,29 +1085,29 @@ class Database_model extends MY_Model
             );
         }
         // buat tabel disposisi dengan relasi ke surat masuk dan tweb_desa_pamong
-        if (! $this->db->table_exists('disposisi_surat_masuk')) {
+        if (!$this->db->table_exists('disposisi_surat_masuk')) {
             $sql = [
                 'id_disposisi' => [
-                    'type'           => 'INT',
-                    'constraint'     => 11,
-                    'unsigned'       => false,
+                    'type' => 'INT',
+                    'constraint' => 11,
+                    'unsigned' => false,
                     'auto_increment' => true,
                 ],
                 'id_surat_masuk' => [
-                    'type'       => 'INT',
+                    'type' => 'INT',
                     'constraint' => 11,
-                    'unsigned'   => false,
+                    'unsigned' => false,
                 ],
                 'id_desa_pamong' => [
-                    'type'       => 'INT',
+                    'type' => 'INT',
                     'constraint' => 11,
-                    'unsigned'   => false,
-                    'null'       => true,
+                    'unsigned' => false,
+                    'null' => true,
                 ],
                 'disposisi_ke' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 50,
-                    'null'       => true,
+                    'null' => true,
                 ],
             ];
             $this->dbforge->add_field($sql);
@@ -1137,7 +1137,7 @@ class Database_model extends MY_Model
                         [
                             'id_surat_masuk' => $value->id,
                             'id_desa_pamong' => $data_pamong->pamong_id,
-                            'disposisi_ke'   => $value->disposisi_kepada,
+                            'disposisi_ke' => $value->disposisi_kepada,
                         ]
                     );
                 }
@@ -1168,14 +1168,14 @@ class Database_model extends MY_Model
         $this->db->query($sql);
 
         // Tambahkan perubahan menu untuk tampilan-admin baru
-        if (! $this->db->field_exists('parent', 'setting_modul') || strpos($this->cekCurrentVersion(), '18.08') !== false) {
-            if (! $this->db->field_exists('parent', 'setting_modul')) {
-                $fields           = [];
+        if (!$this->db->field_exists('parent', 'setting_modul') || strpos($this->cekCurrentVersion(), '18.08') !== false) {
+            if (!$this->db->field_exists('parent', 'setting_modul')) {
+                $fields = [];
                 $fields['parent'] = [
-                    'type'       => 'int',
+                    'type' => 'int',
                     'constraint' => 2,
-                    'null'       => false,
-                    'default'    => 0,
+                    'null' => false,
+                    'default' => 0,
                 ];
                 $this->dbforge->add_column('setting_modul', $fields);
             }
@@ -1183,36 +1183,36 @@ class Database_model extends MY_Model
             $this->db->truncate('setting_modul');
             $query = "
         INSERT INTO setting_modul (`id`, `modul`, `url`, `aktif`, `ikon`, `urut`, `level`, `parent`, `hidden`, `ikon_kecil`) VALUES
-        ('1', 'Home', 'hom_sid', '1', 'fa-home', '1', '2', '0', '1', 'fa fa-home'),
+        ('1', 'Home', 'beranda', '1', 'fa-home', '1', '2', '0', '1', 'fa fa-home'),
         ('200', 'Info [Desa]', 'hom_desa', '1', 'fa-dashboard', '2', '2', '0', '1', 'fa fa-home'),
-        ('2', 'Kependudukan', 'penduduk/clear', '1', 'fa-users', '3', '2', '0', '0', 'fa fa-users'),
+        ('2', 'Kependudukan', 'penduduk', '1', 'fa-users', '3', '2', '0', '0', 'fa fa-users'),
         ('3', 'Statistik', 'statistik', '1', 'fa-line-chart', '4', '2', '0', '0', 'fa fa-line-chart'),
         ('4', 'Layanan Surat', 'surat', '1', 'fa-book', '5', '2', '0', '0', 'fa fa-book'),
-        ('5', 'Analisis', 'analisis_master/clear', '1', '   fa-check-square-o', '6', '2', '0', '0', 'fa fa-check-square-o'),
-        ('6', 'Bantuan', 'program_bantuan/clear', '1', 'fa-heart', '7', '2', '0', '0', 'fa fa-heart'),
-        ('7', 'Pertanahan', 'data_persil/clear', '1', 'fa-map-signs', '8', '2', '0', '0', 'fa fa-map-signs'),
+        ('5', 'Analisis', 'analisis_master', '1', '   fa-check-square-o', '6', '2', '0', '0', 'fa fa-check-square-o'),
+        ('6', 'Bantuan', 'program_bantuan', '1', 'fa-heart', '7', '2', '0', '0', 'fa fa-heart'),
+        ('7', 'Pertanahan', 'data_persil', '1', 'fa-map-signs', '8', '2', '0', '0', 'fa fa-map-signs'),
         ('8', 'Pengaturan Peta', 'plan', '1', 'fa-location-arrow', '9', '2', '9', '0', 'fa fa-location-arrow'),
         ('9', 'Pemetaan', 'gis', '1', 'fa-globe', '10', '2', '0', '0', 'fa fa-globe'),
         ('10', 'SMS', 'sms', '1', 'fa-envelope', '11', '2', '0', '0', 'fa fa-envelope'),
-        ('11', 'Pengaturan', 'man_user/clear', '1', 'fa-users', '12', '1', '0', '1', 'fa-users'),
+        ('11', 'Pengaturan', 'man_user', '1', 'fa-users', '12', '1', '0', '1', 'fa-users'),
         ('13', 'Admin Web', 'web', '1', 'fa-desktop', '14', '4', '0', '0', 'fa fa-desktop'),
         ('14', 'Layanan Mandiri', 'lapor', '1', 'fa-inbox', '15', '2', '0', '0', 'fa fa-inbox'),
         ('15', 'Sekretariat', 'sekretariat', '1', 'fa-archive', '5', '2', '0', '0', 'fa fa-archive'),
-        ('16', 'SID', 'hom_sid', '1', 'fa-globe', '1', '2', '1', '0', ''),
+        ('16', 'SID', 'beranda', '1', 'fa-globe', '1', '2', '1', '0', ''),
         ('17', 'Identitas [Desa]', 'hom_desa/konfigurasi', '1', 'fa-id-card', '2', '2', '200', '0', ''),
         ('18', 'Pemerintahan [Desa]', 'pengurus', '1', 'fa-sitemap', '3', '2', '200', '0', ''),
-        ('19', 'Donasi', 'hom_sid/donasi', '1', 'fa-money', '4', '2', '1', '0', ''),
+        ('19', 'Donasi', 'beranda/donasi', '1', 'fa-money', '4', '2', '1', '0', ''),
         ('20', 'Wilayah Administratif', 'sid_core', '1', 'fa-map', '2', '2', '200', '0', ''),
-        ('21', 'Penduduk', 'penduduk/clear', '1', 'fa-user', '2', '2', '2', '0', ''),
-        ('22', 'Keluarga', 'keluarga/clear', '1', 'fa-users', '3', '2', '2', '0', ''),
-        ('23', 'Rumah Tangga', 'rtm/clear', '1', 'fa-venus-mars', '4', '2', '2', '0', ''),
-        ('24', 'Kelompok', 'kelompok/clear', '1', 'fa-sitemap', '5', '2', '2', '0', ''),
+        ('21', 'Penduduk', 'penduduk', '1', 'fa-user', '2', '2', '2', '0', ''),
+        ('22', 'Keluarga', 'keluarga', '1', 'fa-users', '3', '2', '2', '0', ''),
+        ('23', 'Rumah Tangga', 'rtm', '1', 'fa-venus-mars', '4', '2', '2', '0', ''),
+        ('24', 'Kelompok', 'kelompok', '1', 'fa-sitemap', '5', '2', '2', '0', ''),
         ('25', 'Data Suplemen', 'suplemen', '1', 'fa-slideshare', '6', '2', '2', '0', ''),
-        ('26', 'Calon Pemilih', 'dpt/clear', '1', 'fa-podcast', '7', '2', '2', '0', ''),
+        ('26', 'Calon Pemilih', 'dpt', '1', 'fa-podcast', '7', '2', '2', '0', ''),
         ('27', 'Statistik Kependudukan', 'statistik', '1', 'fa-bar-chart', '1', '2', '3', '0', ''),
-        ('28', 'Laporan Bulanan', 'laporan/clear', '1', 'fa-file-text', '2', '2', '3', '0', ''),
-        ('29', 'Laporan Kelompok Rentan', 'laporan_rentan/clear', '1', 'fa-wheelchair', '3', '2', '3', '0', ''),
-        ('30', 'Pengaturan Surat', 'surat_master/clear', '1', 'fa-cog', '1', '2', '4', '0', ''),
+        ('28', 'Laporan Bulanan', 'laporan', '1', 'fa-file-text', '2', '2', '3', '0', ''),
+        ('29', 'Laporan Kelompok Rentan', 'laporan_rentan', '1', 'fa-wheelchair', '3', '2', '3', '0', ''),
+        ('30', 'Pengaturan Surat', 'surat_master', '1', 'fa-cog', '1', '2', '4', '0', ''),
         ('31', 'Cetak Surat', 'surat', '1', 'fa-files-o', '2', '2', '4', '0', ''),
         ('32', 'Arsip Layanan', 'keluar', '1', 'fa-folder-open', '3', '2', '4', '0', ''),
         ('33', 'Panduan', 'surat/panduan', '1', 'fa fa-book', '4', '2', '4', '0', ''),
@@ -1233,7 +1233,7 @@ class Database_model extends MY_Model
         ('53', 'Media Sosial', 'sosmed', '1', 'fa-facebook', '7', '4', '13', '0', ''),
         ('54', 'Slider', 'web/slider', '1', 'fa-film', '8', '4', '13', '0', ''),
         ('55', 'Laporan Masuk', 'lapor', '1', 'fa-wechat', '1', '2', '14', '0', ''),
-        ('56', 'Pendaftar Layanan Mandiri', 'mandiri/clear', '1', 'fa-500px', '2', '2', '14', '0', ''),
+        ('56', 'Pendaftar Layanan Mandiri', 'mandiri', '1', 'fa-500px', '2', '2', '14', '0', ''),
         ('57', 'Surat Masuk', 'surat_masuk', '1', 'fa-sign-in', '1', '2', '15', '0', ''),
         ('58', 'Surat Keluar', '', '2', 'fa-sign-out', '2', '2', '15', '0', ''),
         ('59', 'SK Kades', 'dokumen_sekretariat/index/2', '1', 'fa-legal', '3', '2', '15', '0', ''),
@@ -1251,20 +1251,20 @@ class Database_model extends MY_Model
         // buat table anggota_grup_kontak
         $sql = [
             'id_grup_kontak' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => false,
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => false,
                 'auto_increment' => true,
             ],
             'id_grup' => [
-                'type'       => 'INT',
+                'type' => 'INT',
                 'constraint' => 11,
-                'unsigned'   => false,
+                'unsigned' => false,
             ],
             'id_kontak' => [
-                'type'       => 'INT',
+                'type' => 'INT',
                 'constraint' => 11,
-                'unsigned'   => false,
+                'unsigned' => false,
             ],
         ];
         $this->dbforge->add_field($sql);
@@ -1280,13 +1280,13 @@ class Database_model extends MY_Model
 
         //modifikasi tabel kontak dan kontak_grup
         if ($this->db->field_exists('id', 'kontak')) {
-            $this->dbforge->modify_column('kontak', ['id' => ['name' => 'id_kontak', 'type' => 'INT',  'auto_increment' => true]]);
+            $this->dbforge->modify_column('kontak', ['id' => ['name' => 'id_kontak', 'type' => 'INT', 'auto_increment' => true]]);
         }
         if ($this->db->field_exists('id_kontak', 'kontak_grup')) {
             $this->dbforge->drop_column('kontak_grup', 'id_kontak');
         }
         if ($this->db->field_exists('id', 'kontak_grup')) {
-            $this->dbforge->modify_column('kontak_grup', ['id' => ['name' => 'id_grup', 'type' => 'INT',  'auto_increment' => true]]);
+            $this->dbforge->modify_column('kontak_grup', ['id' => ['name' => 'id_grup', 'type' => 'INT', 'auto_increment' => true]]);
         }
 
         //menambahkan constraint kolom tabel
@@ -1313,32 +1313,32 @@ class Database_model extends MY_Model
 
         // Tambah wna_lk, wna_pr di log_bulanan
         // dan ubah lk menjadi wni_lk, dan pr menjadi wni_pr
-        if (! $this->db->field_exists('wni_pr', 'log_bulanan')) {
-            $fields       = [];
+        if (!$this->db->field_exists('wni_pr', 'log_bulanan')) {
+            $fields = [];
             $fields['lk'] = [
-                'name'       => 'wni_lk',
-                'type'       => 'int',
+                'name' => 'wni_lk',
+                'type' => 'int',
                 'constraint' => 11,
             ];
             $fields['pr'] = [
-                'name'       => 'wni_pr',
-                'type'       => 'int',
+                'name' => 'wni_pr',
+                'type' => 'int',
                 'constraint' => 11,
             ];
             $this->dbforge->modify_column('log_bulanan', $fields);
-            $fields           = [];
+            $fields = [];
             $fields['wna_lk'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 11,
             ];
             $fields['wna_pr'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 11,
             ];
             $this->dbforge->add_column('log_bulanan', $fields);
         }
 
-        if (! $this->db->table_exists('inventaris_tanah')) {
+        if (!$this->db->table_exists('inventaris_tanah')) {
             $query = "
             CREATE TABLE `inventaris_tanah` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1367,7 +1367,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('mutasi_inventaris_tanah')) {
+        if (!$this->db->table_exists('mutasi_inventaris_tanah')) {
             $query = "
             CREATE TABLE `mutasi_inventaris_tanah` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1389,7 +1389,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('inventaris_peralatan')) {
+        if (!$this->db->table_exists('inventaris_peralatan')) {
             $query = "
             CREATE TABLE `inventaris_peralatan` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1420,7 +1420,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('mutasi_inventaris_peralatan')) {
+        if (!$this->db->table_exists('mutasi_inventaris_peralatan')) {
             $query = "
             CREATE TABLE `mutasi_inventaris_peralatan` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1442,7 +1442,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('inventaris_gedung')) {
+        if (!$this->db->table_exists('inventaris_gedung')) {
             $query = "
             CREATE TABLE `inventaris_gedung` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1474,7 +1474,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('mutasi_inventaris_gedung')) {
+        if (!$this->db->table_exists('mutasi_inventaris_gedung')) {
             $query = "
             CREATE TABLE `mutasi_inventaris_gedung` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1496,7 +1496,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('inventaris_jalan')) {
+        if (!$this->db->table_exists('inventaris_jalan')) {
             $query = "
             CREATE TABLE `inventaris_jalan` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1528,7 +1528,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('mutasi_inventaris_jalan')) {
+        if (!$this->db->table_exists('mutasi_inventaris_jalan')) {
             $query = "
             CREATE TABLE `mutasi_inventaris_jalan` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1550,7 +1550,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('inventaris_asset')) {
+        if (!$this->db->table_exists('inventaris_asset')) {
             $query = "
             CREATE TABLE `inventaris_asset` (
                 `id` int(11) AUTO_INCREMENT NOT NULL,
@@ -1584,7 +1584,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('mutasi_inventaris_asset')) {
+        if (!$this->db->table_exists('mutasi_inventaris_asset')) {
             $query = "
             CREATE TABLE `mutasi_inventaris_asset` (
                 `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1606,7 +1606,7 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('inventaris_kontruksi')) {
+        if (!$this->db->table_exists('inventaris_kontruksi')) {
             $query = "
             CREATE TABLE `inventaris_kontruksi` (
                 `id` int(11) AUTO_INCREMENT NOT NULL ,
@@ -1637,17 +1637,17 @@ class Database_model extends MY_Model
         }
 
         $fields = [];
-        if (! $this->db->field_exists('jenis_pemilik', 'data_persil')) {
+        if (!$this->db->field_exists('jenis_pemilik', 'data_persil')) {
             $fields['jenis_pemilik'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
-                'null'       => false,
-                'default'    => 1, // pemilik desa
+                'null' => false,
+                'default' => 1, // pemilik desa
             ];
         }
-        if (! $this->db->field_exists('pemilik_luar', 'data_persil')) {
+        if (!$this->db->field_exists('pemilik_luar', 'data_persil')) {
             $fields['pemilik_luar'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 100,
             ];
         }
@@ -1657,21 +1657,21 @@ class Database_model extends MY_Model
             $data = $this->db->get('data_persil')->result_array();
 
             foreach ($data as $persil) {
-                if (! is_numeric($persil['nik']) && $persil['nik'] != '') {
+                if (!is_numeric($persil['nik']) && $persil['nik'] != '') {
                     $data_update = [
                         'jenis_pemilik' => '2',
-                        'pemilik_luar'  => $persil['nik'],
-                        'nik'           => 999,   // NIK_LUAR_DESA
+                        'pemilik_luar' => $persil['nik'],
+                        'nik' => 999,   // NIK_LUAR_DESA
                     ];
                     $this->db->where('id', $persil['id'])->update('data_persil', $data_update);
                 }
             }
         }
         if ($this->db->field_exists('alamat_ext', 'data_persil')) {
-            $fields               = [];
+            $fields = [];
             $fields['alamat_ext'] = [
-                'name'       => 'alamat_luar',
-                'type'       => 'varchar',
+                'name' => 'alamat_luar',
+                'type' => 'varchar',
                 'constraint' => 100,
             ];
             $this->dbforge->modify_column('data_persil', $fields);
@@ -1682,11 +1682,11 @@ class Database_model extends MY_Model
     {
         //ambil nilai path
         $config = $this->db->get('config')->row();
-        if (! empty($config)) {
+        if (!empty($config)) {
             //Cek apakah path kosong atau tidak
             //Cek pola path yang lama untuk diganti dengan yang baru
             //Jika pola path masih yang lama, ganti dengan yang baru
-            if (! empty($config->path) && preg_match('/((\([-+]?\d{1,3}\.\d*,(\s)?[-+]?\d{1,3}\.\d*\))\;)/', $config->path)) {
+            if (!empty($config->path) && preg_match('/((\([-+]?\d{1,3}\.\d*,(\s)?[-+]?\d{1,3}\.\d*\))\;)/', $config->path)) {
                 $new_path = str_replace([');', '(', ']['], [']', '[', '],['], $config->path);
                 $this->db->where('id', $config->id)->update('config', ['path' => "[[{$new_path}]]"]);
             }
@@ -1701,12 +1701,12 @@ class Database_model extends MY_Model
         if (empty($widget)) {
             //Penambahan widget peta wilayah desa sebagai widget sistem
             $peta_wilayah = [
-                'isi'          => 'peta_wilayah_desa.php',
-                'enabled'      => 1,
-                'judul'        => 'Peta Wilayah Desa',
+                'isi' => 'peta_wilayah_desa.php',
+                'enabled' => 1,
+                'judul' => 'Peta Wilayah Desa',
                 'jenis_widget' => 1,
-                'urut'         => 1,
-                'form_admin'   => 'hom_desa/konfigurasi',
+                'urut' => 1,
+                'form_admin' => 'hom_desa/konfigurasi',
             ];
             $this->db->insert('widget', $peta_wilayah);
         } else {
@@ -1727,12 +1727,12 @@ class Database_model extends MY_Model
     {
         // Tambah kolom jenis untuk analisis_master
         $fields = [];
-        if (! $this->db->field_exists('jenis', 'analisis_master')) {
+        if (!$this->db->field_exists('jenis', 'analisis_master')) {
             $fields['jenis'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
-                'null'       => false,
-                'default'    => 2, // bukan bawaan sistem
+                'null' => false,
+                'default' => 2, // bukan bawaan sistem
             ];
         }
         $this->dbforge->add_column('analisis_master', $fields);
@@ -1762,18 +1762,18 @@ class Database_model extends MY_Model
             ->get('analisis_master')->row();
         if (empty($dak)) {
             $file_analisis = FCPATH . 'assets/import/analisis_DAK_Profil_Desa.xlsx';
-            $id_dak        = $this->analisis_import_model->import_excel($file_analisis, 'DAK02', $jenis = 1);
+            $id_dak = $this->analisis_import_model->import_excel($file_analisis, 'DAK02', $jenis = 1);
         } else {
             $id_dak = $dak->id;
         }
         // Tambah kolom is_teks pada analisis_indikator
         $fields = [];
-        if (! $this->db->field_exists('is_teks', 'analisis_indikator')) {
+        if (!$this->db->field_exists('is_teks', 'analisis_indikator')) {
             $fields['is_teks'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 1,
-                'null'       => false,
-                'default'    => 0, // isian pertanyaan menggunakan kode
+                'null' => false,
+                'default' => 0, // isian pertanyaan menggunakan kode
             ];
         }
         $this->dbforge->add_column('analisis_indikator', $fields);
@@ -1795,20 +1795,20 @@ class Database_model extends MY_Model
     {
         // Tambah kolom untuk format impor respon untuk analisis_master
         $fields = [];
-        if (! $this->db->field_exists('format_impor', 'analisis_master')) {
+        if (!$this->db->field_exists('format_impor', 'analisis_master')) {
             $fields['format_impor'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
         $this->dbforge->add_column('analisis_master', $fields);
         // Tambah setting timezone
         $setting = $this->db->where('key', 'timezone')->get('setting_aplikasi')->row()->id;
-        if (! $setting) {
+        if (!$setting) {
             $this->db->insert('setting_aplikasi', ['key' => 'timezone', 'value' => 'Asia/Jakarta', 'keterangan' => 'Zona waktu perekaman waktu dan tanggal']);
         }
         // Tambah tabel inventaris
-        if (! $this->db->table_exists('jenis_barang')) {
+        if (!$this->db->table_exists('jenis_barang')) {
             $query = '
                 CREATE TABLE jenis_barang (
                     id int NOT NULL AUTO_INCREMENT,
@@ -1819,7 +1819,7 @@ class Database_model extends MY_Model
             ';
             $this->db->query($query);
         }
-        if (! $this->db->table_exists('inventaris')) {
+        if (!$this->db->table_exists('inventaris')) {
             $query = '
                 CREATE TABLE inventaris (
                     id int NOT NULL AUTO_INCREMENT,
@@ -1854,32 +1854,32 @@ class Database_model extends MY_Model
         }
         // Tambah kolom
         $fields = [];
-        if (! $this->db->field_exists('tanggal_pengadaan', 'inventaris')) {
+        if (!$this->db->field_exists('tanggal_pengadaan', 'inventaris')) {
             $fields['tanggal_pengadaan'] = [
                 'type' => 'date',
                 'null' => false,
             ];
         }
-        if (! $this->db->field_exists('nama_barang', 'inventaris')) {
+        if (!$this->db->field_exists('nama_barang', 'inventaris')) {
             $fields['nama_barang'] = [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
             ];
         }
-        if (! $this->db->field_exists('asal_barang', 'inventaris')) {
+        if (!$this->db->field_exists('asal_barang', 'inventaris')) {
             $fields['asal_barang'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
-        if (! $this->db->field_exists('jml_barang', 'inventaris')) {
+        if (!$this->db->field_exists('jml_barang', 'inventaris')) {
             $fields['jml_barang'] = [
-                'type'       => 'int',
+                'type' => 'int',
                 'constraint' => 6,
             ];
         }
         $this->dbforge->add_column('inventaris', $fields);
-        if (! $this->db->table_exists('mutasi_inventaris')) {
+        if (!$this->db->table_exists('mutasi_inventaris')) {
             $query = '
                 CREATE TABLE mutasi_inventaris (
                     id int NOT NULL AUTO_INCREMENT,
@@ -1898,58 +1898,58 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
         // Ubah url modul program_bantuan
-        $this->db->where('url', 'program_bantuan')->update('setting_modul', ['url' => 'program_bantuan/clear']);
+        $this->db->where('url', 'program_bantuan')->update('setting_modul', ['url' => 'program_bantuan']);
     }
 
     private function migrasi_28_ke_29(): void
     {
         // Tambah data kelahiran ke tweb_penduduk
         $fields = [];
-        if (! $this->db->field_exists('waktu_lahir', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('waktu_lahir', 'tweb_penduduk')) {
             $fields['waktu_lahir'] = [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 5,
             ];
         }
-        if (! $this->db->field_exists('tempat_dilahirkan', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('tempat_dilahirkan', 'tweb_penduduk')) {
             $fields['tempat_dilahirkan'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
-        if (! $this->db->field_exists('alamat_tempat_lahir', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('alamat_tempat_lahir', 'tweb_penduduk')) {
             $fields['alamat_tempat_lahir'] = [
-                'type'       => 'VARCHAR',
+                'type' => 'VARCHAR',
                 'constraint' => 100,
             ];
         }
-        if (! $this->db->field_exists('jenis_kelahiran', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('jenis_kelahiran', 'tweb_penduduk')) {
             $fields['jenis_kelahiran'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
-        if (! $this->db->field_exists('kelahiran_anak_ke', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('kelahiran_anak_ke', 'tweb_penduduk')) {
             $fields['kelahiran_anak_ke'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
-        if (! $this->db->field_exists('penolong_kelahiran', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('penolong_kelahiran', 'tweb_penduduk')) {
             $fields['penolong_kelahiran'] = [
-                'type'       => 'tinyint',
+                'type' => 'tinyint',
                 'constraint' => 2,
             ];
         }
-        if (! $this->db->field_exists('berat_lahir', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('berat_lahir', 'tweb_penduduk')) {
             $fields['berat_lahir'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 10,
             ];
         }
-        if (! $this->db->field_exists('panjang_lahir', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('panjang_lahir', 'tweb_penduduk')) {
             $fields['panjang_lahir'] = [
-                'type'       => 'varchar',
+                'type' => 'varchar',
                 'constraint' => 10,
             ];
         }
@@ -1960,22 +1960,22 @@ class Database_model extends MY_Model
             $this->dbforge->drop_column('tweb_penduduk', 'pendidikan_id');
         }
         // Tambah kolom e-ktp di tabel tweb_penduduk
-        if (! $this->db->field_exists('ktp_el', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('ktp_el', 'tweb_penduduk')) {
             $fields = [
                 'ktp_el' => [
-                    'type'       => 'TINYINT',
+                    'type' => 'TINYINT',
                     'constraint' => 4,
                 ],
             ];
             $this->dbforge->add_column('tweb_penduduk', $fields);
         }
-        if (! $this->db->field_exists('status_rekam', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('status_rekam', 'tweb_penduduk')) {
             $fields = [
                 'status_rekam' => [
-                    'type'       => 'TINYINT',
+                    'type' => 'TINYINT',
                     'constraint' => 4,
-                    'null'       => false,
-                    'default'    => 0,
+                    'null' => false,
+                    'default' => 0,
                 ],
             ];
             $this->dbforge->add_column('tweb_penduduk', $fields);
@@ -2010,7 +2010,7 @@ class Database_model extends MY_Model
 
     private function migrasi_27_ke_28(): void
     {
-        if (! $this->db->table_exists('suplemen')) {
+        if (!$this->db->table_exists('suplemen')) {
             $query = '
                 CREATE TABLE suplemen (
                     id int NOT NULL AUTO_INCREMENT,
@@ -2022,7 +2022,7 @@ class Database_model extends MY_Model
             ';
             $this->db->query($query);
         }
-        if (! $this->db->table_exists('suplemen_terdata')) {
+        if (!$this->db->table_exists('suplemen_terdata')) {
             $query = '
                 CREATE TABLE suplemen_terdata (
                     id int NOT NULL AUTO_INCREMENT,
@@ -2040,11 +2040,11 @@ class Database_model extends MY_Model
         }
         // Hapus surat permohonan perubahan kk (yang telah diubah menjadi kartu keluarga)
         $data = [
-            'nama'       => 'Permohonan Perubahan Kartu Keluarga',
-            'url_surat'  => 'surat_permohonan_perubahan_kartu_keluarga',
+            'nama' => 'Permohonan Perubahan Kartu Keluarga',
+            'url_surat' => 'surat_permohonan_perubahan_kartu_keluarga',
             'kode_surat' => 'S-41',
-            'lampiran'   => 'f-1.16.php,f-1.01.php',
-            'jenis'      => 1,
+            'lampiran' => 'f-1.16.php,f-1.01.php',
+            'jenis' => 1,
         ];
         $hasil = $this->db->where('url_surat', 'surat_permohonan_perubahan_kk')->get('tweb_surat_format');
         if ($hasil->num_rows() > 0) {
@@ -2102,7 +2102,7 @@ class Database_model extends MY_Model
         if ($this->db->table_exists('ref_kelas_sosial')) {
             $this->dbforge->drop_table('ref_kelas_sosial');
         }
-        if (! $this->db->table_exists('tweb_keluarga_sejahtera')) {
+        if (!$this->db->table_exists('tweb_keluarga_sejahtera')) {
             $query = '
                 CREATE TABLE `tweb_keluarga_sejahtera` (
                     `id` int(10),
@@ -2123,10 +2123,10 @@ class Database_model extends MY_Model
         }
         // Tambah surat izin orang tua/suami/istri
         $data = [
-            'nama'       => 'Keterangan Izin Orang Tua/Suami/Istri',
-            'url_surat'  => 'surat_izin_orangtua_suami_istri',
+            'nama' => 'Keterangan Izin Orang Tua/Suami/Istri',
+            'url_surat' => 'surat_izin_orangtua_suami_istri',
             'kode_surat' => 'S-39',
-            'jenis'      => 1,
+            'jenis' => 1,
         ];
         $sql = $this->db->insert_string('tweb_surat_format', $data);
         $sql .= ' ON DUPLICATE KEY UPDATE
@@ -2137,10 +2137,10 @@ class Database_model extends MY_Model
         $this->db->query($sql);
         // Tambah surat sporadik
         $data = [
-            'nama'       => 'Pernyataan Penguasaan Fisik Bidang Tanah (SPORADIK)',
-            'url_surat'  => 'surat_sporadik',
+            'nama' => 'Pernyataan Penguasaan Fisik Bidang Tanah (SPORADIK)',
+            'url_surat' => 'surat_sporadik',
             'kode_surat' => 'S-40',
-            'jenis'      => 1,
+            'jenis' => 1,
         ];
         $sql = $this->db->insert_string('tweb_surat_format', $data);
         $sql .= ' ON DUPLICATE KEY UPDATE
@@ -2154,7 +2154,7 @@ class Database_model extends MY_Model
     private function migrasi_25_ke_26(): void
     {
         // Tambah tabel provinsi
-        if (! $this->db->table_exists('provinsi')) {
+        if (!$this->db->table_exists('provinsi')) {
             $query = '
                 CREATE TABLE `provinsi` (
                     `kode` tinyint(2),
@@ -2204,20 +2204,20 @@ class Database_model extends MY_Model
         }
         // Konversi nama provinsi tersimpan di identitas desa
         $konversi = [
-            'ntb'                        => 'Nusa Tenggara Barat',
-            'ntt'                        => 'Nusa Tenggara Timur',
+            'ntb' => 'Nusa Tenggara Barat',
+            'ntt' => 'Nusa Tenggara Timur',
             'daerah istimewa yogyakarta' => 'DI Yogyakarta',
-            'diy'                        => 'DI Yogyakarta',
-            'yogyakarta'                 => 'DI Yogyakarta',
-            'jabar'                      => 'Jawa Barat',
-            'jawabarat'                  => 'Jawa Barat',
-            'jateng'                     => 'Jawa Tengah',
-            'jatim'                      => 'Jawa Timur',
-            'jatimi'                     => 'Jawa Timur',
-            'jawa timu'                  => 'Jawa Timur',
-            'nad'                        => 'Aceh',
-            'kalimatnan barat'           => 'Kalimantan Barat',
-            'sulawesi teanggara'         => 'Sulawesi Tenggara',
+            'diy' => 'DI Yogyakarta',
+            'yogyakarta' => 'DI Yogyakarta',
+            'jabar' => 'Jawa Barat',
+            'jawabarat' => 'Jawa Barat',
+            'jateng' => 'Jawa Tengah',
+            'jatim' => 'Jawa Timur',
+            'jatimi' => 'Jawa Timur',
+            'jawa timu' => 'Jawa Timur',
+            'nad' => 'Aceh',
+            'kalimatnan barat' => 'Kalimantan Barat',
+            'sulawesi teanggara' => 'Sulawesi Tenggara',
         ];
         $nama_propinsi = $this->db->select('nama_propinsi')->where('id', '1')->get('config')->row()->nama_propinsi;
 
@@ -2233,11 +2233,11 @@ class Database_model extends MY_Model
         $this->db->where('url_surat', 'surat_ket_kelahiran')->update('tweb_surat_format', ['lampiran' => 'f-2.01.php']);
         // Tambah modul Sekretariat di urutan sesudah Cetak Surat
         $list_modul = [
-            '5'  => 6,    // Analisis
-            '6'  => 7,    // Bantuan
-            '7'  => 8,    // Persil
-            '8'  => 9,    // Plan
-            '9'  => 10,   // Peta
+            '5' => 6,    // Analisis
+            '6' => 7,    // Bantuan
+            '7' => 8,    // Persil
+            '8' => 9,    // Plan
+            '9' => 10,   // Peta
             '10' => 11,   // SMS
             '11' => 12,   // Pengguna
             '12' => 13,   // Database
@@ -2256,23 +2256,23 @@ class Database_model extends MY_Model
                 url = VALUES(url)";
         $this->db->query($query);
         // Tambah kolom kode di tabel kelompok
-        if (! $this->db->field_exists('kode', 'kelompok')) {
+        if (!$this->db->field_exists('kode', 'kelompok')) {
             $fields = [
                 'kode' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 16,
-                    'null'       => false,
+                    'null' => false,
                 ],
             ];
             $this->dbforge->add_column('kelompok', $fields);
         }
         // Tambah kolom no_anggota di tabel kelompok_anggota
-        if (! $this->db->field_exists('no_anggota', 'kelompok_anggota')) {
+        if (!$this->db->field_exists('no_anggota', 'kelompok_anggota')) {
             $fields = [
                 'no_anggota' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 20,
-                    'null'       => false,
+                    'null' => false,
                 ],
             ];
             $this->dbforge->add_column('kelompok_anggota', $fields);
@@ -2283,28 +2283,28 @@ class Database_model extends MY_Model
     {
         // Tambah setting current_version untuk migrasi
         $setting = $this->db->where('key', 'current_version')->get('setting_aplikasi')->row()->id;
-        if (! $setting) {
+        if (!$setting) {
             $this->db->insert('setting_aplikasi', ['key' => 'current_version', 'value' => '2.4', 'keterangan' => 'Versi sekarang untuk migrasi']);
         }
         // Tambah kolom ikon_kecil di tabel setting_modul
-        if (! $this->db->field_exists('ikon_kecil', 'setting_modul')) {
+        if (!$this->db->field_exists('ikon_kecil', 'setting_modul')) {
             $fields = [
                 'ikon_kecil' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 50,
                 ],
             ];
             $this->dbforge->add_column('setting_modul', $fields);
             $list_modul = [
-                '1'  => 'fa fa-home fa-lg',         // SID Home
-                '2'  => 'fa fa-group fa-lg',        // Penduduk
-                '3'  => 'fa fa-bar-chart fa-lg',    // Statistik
-                '4'  => 'fa fa-print fa-lg',        // Cetak Surat
-                '5'  => 'fa fa-dashboard fa-lg',    // Analisis
-                '6'  => 'fa fa-folder-open fa-lg',  // Bantuan
-                '7'  => 'fa fa-road fa-lg',         // Persil
-                '8'  => 'fa fa-sitemap fa-lg',      // Plan
-                '9'  => 'fa fa-map fa-lg',          // Peta
+                '1' => 'fa fa-home fa-lg',         // SID Home
+                '2' => 'fa fa-group fa-lg',        // Penduduk
+                '3' => 'fa fa-bar-chart fa-lg',    // Statistik
+                '4' => 'fa fa-print fa-lg',        // Cetak Surat
+                '5' => 'fa fa-dashboard fa-lg',    // Analisis
+                '6' => 'fa fa-folder-open fa-lg',  // Bantuan
+                '7' => 'fa fa-road fa-lg',         // Persil
+                '8' => 'fa fa-sitemap fa-lg',      // Plan
+                '9' => 'fa fa-map fa-lg',          // Peta
                 '10' => 'fa fa-envelope-o fa-lg',  // SMS
                 '11' => 'fa fa-user-plus fa-lg',   // Pengguna
                 '12' => 'fa fa-database fa-lg',    // Database
@@ -2317,13 +2317,13 @@ class Database_model extends MY_Model
             }
         }
         // Tambah kolom id_pend di tabel tweb_penduduk_mandiri
-        if (! $this->db->field_exists('id_pend', 'tweb_penduduk_mandiri')) {
+        if (!$this->db->field_exists('id_pend', 'tweb_penduduk_mandiri')) {
             $fields = [
                 'id_pend' => [
-                    'type'       => 'int',
+                    'type' => 'int',
                     'constraint' => 9,
-                    'null'       => false,
-                    'first'      => true,
+                    'null' => false,
+                    'first' => true,
                 ],
             ];
             $this->dbforge->add_column('tweb_penduduk_mandiri', $fields);
@@ -2345,18 +2345,18 @@ class Database_model extends MY_Model
                             ADD PRIMARY KEY (id_pend)';
         $this->db->query($sql);
         // Tambah kolom kategori di tabel dokumen
-        if (! $this->db->field_exists('kategori', 'dokumen')) {
+        if (!$this->db->field_exists('kategori', 'dokumen')) {
             $fields = [
                 'kategori' => [
-                    'type'       => 'tinyint',
+                    'type' => 'tinyint',
                     'constraint' => 3,
-                    'default'    => 1,
+                    'default' => 1,
                 ],
             ];
             $this->dbforge->add_column('dokumen', $fields);
         }
         // Tambah kolom attribute dokumen
-        if (! $this->db->field_exists('attr', 'dokumen')) {
+        if (!$this->db->field_exists('attr', 'dokumen')) {
             $fields = [
                 'attr' => [
                     'type' => 'text',
@@ -2370,10 +2370,10 @@ class Database_model extends MY_Model
     {
         // Tambah surat keterangan beda identitas KIS
         $data = [
-            'nama'       => 'Keterangan Beda Identitas KIS',
-            'url_surat'  => 'surat_ket_beda_identitas_kis',
+            'nama' => 'Keterangan Beda Identitas KIS',
+            'url_surat' => 'surat_ket_beda_identitas_kis',
             'kode_surat' => 'S-38',
-            'jenis'      => 1,
+            'jenis' => 1,
         ];
         $sql = $this->db->insert_string('tweb_surat_format', $data);
         $sql .= ' ON DUPLICATE KEY UPDATE
@@ -2384,7 +2384,7 @@ class Database_model extends MY_Model
         $this->db->query($sql);
         // Tambah setting sebutan kepala dusun
         $setting = $this->db->where('key', 'sebutan_singkatan_kadus')->get('setting_aplikasi')->row()->id;
-        if (! $setting) {
+        if (!$setting) {
             $this->db->insert('setting_aplikasi', ['key' => 'sebutan_singkatan_kadus', 'value' => 'kawil', 'keterangan' => 'Sebutan singkatan jabatan kepala dusun']);
         }
     }
@@ -2393,12 +2393,12 @@ class Database_model extends MY_Model
     {
         // Tambah widget menu_left untuk menampilkan menu kategori
         $widget = $this->db->select('id')->where('isi', 'menu_kategori.php')->get('widget')->row();
-        if (! $widget->id) {
+        if (!$widget->id) {
             $menu_kategori = ['judul' => 'Menu Kategori', 'isi' => 'menu_kategori.php', 'enabled' => 1, 'urut' => 1, 'jenis_widget' => 1];
             $this->db->insert('widget', $menu_kategori);
         }
         // Tambah tabel surat_masuk
-        if (! $this->db->table_exists('surat_masuk')) {
+        if (!$this->db->table_exists('surat_masuk')) {
             $query = '
                 CREATE TABLE `surat_masuk` (
                     `id` int NOT NULL AUTO_INCREMENT,
@@ -2418,12 +2418,12 @@ class Database_model extends MY_Model
             $this->db->query($query);
         }
         // Artikel bisa di-comment atau tidak
-        if (! $this->db->field_exists('boleh_komentar', 'artikel')) {
+        if (!$this->db->field_exists('boleh_komentar', 'artikel')) {
             $fields = [
                 'boleh_komentar' => [
-                    'type'       => 'tinyint',
+                    'type' => 'tinyint',
                     'constraint' => 1,
-                    'default'    => 1,
+                    'default' => 1,
                 ],
             ];
             $this->dbforge->add_column('artikel', $fields);
@@ -2436,14 +2436,14 @@ class Database_model extends MY_Model
         $this->db->where('url_surat', 'surat_ket_kelahiran')->update('tweb_surat_format', ['lampiran' => 'f-kelahiran.php']);
         // Tambah setting sumber gambar slider
         $pilihan_sumber = $this->db->where('key', 'sumber_gambar_slider')->get('setting_aplikasi')->row()->id;
-        if (! $pilihan_sumber) {
+        if (!$pilihan_sumber) {
             $this->db->insert('setting_aplikasi', ['key' => 'sumber_gambar_slider', 'value' => 1, 'keterangan' => 'Sumber gambar slider besar']);
         }
         // Tambah gambar kartu peserta program bantuan
-        if (! $this->db->field_exists('kartu_peserta', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_peserta', 'program_peserta')) {
             $fields = [
                 'kartu_peserta' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 100,
                 ],
             ];
@@ -2453,7 +2453,7 @@ class Database_model extends MY_Model
 
     private function migrasi_20_ke_21(): void
     {
-        if (! $this->db->table_exists('widget')) {
+        if (!$this->db->table_exists('widget')) {
             $query = '
                 CREATE TABLE `widget` (
                     `id` int NOT NULL AUTO_INCREMENT,
@@ -2483,10 +2483,10 @@ class Database_model extends MY_Model
         // TODO: pindahkan ini jika nanti ada kategori dengan nilai 1003.
         $this->db->where('id_kategori', 1003)->delete('artikel');
         // Tambah tautan ke form administrasi widget
-        if (! $this->db->field_exists('form_admin', 'widget')) {
+        if (!$this->db->field_exists('form_admin', 'widget')) {
             $fields = [
                 'form_admin' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 100,
                 ],
             ];
@@ -2500,7 +2500,7 @@ class Database_model extends MY_Model
             $this->db->where('isi', 'peta_lokasi_kantor.php')->update('widget', ['form_admin' => 'hom_desa']);
         }
         // Tambah kolom setting widget
-        if (! $this->db->field_exists('setting', 'widget')) {
+        if (!$this->db->field_exists('setting', 'widget')) {
             $fields = [
                 'setting' => [
                     'type' => 'text',
@@ -2512,7 +2512,7 @@ class Database_model extends MY_Model
         $this->db->select('id')->where('isi', 'sinergitas_program.php')->update('widget', ['isi' => 'sinergi_program.php', 'judul' => 'Sinergi Program', 'form_admin' => 'web_widget/admin/sinergi_program']);
         // Tambah widget sinergi_program
         $widget = $this->db->select('id')->where('isi', 'sinergi_program.php')->get('widget')->row();
-        if (! $widget->id) {
+        if (!$widget->id) {
             $widget_baru = ['judul' => 'Sinergi Program', 'isi' => 'sinergi_program.php', 'enabled' => 1, 'urut' => 1, 'jenis_widget' => 1, 'form_admin' => 'web_widget/admin/sinergi_program'];
             $this->db->insert('widget', $widget_baru);
         }
@@ -2520,7 +2520,7 @@ class Database_model extends MY_Model
 
     private function migrasi_117_ke_20(): void
     {
-        if (! $this->db->table_exists('setting_aplikasi')) {
+        if (!$this->db->table_exists('setting_aplikasi')) {
             $query = '
                 CREATE TABLE `setting_aplikasi` (
                     `id` int NOT NULL AUTO_INCREMENT,
@@ -2543,15 +2543,15 @@ class Database_model extends MY_Model
         $this->db->where('id', 4)->update('media_sosial', ['nama' => 'YouTube']);
         // Tambah widget aparatur_desa
         $widget = $this->db->select('id')->where(['isi' => 'aparatur_desa.php', 'id_kategori' => 1003])->get('artikel')->row();
-        if (! $widget->id) {
+        if (!$widget->id) {
             $aparatur_desa = ['judul' => 'Aparatur Desa', 'isi' => 'aparatur_desa.php', 'enabled' => 1, 'id_kategori' => 1003, 'urut' => 1, 'jenis_widget' => 1];
             $this->db->insert('artikel', $aparatur_desa);
         }
         // Tambah foto aparatur desa
-        if (! $this->db->field_exists('foto', 'tweb_desa_pamong')) {
+        if (!$this->db->field_exists('foto', 'tweb_desa_pamong')) {
             $fields = [
                 'foto' => [
-                    'type'       => 'VARCHAR',
+                    'type' => 'VARCHAR',
                     'constraint' => 100,
                 ],
             ];
@@ -2562,22 +2562,22 @@ class Database_model extends MY_Model
     private function migrasi_116_ke_117(): void
     {
         // Tambah kolom log_penduduk
-        if (! $this->db->field_exists('no_kk', 'log_penduduk')) {
+        if (!$this->db->field_exists('no_kk', 'log_penduduk')) {
             $query = 'ALTER TABLE log_penduduk ADD no_kk decimal(16,0)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('nama_kk', 'log_penduduk')) {
+        if (!$this->db->field_exists('nama_kk', 'log_penduduk')) {
             $query = 'ALTER TABLE log_penduduk ADD nama_kk varchar(100)';
             $this->db->query($query);
         }
         // Hapus surat_ubah_sesuaikan
         $this->db->where('url_surat', 'surat_ubah_sesuaikan')->delete('tweb_surat_format');
         // Tambah kolom log_surat untuk surat non-warga
-        if (! $this->db->field_exists('nik_non_warga', 'log_surat')) {
+        if (!$this->db->field_exists('nik_non_warga', 'log_surat')) {
             $query = 'ALTER TABLE log_surat ADD nik_non_warga decimal(16,0)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('nama_non_warga', 'log_surat')) {
+        if (!$this->db->field_exists('nama_non_warga', 'log_surat')) {
             $query = 'ALTER TABLE log_surat ADD nama_non_warga varchar(100)';
             $this->db->query($query);
         }
@@ -2609,7 +2609,7 @@ class Database_model extends MY_Model
         $this->db->where('url_surat', 'surat_kehendak_nikah')->delete('tweb_surat_format');
         $this->db->where('url_surat', 'surat_ket_wali')->delete('tweb_surat_format');
         // Tambah kolom untuk penandatangan surat
-        if (! $this->db->field_exists('pamong_ttd', 'tweb_desa_pamong')) {
+        if (!$this->db->field_exists('pamong_ttd', 'tweb_desa_pamong')) {
             $query = 'ALTER TABLE tweb_desa_pamong ADD pamong_ttd tinyint(1)';
             $this->db->query($query);
         }
@@ -2620,23 +2620,23 @@ class Database_model extends MY_Model
     private function migrasi_114_ke_115(): void
     {
         // Tambah kolom untuk peserta program
-        if (! $this->db->field_exists('kartu_nik', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_nik', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD kartu_nik decimal(16,0)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kartu_nama', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_nama', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD kartu_nama varchar(100)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kartu_tempat_lahir', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_tempat_lahir', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD kartu_tempat_lahir varchar(100)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kartu_tanggal_lahir', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_tanggal_lahir', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD kartu_tanggal_lahir date';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kartu_alamat', 'program_peserta')) {
+        if (!$this->db->field_exists('kartu_alamat', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD kartu_alamat varchar(200)';
             $this->db->query($query);
         }
@@ -2645,7 +2645,7 @@ class Database_model extends MY_Model
     private function migrasi_113_ke_114(): void
     {
         // Tambah kolom untuk slider
-        if (! $this->db->field_exists('slider', 'gambar_gallery')) {
+        if (!$this->db->field_exists('slider', 'gambar_gallery')) {
             $query = 'ALTER TABLE gambar_gallery ADD slider tinyint(1)';
             $this->db->query($query);
         }
@@ -2654,19 +2654,19 @@ class Database_model extends MY_Model
     private function migrasi_112_ke_113(): void
     {
         // Tambah data desa
-        if (! $this->db->field_exists('nip_kepala_desa', 'config')) {
+        if (!$this->db->field_exists('nip_kepala_desa', 'config')) {
             $query = 'ALTER TABLE config ADD nip_kepala_desa decimal(18,0)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('email_desa', 'config')) {
+        if (!$this->db->field_exists('email_desa', 'config')) {
             $query = 'ALTER TABLE config ADD email_desa varchar(50)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('telepon', 'config')) {
+        if (!$this->db->field_exists('telepon', 'config')) {
             $query = 'ALTER TABLE config ADD telepon varchar(50)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('website', 'config')) {
+        if (!$this->db->field_exists('website', 'config')) {
             $query = 'ALTER TABLE config ADD website varchar(100)';
             $this->db->query($query);
         }
@@ -2677,15 +2677,15 @@ class Database_model extends MY_Model
     // Berdasarkan analisa database yang dikirim oleh AdJie Reverb Impulse
     private function migrasi_cri_lama(): void
     {
-        if (! $this->db->field_exists('enabled', 'kategori')) {
+        if (!$this->db->field_exists('enabled', 'kategori')) {
             $query = 'ALTER TABLE kategori ADD enabled tinyint(4) DEFAULT 1';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('parrent', 'kategori')) {
+        if (!$this->db->field_exists('parrent', 'kategori')) {
             $query = 'ALTER TABLE kategori ADD parrent tinyint(4) DEFAULT 0';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kode_surat', 'tweb_surat_format')) {
+        if (!$this->db->field_exists('kode_surat', 'tweb_surat_format')) {
             $query = 'ALTER TABLE tweb_surat_format ADD kode_surat varchar(10)';
             $this->db->query($query);
         }
@@ -2771,7 +2771,7 @@ class Database_model extends MY_Model
 
     private function migrasi_08_ke_081(): void
     {
-        if (! $this->db->field_exists('nama_surat', 'log_surat')) {
+        if (!$this->db->field_exists('nama_surat', 'log_surat')) {
             $query = 'ALTER TABLE `log_surat` ADD `nama_surat` varchar(100)';
             $this->db->query($query);
         }
@@ -2779,7 +2779,7 @@ class Database_model extends MY_Model
 
     private function migrasi_082_ke_09(): void
     {
-        if (! $this->db->field_exists('catatan', 'log_penduduk')) {
+        if (!$this->db->field_exists('catatan', 'log_penduduk')) {
             $query = 'ALTER TABLE `log_penduduk` ADD `catatan` text';
             $this->db->query($query);
         }
@@ -2843,8 +2843,8 @@ class Database_model extends MY_Model
         // Tambahkan surat_ubah_sesuaikan apabila belum ada
         if ($query->num_rows() == 0) {
             $data = [
-                'nama'       => 'Ubah Sesuaikan',
-                'url_surat'  => 'surat_ubah_sesuaikan',
+                'nama' => 'Ubah Sesuaikan',
+                'url_surat' => 'surat_ubah_sesuaikan',
                 'kode_surat' => 'S-36',
             ];
             $this->db->insert('tweb_surat_format', $data);
@@ -2868,7 +2868,7 @@ class Database_model extends MY_Model
         //   $this->db->query($query);
         // }
 
-        if (! $this->db->field_exists('tgl_cetak_kk', 'tweb_keluarga')) {
+        if (!$this->db->field_exists('tgl_cetak_kk', 'tweb_keluarga')) {
             $query = 'ALTER TABLE tweb_keluarga ADD tgl_cetak_kk datetime';
             $this->db->query($query);
         }
@@ -2889,25 +2889,25 @@ class Database_model extends MY_Model
 
     private function migrasi_10_ke_11(): void
     {
-        if (! $this->db->field_exists('kk_lk', 'log_bulanan')) {
+        if (!$this->db->field_exists('kk_lk', 'log_bulanan')) {
             $query = 'ALTER TABLE log_bulanan ADD kk_lk int(11)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('kk_pr', 'log_bulanan')) {
+        if (!$this->db->field_exists('kk_pr', 'log_bulanan')) {
             $query = 'ALTER TABLE log_bulanan ADD kk_pr int(11)';
             $this->db->query($query);
         }
 
-        if (! $this->db->field_exists('urut', 'artikel')) {
+        if (!$this->db->field_exists('urut', 'artikel')) {
             $query = 'ALTER TABLE artikel ADD urut int(5)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('jenis_widget', 'artikel')) {
+        if (!$this->db->field_exists('jenis_widget', 'artikel')) {
             $query = 'ALTER TABLE artikel ADD jenis_widget tinyint(2) NOT NULL DEFAULT 3';
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('log_keluarga')) {
+        if (!$this->db->table_exists('log_keluarga')) {
             $query = '
                 CREATE TABLE `log_keluarga` (
                     `id` int(10) NOT NULL AUTO_INCREMENT,
@@ -2938,23 +2938,23 @@ class Database_model extends MY_Model
         $this->db->query($query);
 
         $system_widgets = [
-            'Layanan Mandiri'      => 'layanan_mandiri.php',
-            'Agenda'               => 'agenda.php',
-            'Galeri'               => 'galeri.php',
-            'Statistik'            => 'statistik.php',
-            'Komentar'             => 'komentar.php',
-            'Media Sosial'         => 'media_sosial.php',
-            'Peta Lokasi Kantor'   => 'peta_lokasi_kantor.php',
+            'Layanan Mandiri' => 'layanan_mandiri.php',
+            'Agenda' => 'agenda.php',
+            'Galeri' => 'galeri.php',
+            'Statistik' => 'statistik.php',
+            'Komentar' => 'komentar.php',
+            'Media Sosial' => 'media_sosial.php',
+            'Peta Lokasi Kantor' => 'peta_lokasi_kantor.php',
             'Statistik Pengunjung' => 'statistik_pengunjung.php',
-            'Arsip Artikel'        => 'arsip_artikel.php',
+            'Arsip Artikel' => 'arsip_artikel.php',
         ];
 
         foreach ($system_widgets as $key => $value) {
             $this->db->select('id');
             $this->db->where(['isi' => $value, 'id_kategori' => 1003]);
-            $q      = $this->db->get('artikel');
+            $q = $this->db->get('artikel');
             $widget = $q->row_array();
-            if (! $widget['id']) {
+            if (!$widget['id']) {
                 $query = "
                     INSERT INTO artikel (judul,isi,enabled,id_kategori,urut,jenis_widget)
                     VALUES ('{$key}','{$value}',1,1003,1,1);";
@@ -2965,7 +2965,7 @@ class Database_model extends MY_Model
 
     private function migrasi_111_ke_12(): void
     {
-        if (! $this->db->field_exists('alamat', 'tweb_keluarga')) {
+        if (!$this->db->field_exists('alamat', 'tweb_keluarga')) {
             $query = 'ALTER TABLE tweb_keluarga ADD alamat varchar(200)';
             $this->db->query($query);
         }
@@ -2973,7 +2973,7 @@ class Database_model extends MY_Model
 
     private function migrasi_124_ke_13(): void
     {
-        if (! $this->db->field_exists('urut', 'menu')) {
+        if (!$this->db->field_exists('urut', 'menu')) {
             $query = 'ALTER TABLE menu ADD urut int(5)';
             $this->db->query($query);
         }
@@ -3005,7 +3005,7 @@ class Database_model extends MY_Model
     private function migrasi_14_ke_15(): void
     {
         // Tambah kolom di tabel tweb_penduduk
-        if (! $this->db->field_exists('cara_kb_id', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('cara_kb_id', 'tweb_penduduk')) {
             $query = 'ALTER TABLE tweb_penduduk ADD cara_kb_id tinyint(2) NULL DEFAULT NULL;';
             $this->db->query($query);
         }
@@ -3056,15 +3056,15 @@ class Database_model extends MY_Model
         // ==== Gabung program bantuan keluarga statik ke dalam modul Program Bantuan
 
         $program_keluarga = [
-            'Raskin'      => 'raskin',
-            'BLSM'        => 'id_blt',
-            'PKH'         => 'id_pkh',
+            'Raskin' => 'raskin',
+            'BLSM' => 'id_blt',
+            'PKH' => 'id_pkh',
             'Bedah Rumah' => 'id_bedah_rumah',
         ];
 
         foreach ($program_keluarga as $key => $value) {
             // cari keluarga anggota program
-            if (! $this->db->field_exists($value, 'tweb_keluarga')) {
+            if (!$this->db->field_exists($value, 'tweb_keluarga')) {
                 continue;
             }
 
@@ -3075,11 +3075,11 @@ class Database_model extends MY_Model
                 // buat program
                 $data = [
                     'sasaran' => 2,
-                    'nama'    => $key,
-                    'ndesc'   => '',
-                    'userid'  => 0,
-                    'sdate'   => date('Y-m-d', strtotime('-1 year')),
-                    'edate'   => date('Y-m-d', strtotime('+1 year')),
+                    'nama' => $key,
+                    'ndesc' => '',
+                    'userid' => 0,
+                    'sdate' => date('Y-m-d', strtotime('-1 year')),
+                    'edate' => date('Y-m-d', strtotime('+1 year')),
                 ];
                 $this->db->insert('program', $data);
                 $id_program = $this->db->insert_id();
@@ -3088,9 +3088,9 @@ class Database_model extends MY_Model
 
                 foreach ($data as $peserta_keluarga) {
                     $peserta = [
-                        'peserta'    => $peserta_keluarga['no_kk'],
+                        'peserta' => $peserta_keluarga['no_kk'],
                         'program_id' => $id_program,
-                        'sasaran'    => 2,
+                        'sasaran' => 2,
                     ];
                     $this->db->insert('program_peserta', $peserta);
                 }
@@ -3107,7 +3107,7 @@ class Database_model extends MY_Model
 
         foreach ($program_penduduk as $key => $value) {
             // cari penduduk anggota program
-            if (! $this->db->field_exists($value, 'tweb_penduduk')) {
+            if (!$this->db->field_exists($value, 'tweb_penduduk')) {
                 continue;
             }
 
@@ -3118,11 +3118,11 @@ class Database_model extends MY_Model
                 // buat program
                 $data = [
                     'sasaran' => 1,
-                    'nama'    => $key,
-                    'ndesc'   => '',
-                    'userid'  => 0,
-                    'sdate'   => date('Y-m-d', strtotime('-1 year')),
-                    'edate'   => date('Y-m-d', strtotime('+1 year')),
+                    'nama' => $key,
+                    'ndesc' => '',
+                    'userid' => 0,
+                    'sdate' => date('Y-m-d', strtotime('-1 year')),
+                    'edate' => date('Y-m-d', strtotime('+1 year')),
                 ];
                 $this->db->insert('program', $data);
                 $id_program = $this->db->insert_id();
@@ -3131,9 +3131,9 @@ class Database_model extends MY_Model
 
                 foreach ($data as $peserta_penduduk) {
                     $peserta = [
-                        'peserta'    => $peserta_penduduk['nik'],
+                        'peserta' => $peserta_penduduk['nik'],
                         'program_id' => $id_program,
-                        'sasaran'    => 2,
+                        'sasaran' => 2,
                     ];
                     $this->db->insert('program_peserta', $peserta);
                 }
@@ -3147,19 +3147,19 @@ class Database_model extends MY_Model
     private function migrasi_16_ke_17(): void
     {
         // Tambahkan id_cluster ke tabel keluarga
-        if (! $this->db->field_exists('id_cluster', 'tweb_keluarga')) {
+        if (!$this->db->field_exists('id_cluster', 'tweb_keluarga')) {
             $query = 'ALTER TABLE tweb_keluarga ADD id_cluster int(11);';
             $this->db->query($query);
 
             // Untuk setiap keluarga
             $query = $this->db->get('tweb_keluarga');
-            $data  = $query->result_array();
+            $data = $query->result_array();
 
             foreach ($data as $keluarga) {
                 // Ambil id_cluster kepala keluarga
                 $this->db->select('id_cluster');
                 $this->db->where('id', $keluarga['nik_kepala']);
-                $query     = $this->db->get('tweb_penduduk');
+                $query = $this->db->get('tweb_penduduk');
                 $kepala_kk = $query->row_array();
                 // Tulis id_cluster kepala keluarga ke keluarga
                 if (isset($kepala_kk['id_cluster'])) {
@@ -3173,11 +3173,11 @@ class Database_model extends MY_Model
     private function migrasi_17_ke_18(): void
     {
         // Tambah lampiran surat dgn template html2pdf
-        if (! $this->db->field_exists('lampiran', 'log_surat')) {
+        if (!$this->db->field_exists('lampiran', 'log_surat')) {
             $query = 'ALTER TABLE `log_surat` ADD `lampiran` varchar(100)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('lampiran', 'tweb_surat_format')) {
+        if (!$this->db->field_exists('lampiran', 'tweb_surat_format')) {
             $query = 'ALTER TABLE `tweb_surat_format` ADD `lampiran` varchar(100)';
             $this->db->query($query);
         }
@@ -3194,13 +3194,13 @@ class Database_model extends MY_Model
     private function migrasi_18_ke_19(): void
     {
         // Hapus index unik untuk kode_surat kalau sempat dibuat sebelumnya
-        $db    = $this->db->database;
+        $db = $this->db->database;
         $query = "
             SELECT COUNT(1) IndexIsThere FROM INFORMATION_SCHEMA.STATISTICS
             WHERE table_schema=? AND table_name='tweb_surat_format' AND index_name='kode_surat';
         ";
         $hasil = $this->db->query($query, $db);
-        $data  = $hasil->row_array();
+        $data = $hasil->row_array();
         if ($data['IndexIsThere'] > 0) {
             $query = '
                 DROP INDEX kode_surat ON tweb_surat_format;
@@ -3216,7 +3216,7 @@ class Database_model extends MY_Model
     private function migrasi_19_ke_110(): void
     {
         // Tambah nomor id_kartu untuk peserta program bantuan
-        if (! $this->db->field_exists('no_id_kartu', 'program_peserta')) {
+        if (!$this->db->field_exists('no_id_kartu', 'program_peserta')) {
             $query = 'ALTER TABLE program_peserta ADD no_id_kartu varchar(30)';
             $this->db->query($query);
         }
@@ -3225,24 +3225,24 @@ class Database_model extends MY_Model
     private function migrasi_110_ke_111(): void
     {
         // Buat folder desa/upload/pengesahan apabila belum ada
-        if (! file_exists(LOKASI_PENGESAHAN)) {
+        if (!file_exists(LOKASI_PENGESAHAN)) {
             mkdir(LOKASI_PENGESAHAN, 0755);
         }
         // Tambah akti/non-aktifkan dan pilihan favorit format surat
-        if (! $this->db->field_exists('kunci', 'tweb_surat_format')) {
+        if (!$this->db->field_exists('kunci', 'tweb_surat_format')) {
             $query = "ALTER TABLE tweb_surat_format ADD kunci tinyint(1) NOT NULL DEFAULT '0'";
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('favorit', 'tweb_surat_format')) {
+        if (!$this->db->field_exists('favorit', 'tweb_surat_format')) {
             $query = "ALTER TABLE tweb_surat_format ADD favorit tinyint(1) NOT NULL DEFAULT '0'";
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('id_pend', 'dokumen')) {
+        if (!$this->db->field_exists('id_pend', 'dokumen')) {
             $query = "ALTER TABLE dokumen ADD id_pend int(11) NOT NULL DEFAULT '0'";
             $this->db->query($query);
         }
 
-        if (! $this->db->table_exists('setting_modul')) {
+        if (!$this->db->table_exists('setting_modul')) {
             $query = "
                 CREATE TABLE `setting_modul` (
                     `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -3261,16 +3261,16 @@ class Database_model extends MY_Model
             $query = "
                 INSERT INTO setting_modul VALUES
                 ('1','SID Home','hom_desa','1','go-home-5.png','1','2','1'),
-                ('2','Penduduk','penduduk/clear','1','preferences-contact-list.png','2','2','0'),
+                ('2','Penduduk','penduduk','1','preferences-contact-list.png','2','2','0'),
                 ('3','Statistik','statistik','1','statistik.png','3','2','0'),
                 ('4','Cetak Surat','surat','1','applications-office-5.png','4','2','0'),
-                ('5','Analisis','analisis_master/clear','1','analysis.png','5','2','0'),
+                ('5','Analisis','analisis_master','1','analysis.png','5','2','0'),
                 ('6','Bantuan','program_bantuan','1','program.png','6','2','0'),
-                ('7','Persil','data_persil/clear','1','persil.png','7','2','0'),
+                ('7','Persil','data_persil','1','persil.png','7','2','0'),
                 ('8','Plan','plan','1','plan.png','8','2','0'),
                 ('9','Peta','gis','1','gis.png','9','2','0'),
                 ('10','SMS','sms','1','mail-send-receive.png','10','2','0'),
-                ('11','Pengguna','man_user/clear','1','system-users.png','11','1','1'),
+                ('11','Pengguna','man_user','1','system-users.png','11','1','1'),
                 ('12','Database','database','1','database.png','12','1','0'),
                 ('13','Admin Web','web','1','message-news.png','13','4','0'),
                 ('14','Laporan','lapor','1','mail-reply-all.png','14','2','0');
@@ -3291,13 +3291,13 @@ class Database_model extends MY_Model
             $query = 'ALTER TABLE analisis_indikator MODIFY ' . $kolom_def;
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('is_publik', 'analisis_indikator')) {
+        if (!$this->db->field_exists('is_publik', 'analisis_indikator')) {
             $query = "ALTER TABLE analisis_indikator ADD `is_publik` tinyint(1) NOT NULL DEFAULT '0'";
             $this->db->query($query);
         }
 
         // Tabel analisis_kategori_indikator
-        if (! $this->db->field_exists('kategori_kode', 'analisis_kategori_indikator')) {
+        if (!$this->db->field_exists('kategori_kode', 'analisis_kategori_indikator')) {
             $query = 'ALTER TABLE analisis_kategori_indikator ADD `kategori_kode` varchar(3) NOT NULL';
             $this->db->query($query);
         }
@@ -3307,17 +3307,17 @@ class Database_model extends MY_Model
             $query = "ALTER TABLE analisis_master CHANGE `kode_analiusis` `kode_analisis` varchar(5) NOT NULL DEFAULT '00000'";
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('id_child', 'analisis_master')) {
+        if (!$this->db->field_exists('id_child', 'analisis_master')) {
             $query = 'ALTER TABLE analisis_master ADD `id_child` smallint(4) NOT NULL';
             $this->db->query($query);
         }
 
         // Tabel analisis_parameter
-        if (! $this->db->field_exists('kode_jawaban', 'analisis_parameter')) {
+        if (!$this->db->field_exists('kode_jawaban', 'analisis_parameter')) {
             $query = 'ALTER TABLE analisis_parameter ADD `kode_jawaban` int(3) NOT NULL';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('asign', 'analisis_parameter')) {
+        if (!$this->db->field_exists('asign', 'analisis_parameter')) {
             $query = "ALTER TABLE analisis_parameter ADD `asign` tinyint(1) NOT NULL DEFAULT '0'";
             $this->db->query($query);
         }
@@ -3352,11 +3352,11 @@ class Database_model extends MY_Model
             $query = 'ALTER TABLE analisis_respon_hasil DROP `id`';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('tgl_update', 'analisis_respon_hasil')) {
+        if (!$this->db->field_exists('tgl_update', 'analisis_respon_hasil')) {
             $query = 'ALTER TABLE analisis_respon_hasil ADD `tgl_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP';
             $this->db->query($query);
         }
-        $db    = $this->db->database;
+        $db = $this->db->database;
         $query = "
             SELECT COUNT(1) ConstraintSudahAda
             FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
@@ -3365,7 +3365,7 @@ class Database_model extends MY_Model
             AND CONSTRAINT_NAME = 'id_master'
         ";
         $hasil = $this->db->query($query, $db);
-        $data  = $hasil->row_array();
+        $data = $hasil->row_array();
         if ($data['ConstraintSudahAda'] == 0) {
             $query = 'ALTER TABLE analisis_respon_hasil ADD CONSTRAINT `id_master` UNIQUE (`id_master`,`id_periode`,`id_subjek`)';
             $this->db->query($query);
@@ -3390,11 +3390,11 @@ class Database_model extends MY_Model
             $query = 'ALTER TABLE data_persil MODIFY ' . $kolom_def;
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('peta', 'data_persil')) {
+        if (!$this->db->field_exists('peta', 'data_persil')) {
             $query = 'ALTER TABLE data_persil ADD `peta` text';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('rdate', 'data_persil')) {
+        if (!$this->db->field_exists('rdate', 'data_persil')) {
             $query = 'ALTER TABLE data_persil ADD `rdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP';
             $this->db->query($query);
         }
@@ -3445,17 +3445,17 @@ class Database_model extends MY_Model
         $this->db->query($query);
 
         // Tabel tweb_penduduk melengkapi data F-1.01
-        if (! $this->db->field_exists('telepon', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('telepon', 'tweb_penduduk')) {
             $query = 'ALTER TABLE tweb_penduduk ADD `telepon` varchar(20)';
             $this->db->query($query);
         }
-        if (! $this->db->field_exists('tanggal_akhir_paspor', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('tanggal_akhir_paspor', 'tweb_penduduk')) {
             $query = 'ALTER TABLE tweb_penduduk ADD `tanggal_akhir_paspor` date';
             $this->db->query($query);
         }
 
         // Ketinggalan tabel gis_simbol
-        if (! $this->db->table_exists('gis_simbol')) {
+        if (!$this->db->table_exists('gis_simbol')) {
             $query = '
                 CREATE TABLE `gis_simbol` (
                     `simbol` varchar(40) DEFAULT NULL
@@ -3463,7 +3463,7 @@ class Database_model extends MY_Model
             ';
             $this->db->query($query);
             // Isi dengan daftar icon yang ada di folder assets/images/gis/point
-            $simbol_folder   = FCPATH . 'assets/images/gis/point';
+            $simbol_folder = FCPATH . 'assets/images/gis/point';
             $list_gis_simbol = scandir($simbol_folder);
 
             foreach ($list_gis_simbol as $simbol) {
@@ -3473,7 +3473,7 @@ class Database_model extends MY_Model
                 $this->db->insert('gis_simbol', ['simbol' => $simbol]);
             }
         }
-        if (! $this->db->field_exists('jenis', 'tweb_surat_format')) {
+        if (!$this->db->field_exists('jenis', 'tweb_surat_format')) {
             $query = 'ALTER TABLE tweb_surat_format ADD jenis tinyint(2) NOT NULL DEFAULT 2';
             $this->db->query($query);
             // Update semua surat yang disediakan oleh rilis OpenSID
@@ -3534,7 +3534,7 @@ class Database_model extends MY_Model
         ";
         $this->db->query($query);
         // Tambah kolom no_kk_sebelumnya untuk penduduk yang pecah dari kartu keluarga
-        if (! $this->db->field_exists('no_kk_sebelumnya', 'tweb_penduduk')) {
+        if (!$this->db->field_exists('no_kk_sebelumnya', 'tweb_penduduk')) {
             $query = 'ALTER TABLE tweb_penduduk ADD no_kk_sebelumnya varchar(30)';
             $this->db->query($query);
         }
@@ -3553,10 +3553,10 @@ class Database_model extends MY_Model
 
     public function get_views()
     {
-        $db    = $this->db->database;
-        $sql   = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = '{$db}'";
+        $db = $this->db->database;
+        $sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'VIEW' AND TABLE_SCHEMA = '{$db}'";
         $query = $this->db->query($sql);
-        $data  = $query->result_array();
+        $data = $query->result_array();
 
         return array_column($data, 'TABLE_NAME');
     }
