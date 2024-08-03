@@ -33,7 +33,7 @@
 
 @include('admin.home.premium')
 
-@include('admin.home.rilis')
+<!-- @include('admin.home.rilis') -->
 
 @include('admin.home.bantuan')
 
