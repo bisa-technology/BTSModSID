@@ -165,14 +165,14 @@ class PermohonanSurat extends BaseModel
      *
      * @return Builder
      */
-    public function scopeStatus($query, string $status = '')
-    {
-        if ($status == '') {
-            return $query;
-        }
+    // public function scopeStatus($query, string $status = '')
+    // {
+    //     if ($status == '') {
+    //         return $query;
+    //     }
 
-        return $query->where('status', $status);
-    }
+    //     return $query->where('status', $status);
+    // }
 
     public function penduduk()
     {

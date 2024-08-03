@@ -601,7 +601,7 @@ $config['proxy_ips'] = '';
 | - Telegram OpenDesa
 |
 */
-$config['nama_aplikasi'] = 'OpenSID';
+$config['nama_aplikasi'] = 'Wanajaya';
 $config['nama_lembaga']  = 'OpenDesa';
 $config['fb_opendesa']   = 'https://www.facebook.com/groups/komunitasopendesa';
 $config['tg_opendesa']   = 'https://t.me/komunitasopensidstop';

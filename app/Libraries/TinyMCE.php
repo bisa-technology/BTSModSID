@@ -64,7 +64,7 @@ use Spipu\Html2Pdf\Html2Pdf;
 
 defined('BASEPATH') || exit('No direct script access allowed');
 
-if (! in_array(setting('font_surat'), FONT_SYSTEM_TINYMCE)) {
+if (!in_array(setting('font_surat'), FONT_SYSTEM_TINYMCE)) {
     define('K_PATH_MAIN', '');
     define('K_PATH_FONTS', LOKASI_FONT_DESA);
 }
@@ -126,7 +126,7 @@ class TinyMCE
         </tbody>
         </table>
     ';
-    public const TOP    = 3.5; // cm
+    public const TOP = 3.5; // cm
     public const BOTTOM = 2; // cm
 
     /**
@@ -151,26 +151,26 @@ class TinyMCE
     {
         $template = [
             [
-                'nama'     => 'Header',
+                'nama' => 'Header',
                 'template' => [
                     'sistem' => static::HEADER,
-                    'desa'   => setting('header_surat'),
+                    'desa' => setting('header_surat'),
                 ],
             ],
 
             [
-                'nama'     => 'Footer',
+                'nama' => 'Footer',
                 'template' => [
                     'sistem' => static::FOOTER,
-                    'desa'   => setting('footer_surat'),
+                    'desa' => setting('footer_surat'),
                 ],
             ],
 
             [
-                'nama'     => 'Footer TTE',
+                'nama' => 'Footer TTE',
                 'template' => [
                     'sistem' => static::FOOTER_TTE,
-                    'desa'   => setting('footer_surat_tte'),
+                    'desa' => setting('footer_surat_tte'),
                 ],
             ],
         ];
@@ -181,30 +181,30 @@ class TinyMCE
     public function getTemplateSurat()
     {
         return collect(FormatSurat::whereNotNull('template')->jenis(FormatSurat::TINYMCE)->get(['nama', 'template', 'template_desa']))
-            ->map(static fn ($item, $key): array => [
-                'nama'     => 'Surat ' . $item->nama,
+            ->map(static fn($item, $key): array => [
+                'nama' => 'Surat ' . $item->nama,
                 'template' => [
                     'sistem' => $item->template,
-                    'desa'   => $item->template_desa,
+                    'desa' => $item->template_desa,
                 ],
             ]);
     }
 
     public function getFormatedKodeIsian(array $data = [], $withData = false)
     {
-        $idPenduduk      = $data['id_pend'];
-        $judulPenduduk   = $data['surat']->form_isian->individu->judul ?? 'Penduduk';
+        $idPenduduk = $data['id_pend'];
+        $judulPenduduk = $data['surat']->form_isian->individu->judul ?? 'Penduduk';
         $daftarKodeIsian = grup_kode_isian($data['surat']->kode_isian);
-        $daftarKategori  = collect($data['surat']->form_isian)->map(static fn ($item): array => collect($item)->toArray())->toArray();
+        $daftarKategori = collect($data['surat']->form_isian)->map(static fn($item): array => collect($item)->toArray())->toArray();
 
         $alias = AliasKodeIsian::get();
 
         $daftar_kode_isian = [
             // Kode Isian Alias
-            'Alias' => $alias->map(static fn ($item): array => [
+            'Alias' => $alias->map(static fn($item): array => [
                 'judul' => $item->judul,
                 'isian' => $item->alias,
-                'data'  => $item->content,
+                'data' => $item->content,
             ])->toArray(),
 
             // Data Surat
@@ -246,30 +246,30 @@ class TinyMCE
         }
 
         foreach ($daftarKategori as $key => $value) {
-            if (! $value['sumber']) {
+            if (!$value['sumber']) {
                 $value['sumber'] = 1;
             }
 
-            if (! $value['judul'] || ! $value['label']) {
-                $judul          = str_replace('_', ' ', ucwords($key));
+            if (!$value['judul'] || !$value['label']) {
+                $judul = str_replace('_', ' ', ucwords($key));
                 $value['judul'] = $judul;
                 $value['label'] = $judul;
             }
 
             $kodeIsianPendudukLuar = KodeIsianPendudukLuar::$kodeIsian;
             if ($key == 'individu') {
-                if (! array_intersect($value['data'], [1])) {
-                    $daftar_kode_isian[$judulPenduduk] = collect($daftar_kode_isian[$judulPenduduk])->filter(static fn ($item) => in_array($item['isian'], $kodeIsianPendudukLuar))->toArray();
+                if (!array_intersect($value['data'], [1])) {
+                    $daftar_kode_isian[$judulPenduduk] = collect($daftar_kode_isian[$judulPenduduk])->filter(static fn($item) => in_array($item['isian'], $kodeIsianPendudukLuar))->toArray();
                 }
 
-                if (! (is_array($daftarKodeIsian[$key]) && count($daftarKodeIsian[$key]) > 0)) {
+                if (!(is_array($daftarKodeIsian[$key]) && count($daftarKodeIsian[$key]) > 0)) {
                     unset($daftar_kode_isian["Form {$judulPenduduk}"]);
                 }
             } else {
                 $daftar_kode_isian[$value['judul']] = KodeIsianPenduduk::get($data['input']['id_pend_' . $key], $key);
-                $kodeIsianPendudukLuar              = array_map(static fn ($item): string => $item . "_{$key}", $kodeIsianPendudukLuar);
-                if (! array_intersect($value['data'], [1])) {
-                    $daftar_kode_isian[$value['judul']] = collect($daftar_kode_isian[$value['judul']])->filter(static fn ($item) => in_array($item['isian'], $kodeIsianPendudukLuar))->toArray();
+                $kodeIsianPendudukLuar = array_map(static fn($item): string => $item . "_{$key}", $kodeIsianPendudukLuar);
+                if (!array_intersect($value['data'], [1])) {
+                    $daftar_kode_isian[$value['judul']] = collect($daftar_kode_isian[$value['judul']])->filter(static fn($item) => in_array($item['isian'], $kodeIsianPendudukLuar))->toArray();
                 }
 
                 if (is_array($daftarKodeIsian[$key]) && count($daftarKodeIsian[$key]) > 0) {
@@ -281,7 +281,7 @@ class TinyMCE
         // Penandatangan
         $daftar_kode_isian['Penandatangan'] = KodeIsianPenandaTangan::get($data['input']);
 
-        $daftar_kode_isian = collect($daftar_kode_isian)->map(static fn ($item) => collect($item)->map(static function (array $item): array {
+        $daftar_kode_isian = collect($daftar_kode_isian)->map(static fn($item) => collect($item)->map(static function (array $item): array {
             $item['isian'] = getFormatIsian($item['isian'], $item['case_sentence']);
 
             return $item;
@@ -306,30 +306,32 @@ class TinyMCE
     {
         $isi = $this->generateMultiPage($isi);
 
-        $isi = implode("<div style=\"page-break-after: always;\">\u{a0}</div>", $isi);
+        if (is_array($isi)) {
+            $isi = implode("<div style=\"page-break-after: always;\">\u{a0}</div>", $isi);
+        }
 
-        // Pisahkan isian surat
+        // // Pisahkan isian surat
         $isi = str_replace('<p><!-- pagebreak --></p>', '', $isi);
         $isi = explode('<!-- pagebreak -->', $isi);
 
         // Pengaturan Header
         switch ($header) {
             case 0:
-                $backtop    = '0mm';
+                $backtop = '0mm';
                 $isi_header = '<page_header>' . $isi[0] . '</page_header>';
-                $isi_surat  = $isi[1];
+                $isi_surat = $isi[1];
                 break;
 
             case 1:
-                $backtop    = ((float) setting('tinggi_header')) * 10 . 'mm';
+                $backtop = ((float) setting('tinggi_header')) * 10 . 'mm';
                 $isi_header = '<page_header>' . $isi[0] . '</page_header>';
-                $isi_surat  = $isi[1];
+                $isi_surat = $isi[1];
                 break;
 
             default:
-                $backtop    = '0mm';
+                $backtop = '0mm';
                 $isi_header = '';
-                $isi_surat  = $isi[0] . $isi[1];
+                $isi_surat = $isi[0] . $isi[1];
                 break;
         }
 
@@ -367,24 +369,24 @@ class TinyMCE
     {
         $result = $data['isi_surat'];
 
-        $gantiDengan  = setting('ganti_data_kosong');
+        $gantiDengan = setting('ganti_data_kosong');
         $newKodeIsian = collect($this->getFormatedKodeIsian($data, true))
             ->flatMap(static function ($value, $key) {
                 if (preg_match('/klg/i', $key)) {
-                    return collect(range(1, 10))->map(static fn ($i): array => [
+                    return collect(range(1, 10))->map(static fn($i): array => [
                         'isian' => str_replace('x_', "{$i}_", $key),
-                        'data'  => $value[$i - 1] ?? '',
+                        'data' => $value[$i - 1] ?? '',
                     ]);
                 }
 
                 return [
                     [
                         'isian' => $key,
-                        'data'  => $value,
+                        'data' => $value,
                     ],
                 ];
             })
-            ->mapWithKeys(static fn ($item): array => [$item['isian'] => $item['data']])
+            ->mapWithKeys(static fn($item): array => [$item['isian'] => $item['data']])
             ->map(static function ($item) use ($gantiDengan) {
                 if (null === $item || $item == '/') {
                     return $gantiDengan;
@@ -460,8 +462,8 @@ class TinyMCE
      */
     public function formPenandatangan()
     {
-        $atas_nama     = [];
-        $config        = identitas();
+        $atas_nama = [];
+        $config = identitas();
         $penandatangan = Pamong::penandaTangan()->get();
 
         // Kepala Desa
@@ -483,7 +485,7 @@ class TinyMCE
 
             return [
                 'penandatangan' => $penandatangan,
-                'atas_nama'     => $atas_nama,
+                'atas_nama' => $atas_nama,
             ];
         }
         session_error(', ' . setting('sebutan_kepala_desa') . ' belum ditentukan.');
@@ -497,10 +499,10 @@ class TinyMCE
      */
     public function getDaftarLampiran()
     {
-        $lampiran               = [];
+        $lampiran = [];
         $daftar_lampiran_sistem = glob(DEFAULT_LOKASI_LAMPIRAN_SURAT . '*', GLOB_ONLYDIR);
-        $daftar_lampiran_desa   = glob(LOKASI_LAMPIRAN_SURAT_DESA . '*', GLOB_ONLYDIR);
-        $daftar_lampiran        = array_merge($daftar_lampiran_desa, $daftar_lampiran_sistem);
+        $daftar_lampiran_desa = glob(LOKASI_LAMPIRAN_SURAT_DESA . '*', GLOB_ONLYDIR);
+        $daftar_lampiran = array_merge($daftar_lampiran_desa, $daftar_lampiran_sistem);
 
         foreach ($daftar_lampiran as $value) {
             if (file_exists(FCPATH . $value . '/view.php')) {
@@ -545,15 +547,15 @@ class TinyMCE
             return;
         }
 
-        $surat    = $data['surat'];
-        $input    = $data['input'];
-        $config   = identitas();
+        $surat = $data['surat'];
+        $input = $data['input'];
+        $config = identitas();
         $individu = $this->surat_model->get_data_surat($id);
 
         // Data penandatangan terpilih
         $penandatangan = $this->surat_model->atas_nama($data);
 
-        $lampiran     = explode(',', strtolower($surat['lampiran']));
+        $lampiran = explode(',', strtolower($surat['lampiran']));
         $format_surat = substitusiNomorSurat($input['nomor'], setting('format_nomor_surat'));
         $format_surat = str_ireplace('[kode_surat]', $surat['kode_surat'], $format_surat);
         $format_surat = str_ireplace('[kode_desa]', $config['kode_desa'], $format_surat);
@@ -593,12 +595,12 @@ class TinyMCE
             // Cek lampiran desa
             $view_lampiran[$i] = FCPATH . LOKASI_LAMPIRAN_SURAT_DESA . $lampiran[$i] . '/view.php';
 
-            if (! file_exists($view_lampiran[$i])) {
+            if (!file_exists($view_lampiran[$i])) {
                 $view_lampiran[$i] = FCPATH . DEFAULT_LOKASI_LAMPIRAN_SURAT . $lampiran[$i] . '/view.php';
             }
 
             $data_lampiran[$i] = FCPATH . LOKASI_LAMPIRAN_SURAT_DESA . $lampiran[$i] . '/data.php';
-            if (! file_exists($data_lampiran[$i])) {
+            if (!file_exists($data_lampiran[$i])) {
                 $data_lampiran[$i] = FCPATH . DEFAULT_LOKASI_LAMPIRAN_SURAT . $lampiran[$i] . '/data.php';
             }
 
@@ -640,12 +642,12 @@ class TinyMCE
 
     private function excludeLampiran($surat, array $input, array $lampiran): array
     {
-        $kodeIsian       = $surat->kode_isian;
+        $kodeIsian = $surat->kode_isian;
         $includeLampiran = []; // tambahkan lampiran jika memenuhi syarat
         $excludeLampiran = []; // semua lampiran dengan syarat
 
         foreach ($kodeIsian as $isian) {
-            if (! $isian->kaitkan_kode) {
+            if (!$isian->kaitkan_kode) {
                 continue;
             }
             if (empty($isian->kaitkan_kode)) {
@@ -691,7 +693,13 @@ class TinyMCE
         }
         $pattern = '/<div\s+style="page-break-after:\s*always;">.*<!-- pagebreak -->.*<\/div>/im';
 
-        return preg_split($pattern, $templateString);
+        $split = preg_split($pattern, $templateString);
+
+        if (count($split) > 1) {
+            return $split;
+        } else {
+            return $templateString;
+        }
     }
 
     public function cetak_surat($id)
@@ -703,12 +711,12 @@ class TinyMCE
             return ambilBerkas($surat->nama_surat, $this->controller, null, LOKASI_ARSIP, true);
         }
 
-        $isi_cetak      = $surat->isi_surat;
-        $nama_surat     = $surat->nama_surat;
+        $isi_cetak = $surat->isi_surat;
+        $nama_surat = $surat->nama_surat;
         $cetak['surat'] = $surat->formatSurat;
 
-        $data_gambar    = KodeIsianGambar::set($cetak['surat'], $isi_cetak, $surat);
-        $isi_cetak      = $data_gambar['result'];
+        $data_gambar = KodeIsianGambar::set($cetak['surat'], $isi_cetak, $surat);
+        $isi_cetak = $data_gambar['result'];
         $surat->urls_id = $data_gambar['urls_id'];
 
         $margin_cm_to_mm = $cetak['surat']['margin_cm_to_mm'];

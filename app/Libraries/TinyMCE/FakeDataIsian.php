@@ -88,13 +88,13 @@ class FakeDataIsian
     {
         $form_isian = json_decode($this->request['form_isian'], true);
 
-        if ($form_isian) {
+        if (empty($form_isian)) {
             $pendudukLuar = json_decode(SettingAplikasi::where('key', 'form_penduduk_luar')->first()->value ?? [], true);
 
             foreach ($form_isian as $key => $value) {
                 if ($value) {
                     if (in_array(1, $value['data'])) {
-                        $this->data['input']['id_pend_' . $key] = Penduduk::filters([
+                        $this->data['input']["id_pend_$key"] = Penduduk::filters([
                             'sex'          => $value['sex'],
                             'status_dasar' => $value['status_dasar'],
                             'kk_level'     => $value['kk_level'],
@@ -225,7 +225,7 @@ class FakeDataIsian
 
         $this->data['pengikut_kis']       = $pengikut_kis;
         $this->data['pengikut_kartu_kis'] = $pengikut_kartu_kis;
-        $this->data['pengikut_surat']     = $pengikut_surat ?? null; // belum digunakan
+        // $this->data['pengikut_surat']     = $pengikut_surat ?? null; // belum digunakan
     }
 
     private function terakhirReplace(): void
