@@ -194,7 +194,7 @@ class First extends Web_Controller
     public function statistik($stat = null, $tipe = 0): void
     {
         if ($slug = StatistikEnum::slugFromKey($stat)) {
-            redirect('data-statistik/' . $slug);
+            redirect("data-statistik/$slug");
         }
 
         if (! $this->web_menu_model->menu_aktif('statistik/' . $stat)) {

@@ -126,7 +126,7 @@
                                             popup: 'swal-lg'
                                         },
                                         title: 'Pratinjau',
-                                        html: `<object data="data:application/pdf;base64,${base64}" style="width: 100%;min-height: 400px;" type="application/pdf"></object>`,
+                                        html: `<object data="data:application/pdf;base64,${base64}" style="width: 100%;height: 80vh;" type="application/pdf"></object>`,
                                         showCancelButton: true,
                                         showConfirmButton: false,
                                         cancelButtonText: 'Tutup',

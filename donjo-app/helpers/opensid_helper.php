@@ -1929,7 +1929,7 @@ if (!function_exists('formatTanggal')) {
             return setting('ganti_data_kosong');
         }
 
-        return Carbon::parse($tanggal)->translatedFormat('F j, Y, g:i a');
+        return Carbon::parse($tanggal)->translatedFormat('l j F Y, H:i:s');
     }
 }
 

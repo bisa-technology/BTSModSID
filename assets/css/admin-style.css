@@ -120,6 +120,10 @@
     font-size: 13px;
 }
 
+.hidden {
+    display: hidden !important;
+}
+
 .sidebar-menu>li>a {
     padding: 10px 5px 10px 15px;
 }
