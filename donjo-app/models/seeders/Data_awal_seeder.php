@@ -61446,6 +61446,14 @@ class Data_awal_seeder extends CI_Model
                 'kategori'   => null,
             ],
             [
+                'id'         => 29,
+                'key'        => 'format_tanggal_surat',
+                'value'      => 'l, d M Y',
+                'keterangan' => 'Fomat tanggal surat',
+                'jenis'      => null,
+                'kategori'   => null,
+            ],
+            [
                 'id'         => 30,
                 'key'        => 'penggunaan_server',
                 'value'      => '1    ',

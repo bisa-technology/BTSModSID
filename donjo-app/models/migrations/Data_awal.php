@@ -1450,6 +1450,16 @@ class Data_awal extends MY_Model
                 'kategori'   => 'format_surat',
             ],
             [
+                'judul'      => 'Format Tanggal Surat',
+                'key'        => 'format_tanggal_surat',
+                'value'      => 'l, d M Y',
+                'keterangan' => 'Fomat tanggal surat',
+                'jenis'      => 'text',
+                'option'     => null,
+                'attribute'  => null,
+                'kategori'   => 'format_surat',
+            ],
+            [
                 'judul'      => 'Penggunaan Server',
                 'key'        => 'penggunaan_server',
                 'value'      => '1 ',
