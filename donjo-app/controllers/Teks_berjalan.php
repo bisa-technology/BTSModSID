@@ -54,29 +54,23 @@ class Teks_berjalan extends Admin_Controller
         if ($this->input->is_ajax_request()) {
             return datatables()->of(TeksBerjalan::with('artikel'))
                 ->addColumn('ceklist', static function ($row) {
-                    if (can('h')) {
-                        return '<input type="checkbox" name="id_cb[]" value="' . $row->id . '"/>';
-                    }
+                    return "<input type=\"checkbox\" name=\"id_cb[]\" value=\"{$row->id}\"/>";
                 })
                 ->addIndexColumn()
                 ->addColumn('aksi', static function ($row): string {
                     $aksi = '';
 
-                    if (can('u')) {
-                        $aksi .= '<a href="' . route('teks_berjalan.urut') . '/' . $row->id . '/1' . '" class="btn bg-olive btn-sm"  title="Pindah Posisi Ke Bawah"><i class="fa fa-arrow-down"></i></a> ';
-                        $aksi .= '<a href="' . route('teks_berjalan.urut') . '/' . $row->id . '/2' . '" class="btn bg-olive btn-sm"  title="Pindah Posisi Ke Atas"><i class="fa fa-arrow-up"></i></a> ';
-                        $aksi .= '<a href="' . route('teks_berjalan.form', $row->id) . '" class="btn btn-warning btn-sm"  title="Ubah Data"><i class="fa fa-edit"></i></a> ';
+                    $aksi .= '<a href="' . route('teks_berjalan.urut') . '/' . $row->id . '/1' . '" class="btn bg-olive btn-sm"  title="Pindah Posisi Ke Bawah"><i class="fa fa-arrow-down"></i></a> ';
+                    $aksi .= '<a href="' . route('teks_berjalan.urut') . '/' . $row->id . '/2' . '" class="btn bg-olive btn-sm"  title="Pindah Posisi Ke Atas"><i class="fa fa-arrow-up"></i></a> ';
+                    $aksi .= '<a href="' . route('teks_berjalan.form', $row->id) . '" class="btn btn-warning btn-sm"  title="Ubah Data"><i class="fa fa-edit"></i></a> ';
 
-                        if ($row->status == StatusEnum::YA) {
-                            $aksi .= '<a href="' . route('teks_berjalan.lock') . '/' . $row->id . '/' . StatusEnum::TIDAK . '" class="btn bg-navy btn-sm" title="Aktifkan Anjungan"><i class="fa fa-unlock"></i></a> ';
-                        } else {
-                            $aksi .= '<a href="' . route('teks_berjalan.lock') . '/' . $row->id . '/' . StatusEnum::YA . '" class="btn bg-navy btn-sm" title="Nonaktifkan Anjungan"><i class="fa fa-lock"></i></a> ';
-                        }
+                    if ($row->status == StatusEnum::YA) {
+                        $aksi .= '<a href="' . route('teks_berjalan.lock') . '/' . $row->id . '/' . StatusEnum::TIDAK . '" class="btn bg-navy btn-sm" title="Aktifkan Anjungan"><i class="fa fa-unlock"></i></a> ';
+                    } else {
+                        $aksi .= '<a href="' . route('teks_berjalan.lock') . '/' . $row->id . '/' . StatusEnum::YA . '" class="btn bg-navy btn-sm" title="Nonaktifkan Anjungan"><i class="fa fa-lock"></i></a> ';
                     }
 
-                    if (can('h')) {
-                        $aksi .= '<a href="#" data-href="' . route('teks_berjalan.delete', $row->id) . '" class="btn bg-maroon btn-sm"  title="Hapus Data" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a> ';
-                    }
+                    $aksi .= '<a href="#" data-href="' . route('teks_berjalan.delete', $row->id) . '" class="btn bg-maroon btn-sm"  title="Hapus Data" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash"></i></a> ';
 
                     return $aksi;
                 })
@@ -85,7 +79,7 @@ class Teks_berjalan extends Admin_Controller
 
                     return $text . (' <a href="' . menu_slug('artikel/' . $row->tautan) . '" target="_blank">' . $row->judul_tautan . '</a><br>');
                 })
-                ->editColumn('tampilkan', static fn ($row) => SistemEnum::valueOf($row->tipe))
+                ->editColumn('tampilkan', static fn($row) => SistemEnum::valueOf($row->tipe))
                 ->addColumn('judul_tautan', static function ($row) {
                     if ($row->tautan) {
                         return '<a href="' . $row->tautan . '" target="_blank">' . tgl_indo($row->artikel->tgl_upload) . ' <br> ' . $row->artikel->judul . '</a>';
@@ -106,10 +100,10 @@ class Teks_berjalan extends Admin_Controller
         $this->redirect_hak_akses('u');
         $data['list_artikel'] = Artikel::where('id_kategori', 999)->limit(500)->orderBy('id', 'DESC')->get();
         if ($id) {
-            $data['teks']        = TeksBerjalan::findOrFail($id);
+            $data['teks'] = TeksBerjalan::findOrFail($id);
             $data['form_action'] = route('teks_berjalan.update', $id);
         } else {
-            $data['teks']        = null;
+            $data['teks'] = null;
             $data['form_action'] = route('teks_berjalan.insert');
         }
 
@@ -168,11 +162,11 @@ class Teks_berjalan extends Admin_Controller
     protected function validated($request = [], $id = null)
     {
         $data = [
-            'teks'         => htmlentities($request['teks']),
-            'tautan'       => (int) $request['tautan'],
+            'teks' => htmlentities($request['teks']),
+            'tautan' => (int) $request['tautan'],
             'judul_tautan' => htmlentities($request['judul_tautan']),
-            'tipe'         => 1, // web
-            'status'       => (int) $request['status'],
+            'tipe' => 1, // web
+            'status' => (int) $request['status'],
         ];
 
         if ($id === null) {
