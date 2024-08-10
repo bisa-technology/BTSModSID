@@ -2,7 +2,7 @@
     <section class="content-header">
         <h1>Peta Wilayah <?= $nama_wilayah ?></h1>
         <ol class="breadcrumb">
-            <li><a href="<?= site_url('beranda')?>"><i class="fa fa-home"></i> Beranda</a></li>
+            <li><a href="<?= site_url('beranda') ?>"><i class="fa fa-home"></i> Beranda</a></li>
             <?php foreach ($breadcrumb as $tautan): ?>
                 <li><a href="<?= $tautan['link'] ?>"> <?= $tautan['judul'] ?></a></li>
             <?php endforeach; ?>
@@ -11,12 +11,13 @@
     </section>
     <section class="content">
         <div class="box box-info">
-            <form id="validasi" action="<?= $form_action; ?>" method="POST" enctype="multipart/form-data" class="form-horizontal">
+            <form id="validasi" action="<?= $form_action; ?>" method="POST" enctype="multipart/form-data"
+                class="form-horizontal">
                 <div class="box-body">
                     <div id="tampil-map">
-                        <input type="hidden" id="path" name="path" value="<?= $wil_ini['path']?>">
-                        <input type="hidden" name="id" id="id"  value="<?= $wil_ini['id']?>"/>
-                        <input type="hidden" name="zoom" id="zoom"  value="<?= $wil_ini['zoom']?>"/>
+                        <input type="hidden" id="path" name="path" value="<?= $wil_ini['path'] ?>">
+                        <input type="hidden" name="id" id="id" value="<?= $wil_ini['id'] ?>" />
+                        <input type="hidden" name="zoom" id="zoom" value="<?= $wil_ini['zoom'] ?>" />
                         <?php include 'donjo-app/views/gis/cetak_peta.php'; ?>
                     </div>
                 </div>
@@ -26,7 +27,8 @@
                             <label class="col-sm-2 control-label" for="lat">Warna Area</label>
                             <div class="col-sm-4">
                                 <div class="input-group my-colorpicker2">
-                                    <input type="text" id="warna" name="warna" class="form-control input-sm warna required" placeholder="#FFFFFF" value="<?= $wil_ini['warna'] ?? '#FFFFFF' ?>">
+                                    <input type="text" id="warna" name="warna" class="form-control input-sm warna required"
+                                        placeholder="#FFFFFF" value="<?= $wil_ini['warna'] ?? '#FFFFFF' ?>">
                                     <div class="input-group-addon input-sm">
                                         <i></i>
                                     </div>
@@ -35,18 +37,30 @@
                             <label class="col-sm-2 control-label" for="lat">Warna Pinggiran</label>
                             <div class="col-sm-4">
                                 <div class="input-group my-colorpicker2">
-                                    <input type="text" id="border" name="border" class="form-control input-sm warna required" placeholder="#FFFFFF" value="<?= $wil_ini['border'] ?? '#FFFFFF' ?>">
+                                    <input type="text" id="border" name="border"
+                                        class="form-control input-sm warna required" placeholder="#FFFFFF"
+                                        value="<?= $wil_ini['border'] ?? '#FFFFFF' ?>">
                                     <div class="input-group-addon input-sm">
                                         <i></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="<?= $tautan['link'] ?>" class="btn btn-social btn-flat bg-purple btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block" title="Kembali"><i class="fa fa-arrow-circle-o-left"></i> Kembali</a>
-                            <a href="#" data-href="<?= "{$tautan['link']}/kosongkan/{$wil_ini['id']}"; ?>" class="btn btn-social btn-flat bg-maroon btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block" title="Kosongkan Wilayah" data-toggle="modal" data-target="#confirm-status" data-body="Apakah yakin akan mengosongkan peta wilayah ini?"><i class="fa fa fa-trash-o"></i>Kosongkan</a>
-                        <a href="#" class="btn btn-social btn-flat btn-success btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block" download="OpenSID.gpx" id="exportGPX"><i class='fa fa-download'></i> Export ke GPX</a>
-                        <button type='reset' class='btn btn-social btn-flat btn-danger btn-sm' id="resetme"><i class='fa fa-times'></i> Reset</button>
-                        <button type='submit' class='btn btn-social btn-flat btn-info btn-sm pull-right'><i class='fa fa-check'></i> Simpan</button>
+                        <a href="<?= $tautan['link'] ?>"
+                            class="btn btn-social btn-flat bg-purple btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+                            title="Kembali"><i class="fa fa-arrow-circle-o-left"></i> Kembali</a>
+                        <a href="#" data-href="<?= "{$tautan['link']}/kosongkan/{$wil_ini['id']}"; ?>"
+                            class="btn btn-social btn-flat bg-maroon btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+                            title="Kosongkan Wilayah" data-toggle="modal" data-target="#confirm-status"
+                            data-body="Apakah yakin akan mengosongkan peta wilayah ini?"><i
+                                class="fa fa fa-trash-o"></i>Kosongkan</a>
+                        <a href="#"
+                            class="btn btn-social btn-flat btn-success btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
+                            download="OpenSID.gpx" id="exportGPX"><i class='fa fa-download'></i> Export ke GPX</a>
+                        <button type='reset' class='btn btn-social btn-flat btn-danger btn-sm' id="resetme"><i
+                                class='fa fa-times'></i> Reset</button>
+                        <button type='submit' class='btn btn-social btn-flat btn-info btn-sm pull-right'><i
+                                class='fa fa-check'></i> Simpan</button>
                     </div>
                 <?php endif; ?>
             </form>
@@ -55,14 +69,14 @@
 </div>
 <?php $this->load->view('global/konfirmasi'); ?>
 <script>
-    window.onload = function() {
-        <?php if (! empty($wil_ini['lat']) && ! empty($wil_ini['lng'])): ?>
-            var posisi = [<?=$wil_ini['lat'] . ', ' . $wil_ini['lng']?>];
-            var zoom = <?=$wil_ini['zoom']?>;
-        <?php elseif (! empty($wil_atas['lat']) && ! empty($wil_atas['lng'])): ?>
+    window.onload = function () {
+        <?php if (!empty($wil_ini['lat']) && !empty($wil_ini['lng'])): ?>
+            var posisi = [<?= $wil_ini['lat'] . ', ' . $wil_ini['lng'] ?>];
+            var zoom = <?= $wil_ini['zoom'] ?: 10 ?>;
+        <?php elseif (!empty($wil_atas['lat']) && !empty($wil_atas['lng'])): ?>
             // Jika posisi saat ini belum ada, maka posisi peta akan menampilkan peta desa
-            var posisi = [<?=$wil_atas['lat'] . ', ' . $wil_atas['lng']?>];
-            var zoom = <?=$wil_atas['zoom']?>;
+            var posisi = [<?= $wil_atas['lat'] . ', ' . $wil_atas['lng'] ?>];
+            var zoom = <?= $wil_atas['zoom'] ?: 10 ?>;
         <?php else: ?>
             // Kondisi ini hanya untuk lokasi/wilayah desa yg belum ada
             var posisi = [-1.0546279422758742, 116.71875000000001];
@@ -79,28 +93,28 @@
         var marker_rt = [];
 
         // OVERLAY WILAYAH DESA
-        <?php if (! empty($desa['path'])): ?>
-            set_marker_desa(marker_desa, <?=json_encode($desa, JSON_THROW_ON_ERROR)?>, "<?=ucwords($this->setting->sebutan_desa) . ' ' . $desa['nama_desa']?>", "<?= favico_desa()?>");
+        <?php if (!empty($desa['path'])): ?>
+            set_marker_desa(marker_desa, <?= json_encode($desa, JSON_THROW_ON_ERROR) ?>, "<?= ucwords($this->setting->sebutan_desa) . ' ' . $desa['nama_desa'] ?>", "<?= favico_desa() ?>");
         <?php endif; ?>
 
         // OVERLAY WILAYAH DUSUN
-        <?php if (! empty($dusun_gis)): ?>
-            set_marker_multi(marker_dusun, '<?=addslashes(json_encode($dusun_gis, JSON_THROW_ON_ERROR))?>', '<?=ucwords($this->setting->sebutan_dusun)?>', 'dusun', "<?= favico_desa()?>");
+        <?php if (!empty($dusun_gis)): ?>
+            set_marker_multi(marker_dusun, '<?= addslashes(json_encode($dusun_gis, JSON_THROW_ON_ERROR)) ?>', '<?= ucwords($this->setting->sebutan_dusun) ?>', 'dusun', "<?= favico_desa() ?>");
         <?php endif; ?>
 
         // OVERLAY WILAYAH RW
-        <?php if (! empty($rw_gis)): ?>
-            set_marker(marker_rw, '<?=addslashes(json_encode($rw_gis, JSON_THROW_ON_ERROR))?>', 'RW', 'rw', "<?= favico_desa()?>");
+        <?php if (!empty($rw_gis)): ?>
+            set_marker(marker_rw, '<?= addslashes(json_encode($rw_gis, JSON_THROW_ON_ERROR)) ?>', 'RW', 'rw', "<?= favico_desa() ?>");
         <?php endif; ?>
 
         // OVERLAY WILAYAH RT
-        <?php if (! empty($rt_gis)): ?>
-            set_marker(marker_rt, '<?=addslashes(json_encode($rt_gis, JSON_THROW_ON_ERROR))?>', 'RT', 'rt', "<?= favico_desa()?>");
+        <?php if (!empty($rt_gis)): ?>
+            set_marker(marker_rt, '<?= addslashes(json_encode($rt_gis, JSON_THROW_ON_ERROR)) ?>', 'RT', 'rt', "<?= favico_desa() ?>");
         <?php endif; ?>
 
         // 2. Menampilkan overlayLayers Peta Semua Wilayah
-        <?php if (! empty($wil_atas['path'])): ?>
-        var overlayLayers = overlayWil(marker_desa, marker_dusun, marker_rw, marker_rt,"<?=ucwords($this->setting->sebutan_desa)?>", "<?=ucwords($this->setting->sebutan_dusun)?>");
+        <?php if (!empty($wil_atas['path'])): ?>
+            var overlayLayers = overlayWil(marker_desa, marker_dusun, marker_rw, marker_rt, "<?= ucwords($this->setting->sebutan_desa) ?>", "<?= ucwords($this->setting->sebutan_dusun) ?>");
         <?php else: ?>
             var overlayLayers = {};
         <?php endif; ?>
@@ -109,9 +123,9 @@
         var baseLayers = getBaseLayers(peta_wilayah, MAPBOX_KEY, JENIS_PETA);
 
         // Menampilkan Peta wilayah yg sudah ada
-        <?php if (! empty($wil_ini['path'])): ?>
-            var wilayah = <?=$wil_ini['path']?>;
-            var warna = '<?=$wil_ini['warna']?>';
+        <?php if (!empty($wil_ini['path'])): ?>
+            var wilayah = <?= $wil_ini['path'] ?>;
+            var warna = '<?= $wil_ini['warna'] ?>';
             <?php if (isset($poly) && $poly == 'multi'): ?>
                 // MultiPolygon
                 showCurrentMultiPolygon(wilayah, peta_wilayah, warna, TAMPIL_LUAS);
@@ -158,26 +172,26 @@
         cetakPeta(peta_wilayah);
 
         // Menambahkan Legenda Ke Peta
-        var legenda_desa = L.control({position: 'bottomright'});
-        var legenda_dusun = L.control({position: 'bottomright'});
-        var legenda_rw = L.control({position: 'bottomright'});
-        var legenda_rt = L.control({position: 'bottomright'});
+        var legenda_desa = L.control({ position: 'bottomright' });
+        var legenda_dusun = L.control({ position: 'bottomright' });
+        var legenda_rw = L.control({ position: 'bottomright' });
+        var legenda_rt = L.control({ position: 'bottomright' });
 
         peta_wilayah.on('overlayadd', function (eventLayer) {
             if (eventLayer.name === 'Peta Wilayah Desa') {
-                setlegendPetaDesa(legenda_desa, peta_wilayah, <?=json_encode($desa, JSON_THROW_ON_ERROR)?>, '<?=ucwords($this->setting->sebutan_desa)?>', '<?=$desa['nama_desa']?>');
+                setlegendPetaDesa(legenda_desa, peta_wilayah, <?= json_encode($desa, JSON_THROW_ON_ERROR) ?>, '<?= ucwords($this->setting->sebutan_desa) ?>', '<?= $desa['nama_desa'] ?>');
             }
 
             if (eventLayer.name === 'Peta Wilayah Dusun') {
-                setlegendPeta(legenda_dusun, peta_wilayah, '<?=addslashes(json_encode($dusun_gis, JSON_THROW_ON_ERROR))?>', '<?=ucwords($this->setting->sebutan_dusun)?>', 'dusun', '', '');
+                setlegendPeta(legenda_dusun, peta_wilayah, '<?= addslashes(json_encode($dusun_gis, JSON_THROW_ON_ERROR)) ?>', '<?= ucwords($this->setting->sebutan_dusun) ?>', 'dusun', '', '');
             }
 
             if (eventLayer.name === 'Peta Wilayah RW') {
-                setlegendPeta(legenda_rw, peta_wilayah, '<?=addslashes(json_encode($rw_gis, JSON_THROW_ON_ERROR))?>', 'RW', 'rw', '<?=ucwords($this->setting->sebutan_dusun)?>');
+                setlegendPeta(legenda_rw, peta_wilayah, '<?= addslashes(json_encode($rw_gis, JSON_THROW_ON_ERROR)) ?>', 'RW', 'rw', '<?= ucwords($this->setting->sebutan_dusun) ?>');
             }
 
             if (eventLayer.name === 'Peta Wilayah RT') {
-                setlegendPeta(legenda_rt, peta_wilayah, '<?=addslashes(json_encode($rt_gis, JSON_THROW_ON_ERROR))?>', 'RT', 'rt', 'RW');
+                setlegendPeta(legenda_rt, peta_wilayah, '<?= addslashes(json_encode($rt_gis, JSON_THROW_ON_ERROR)) ?>', 'RT', 'rt', 'RW');
             }
         });
 
@@ -200,7 +214,7 @@
         });
 
         // Menampilkan baseLayers dan overlayLayers
-        L.control.layers(baseLayers, overlayLayers, {position: 'topleft', collapsed: true}).addTo(peta_wilayah);
+        L.control.layers(baseLayers, overlayLayers, { position: 'topleft', collapsed: true }).addTo(peta_wilayah);
 
         // Menampilkan notif error path
         view_error_path();

@@ -4,14 +4,14 @@
     foreach (glob(LOKASI_FONT_DESA . '*.ttf') as $font) {
         $url = site_url(LOKASI_FONT_DESA . $font);
         $nameFont = ucfirst(pathinfo($font, PATHINFO_FILENAME));
-    
+
         $fonts .= $nameFont . '=' . pathinfo($font, PATHINFO_FILENAME) . '; ';
         $cssFont .= "
-            @font-face {
-                font-family: '{$nameFont}';
-                src: url($url) format('ttf');
-            }
-        ";
+                        @font-face {
+                            font-family: '{$nameFont}';
+                            src: url($url) format('ttf');
+                        }
+                    ";
     }
 @endphp
 
@@ -19,9 +19,11 @@
     <script type="text/javascript" src="{{ asset('js/tinymce-651/tinymce.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tinymce.js') }}"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var default_font = "{{ setting('font_surat') }}"
             var pratinjau = window.location.href.includes("pratinjau");
+            var suratCetak = window.location.href.search(/(\/surat\/cetak\/\d)/g);
+
             if (!pratinjau) {
                 plugins_tambahan = ['advlist', 'autolink', 'lists', 'charmap', 'hr', 'pagebreak', 'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime', 'nonbreaking', 'table', 'contextmenu', 'directionality', 'emoticons', 'paste', 'textcolor', 'code',
                     'responsivefilemanager', 'salintemplate', 'kodeisian'
@@ -29,19 +31,19 @@
             } else {
                 plugins_tambahan = ['advlist', 'autolink', 'lists', 'charmap', 'hr', 'pagebreak', 'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'insertdatetime', 'nonbreaking', 'table', 'contextmenu', 'directionality', 'emoticons', 'paste', 'textcolor', 'code'];
             }
-            var pageBreakCss = pratinjau ? `` : `
-            .mce-pagebreak {   
-                        border:none; 
-                        cursor: default;
-                        display: block;
-                        height: 25px;
-                        margin-top: 64px;
-                        margin-bottom: 64px;
-                        page-break-before: always;
-                        width: 120%;
-                        margin-left: -9.6%;
-                        background-color: #ECEEF4
-                    }`
+            var pageBreakCss = (pratinjau || suratCetak) ? `` : `
+                        .mce-pagebreak {   
+                                    border:none; 
+                                    cursor: default;
+                                    display: block;
+                                    height: 25px;
+                                    margin-top: 64px;
+                                    margin-bottom: 64px;
+                                    page-break-before: always;
+                                    width: 120%;
+                                    margin-left: -9.6%;
+                                    background-color: #ECEEF4
+                                }`
             tinymce.init({
                 selector: '.editor',
                 promotion: false,
@@ -69,17 +71,17 @@
                     }
                 },
                 style_formats: [{
-                        title: 'Align Top',
-                        format: 'aligntop'
-                    },
-                    {
-                        title: 'Align Middle',
-                        format: 'alignmiddle'
-                    },
-                    {
-                        title: 'Align Bottom',
-                        format: 'alignbottom'
-                    }
+                    title: 'Align Top',
+                    format: 'aligntop'
+                },
+                {
+                    title: 'Align Middle',
+                    format: 'alignmiddle'
+                },
+                {
+                    title: 'Align Bottom',
+                    format: 'alignbottom'
+                }
                 ],
                 block_formats: 'Paragraph=p; Header 1=h1; Header 2=h2; Header 3=h3; Header 4=h4; Header 5=h5; Header 6=h6; Div=div; Preformatted=pre; Blockquote=blockquote; Menjorok=menjorok',
                 style_formats_merge: true,
@@ -108,10 +110,10 @@
                 //forced_root_block: false, 
                 forced_root_block: ' ',
                 font_family_formats: "Andale Mono=andale mono,times; Arial=arial,helvetica,sans-serif; Arial Black=arial black; Bookman Old Style=bookman old style; Comic Sans MS=comic sans ms,sans-serif; Courier New=courier new,courier; Georgia=georgia,palatino; Helvetica=helvetica; Impact=impact,chicago; Tahoma=tahoma,arial,helvetica,sans-serif; Times New Roman=times new roman,times; Trebuchet MS=trebuchet ms,geneva; Verdana=verdana,geneva; {{ $fonts }}",
-                setup: function(ed) {
+                setup: function (ed) {
                     ed.ui.registry.addButton('insertpagebreak', {
                         text: 'Tambah Halaman Baru',
-                        onAction: function() {
+                        onAction: function () {
                             // Insert a page break when the button is clicked
                             ed.insertContent('<div style="page-break-after: always;"><!-- pagebreak --></div><p></p>');
                             ed.execCommand('removeFormat')
@@ -137,7 +139,7 @@
                     //         ed.selection.setContent(replacedText)
                     //     }
                     // });
-                    ed.on('init', function(e) {
+                    ed.on('init', function (e) {
                         ed.execCommand("fontName", false, "${default_font}");
                         ed.execCommand("fontSize", false, "14pt");
                     });
@@ -161,38 +163,38 @@
                     // }
                 },
                 content_style: `
-                    body {
-                        background: #fff;
-                    }
-                    @media (min-width: 840px) {
-                        html {
-                            background: #eceef4;
-                            min-height: 100%;
-                            padding: 0 .5rem;
-                        }
-                        body {
-                            background-color: #fff;
-                            box-shadow: 0 0 4px rgba(0, 0, 0, .15);
-                            box-sizing: border-box;
-                            margin: 1rem auto 0;
-                            max-width: 820px;
-                            min-height: calc(100vh - 1rem);
-                            padding:4rem;
-                        }
-                    }
-                    .aligntop {
-                        vertical-align: top;
-                    }
-                    .alignmiddle {
-                        vertical-align: middle;
-                    }
-                    .alignbottom {
-                        vertical-align: bottom;
-                    }
-                    {!! $cssFont !!}
-                    
-                    ${pageBreakCss}
-                `
+                                body {
+                                    background: #fff;
+                                }
+                                @media (min-width: 840px) {
+                                    html {
+                                        background: #eceef4;
+                                        min-height: 100%;
+                                        padding: 0 .5rem;
+                                    }
+                                    body {
+                                        background-color: #fff;
+                                        box-shadow: 0 0 4px rgba(0, 0, 0, .15);
+                                        box-sizing: border-box;
+                                        margin: 1rem auto 0;
+                                        max-width: 820px;
+                                        min-height: calc(100vh - 1rem);
+                                        padding:4rem;
+                                    }
+                                }
+                                .aligntop {
+                                    vertical-align: top;
+                                }
+                                .alignmiddle {
+                                    vertical-align: middle;
+                                }
+                                .alignbottom {
+                                    vertical-align: bottom;
+                                }
+                                {!! $cssFont !!}
+
+                                ${pageBreakCss}
+                            `
             });
         });
     </script>

@@ -96,6 +96,7 @@ class KodeIsianGambar
                 // TODO:: pindahkan fuction buatQrCode
                 $cek           = $this->surat_model->buatQrCode($this->surat->nama_surat);
                 $qrcode        = ($cek['viewqr']) ? '<img src="' . $cek['viewqr'] . '" width="90" height="90" alt="qrcode-surat" />' : '';
+                $before_add_qr = $this->result;
                 $this->result  = str_replace('[qr_code]', $qrcode, $this->result);
                 $this->urls_id = $cek['urls_id'];
             }
@@ -106,6 +107,7 @@ class KodeIsianGambar
         return [
             'result'  => $this->result,
             'urls_id' => $this->urls_id,
+            'before_add_qr' => $before_add_qr,
         ];
     }
 

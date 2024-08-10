@@ -23,7 +23,6 @@
                         </div>
                     <?php endif ?>
 
-
                     <div class="box-body">
                         <div class="row">
                             <div class="col-sm-12">
@@ -124,7 +123,7 @@
                                                                                 <a href="<?= site_url("keluar/edit_keterangan/{$data['id']}") ?>" title="Ubah Data" data-remote="false" data-toggle="modal" data-target="#modalBox" data-title="Ubah Keterangan" class="btn bg-orange btn-flat btn-sm"><i class="fa fa-edit"></i></a>
                                                                             <?php endif; ?>
                                                                             <?php if (! in_array($data['jenis'], [1, 2]) && $data['status'] == 0) : ?>
-                                                                                <a href="<?= site_url("surat/cetak/{$data['id']}"); ?>" class="btn btn-flat bg-orange btn-sm" title="Ubah" target="_blank"><i class="fa  fa-pencil-square-o"></i></a>
+                                                                                <a href="<?= site_url("surat/cetak/{$data['id']}"); ?>" class="btn btn-flat bg-orange btn-sm" title="Ubah" ><i class="fa  fa-pencil-square-o"></i></a>
                                                                                 <!-- hapus surat draft -->
                                                                                 <?php if (can('h')) : ?>
                                                                                     <a href="#" data-href="<?= site_url("keluar/delete/{$data['id']}?redirect={$redirect}") ?>" class="btn bg-maroon btn-flat btn-sm" title="Hapus Data" data-toggle="modal" data-target="#confirm-delete"><i class="fa fa-trash-o"></i></a>
@@ -138,8 +137,9 @@
                                                                                 <?php if (in_array($data['jenis'], [1, 2]) && $operator) : ?>
                                                                                     <a href="<?= site_url("keluar/edit_keterangan/{$data['id']}") ?>" title="Ubah Data" data-remote="false" data-toggle="modal" data-target="#modalBox" data-title="Ubah Keterangan" class="btn bg-orange btn-flat btn-sm"><i class="fa fa-edit"></i></a>
                                                                                 <?php else : ?>
+                                                                                    <!-- Tandai Disini -->
                                                                                     <?php if ($data['status'] == 0 || $data['verifikasi'] == '-1') : ?>
-                                                                                        <a href="<?= site_url("surat/cetak/{$data['id']}"); ?>" class="btn btn-flat bg-orange btn-sm" title="Ubah" target="_blank"><i class="fa  fa-pencil-square-o"></i></a>
+                                                                                        <a href="<?= site_url("surat/cetak/{$data['id']}"); ?>" class="btn btn-flat bg-orange btn-sm" title="Ubah"><i class="fa  fa-pencil-square-o"></i></a>
                                                                                     <?php endif; ?>
                                                                                 <?php endif; ?>
 

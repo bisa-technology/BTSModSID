@@ -276,13 +276,13 @@ class Surat_master extends Admin_Controller
             $this->preview();
         }
 
-        // $data = FormatSurat::findOrFail($id);
+        $data = FormatSurat::findOrFail($id);
 
-        // if ($data->update(static::validate($this->request, $data->jenis, $id))) {
-        //     redirect_with('success', 'Berhasil Ubah Data');
-        // }
+        if ($data->update(static::validate($this->request, $data->jenis, $id))) {
+            redirect_with('success', 'Berhasil Ubah Data');
+        }
 
-        // redirect_with('error', 'Gagal Ubah Data');
+        redirect_with('error', 'Gagal Ubah Data');
     }
 
     public function update($id = null): void
@@ -797,16 +797,6 @@ class Surat_master extends Admin_Controller
                 'path' => $tmp_path,
                 'base64' => $b64,
             ]);
-
-            // echo json_encode([
-            //     'file_name' => 'testingfile.pdf',
-            //     'orientasi' => $this->request['orientasi'],
-            //     'ukuran' => $this->request['ukuran'],
-            //     'nama' => $this->request['nama'],
-            //     'font' => setting('font_surat'),
-            //     'isi_surat' => $isi_cetak,
-            //     'header' => $this->request['header_surat'],
-            // ]);
 
             exit;
         } catch (Html2PdfException $e) {

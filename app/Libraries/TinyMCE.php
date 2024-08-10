@@ -525,11 +525,12 @@ class TinyMCE
     {
         $surat = str_replace(base_url(), FCPATH, $surat);
 
-        (new Html2Pdf($data['surat']['orientasi'], $data['surat']['ukuran'], 'en', true, 'UTF-8', $margins))
-            ->setTestTdInOnePage(true)
-            ->setDefaultFont(underscore(setting('font_surat'), true, true))
-            ->writeHTML($surat) // buat surat
-            ->output($out = tempnam(sys_get_temp_dir(), '') . '.pdf', 'F');
+        $html2pdf = new Html2Pdf($data['surat']['orientasi'], $data['surat']['ukuran'], 'en', true, 'UTF-8', $margins);
+
+        $html2pdf->setTestTdInOnePage(true);
+        $html2pdf->setDefaultFont(underscore(setting('font_surat'), true, true));
+        $html2pdf->writeHTML($surat);
+        $html2pdf->output($out = tempnam(sys_get_temp_dir(), '') . '.pdf', 'F');
 
         return $this->pdfMerge->add($out);
     }
@@ -727,12 +728,13 @@ class TinyMCE
         // convert in PDF
         try {
             $this->generateSurat($isi_cetak, $cetak, $margin_cm_to_mm);
-            $this->generateLampiran($surat->id_pend, $cetak);
+            // $this->generateLampiran($surat->id_pend, $cetak);
 
-            $this->pdfMerge->merge(FCPATH . LOKASI_ARSIP . $nama_surat, 'FI');
+            // $this->pdfMerge->merge(FCPATH . LOKASI_ARSIP . $nama_surat, 'FI');
         } catch (Html2PdfException $e) {
             $formatter = new ExceptionFormatter($e);
             log_message('error', $formatter->getHtmlMessage());
+            echo $formatter->getMessage();
         }
     }
 }

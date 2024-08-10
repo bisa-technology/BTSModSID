@@ -606,7 +606,7 @@ class Migrasi_2006_ke_2007 extends CI_model
         // Tambah menu Pengaturan -> Hasilkan QRCode
         $query = "
 			INSERT INTO setting_modul (`id`, `modul`, `url`, `aktif`, `ikon`, `urut`, `level`, `hidden`, `ikon_kecil`, `parent`) VALUES
-			(212, 'QR Code', 'setting/qrcode/clear', 1, 'fa-qrcode', 6, 1, 0, 'fa-qrcode', 11)
+			(212, 'QR Code', 'setting/qrcode', 1, 'fa-qrcode', 6, 1, 0, 'fa-qrcode', 11)
 			ON DUPLICATE KEY UPDATE modul = VALUES(modul), url = VALUES(url), level = VALUES(level), parent = VALUES(parent), hidden = VALUES(hidden);
 		";
         $this->db->query($query);

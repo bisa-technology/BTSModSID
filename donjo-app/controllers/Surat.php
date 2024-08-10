@@ -342,6 +342,7 @@ class Surat extends Admin_Controller
     {
         // Cetak Konsep
         $cetak = $this->session->log_surat;
+
         if ($cetak) {
             $id_pamong = $this->ttd($cetak['input']['pilih_atas_nama'], $cetak['input']['pamong_id']);
             $pamong = Pamong::find($id_pamong);
@@ -371,8 +372,8 @@ class Surat extends Admin_Controller
 
             if ($cetak['input']['sebagai']) {
                 $name_pelapor = $cetak['input']['sebagai'];
-                if ($cetak['input']['id_pend_' . $name_pelapor]) {
-                    $pelapor['id_pend_Pelapor'] = $cetak['input']['id_pend_' . $name_pelapor];
+                if ($cetak['input']["id_pend_$name_pelapor"]) {
+                    $pelapor['id_pend_Pelapor'] = $cetak['input']["id_pend_$name_pelapor"];
                     $pelapor = Penduduk::where('id', $pelapor['id_pend_Pelapor'])->first();
                     $pelapor['nik_pelapor'] = $pelapor->nik;
                     $pelapor['nama_pelapor'] = $pelapor->nama;
@@ -400,17 +401,38 @@ class Surat extends Admin_Controller
             $log_surat['nama_surat'] = $nama_surat;
 
             unset($log_surat['surat'], $log_surat['input']);
-            $id = LogSurat::updateOrCreate(['id' => $cetak['id']], $log_surat)->id;
+            $id = $cetak['id'] ?? LogSurat::updateOrCreate(['id' => $cetak['id']], $log_surat)->id;
+
             $surat = LogSurat::findOrFail($id);
 
             // Replace Gambar
             $data_gambar = KodeIsianGambar::set($cetak['surat'], $isi_cetak, $surat);
             $isi_cetak = $data_gambar['result'];
+            $isi_sebelum_qr = $data_gambar['before_add_qr'];
             $surat->urls_id = $data_gambar['urls_id'];
 
             $margin_cm_to_mm = $cetak['surat']['margin_cm_to_mm'];
             if ($cetak['surat']['margin_global'] == '1') {
                 $margin_cm_to_mm = setting('surat_margin_cm_to_mm');
+            }
+
+            // Update data untuk konsep
+            if ($cetak['id']) {
+                try {
+                    LogSurat::updateOrCreate(
+                        ['id' => $id],
+                        [
+                            'bulan' => date('m'),
+                            'tahun' => date('Y'),
+                            'no_surat' => $cetak['input']['nomor'],
+                            'keterangan' => $cetak['keterangan'],
+                            'nama_surat' => $nama_surat,
+                            'urls_id' => $data_gambar['urls_id']
+                        ]
+                    );
+                } catch (\Exception $e) {
+                    log_message('' . $e->getMessage(), 'error');
+                }
             }
 
             // convert in PDF
@@ -422,8 +444,20 @@ class Surat extends Admin_Controller
                     $this->tinymce->pdfMerge->merge('document.pdf', 'I');
                 } else {
                     // Untuk surat yang sudah dicetak, simpan isian suratnya yang sudah jadi (siap di konversi)
-                    $surat->isi_surat = $isi_cetak;
+                    $surat->isi_surat = $isi_sebelum_qr;
                     $surat->status = LogSurat::CETAK;
+
+                    // Update data untuk konsep
+                    if ($cetak['id']) {
+                        try {
+                            LogSurat::updateOrCreate(
+                                ['id' => $id],
+                                ['status' => LogSurat::CETAK]
+                            );
+                        } catch (\Exception $e) {
+                            log_message('' . $e->getMessage(), 'error');
+                        }
+                    }
 
                     $this->tinymce->pdfMerge->merge(FCPATH . LOKASI_ARSIP . $nama_surat, 'FI');
                 }
@@ -485,6 +519,87 @@ class Surat extends Admin_Controller
         }
     }
 
+    public function preview(): void
+    {
+        $cetak = $this->session->log_surat;
+
+        if ($cetak) {
+            $id_pamong = $this->ttd($cetak['input']['pilih_atas_nama'], $cetak['input']['pamong_id']);
+            $pamong = Pamong::find($id_pamong);
+            $log_surat = [
+                'id_format_surat' => $cetak['id_format_surat'],
+                'id_pend' => $cetak['id_pend'], // nik = id_pend
+                'id_pamong' => $id_pamong,
+                'nama_jabatan' => $pamong->jabatan->nama,
+                'nama_pamong' => $pamong->pamong_nama,
+                'id_user' => auth()->id,
+                'tanggal' => Carbon::now(),
+                'bulan' => date('m'),
+                'tahun' => date('Y'),
+                'no_surat' => $cetak['input']['nomor'],
+                'keterangan' => $cetak['keterangan'],
+                'kecamatan' => $cetak['kecamatan'] ?? StatusSuratKecamatanEnum::TidakAktif,
+            ];
+
+            if ($nik = $cetak['input']['nik']) {
+                $nik = Penduduk::find($nik)->nik;
+            } else {
+                // Surat untuk non-warga
+                $log_surat['nama_non_warga'] = $cetak['input']['individu']['nama'];
+                $log_surat['nik_non_warga'] = $cetak['input']['individu']['nik'];
+                $nik = $log_surat['nik_non_warga'];
+            }
+
+            if ($cetak['input']['sebagai']) {
+                $name_pelapor = $cetak['input']['sebagai'];
+                if ($cetak['input']["id_pend_$name_pelapor"]) {
+                    $pelapor['id_pend_Pelapor'] = $cetak['input']["id_pend_$name_pelapor"];
+                    $pelapor = Penduduk::where('id', $pelapor['id_pend_Pelapor'])->first();
+                    $pelapor['nik_pelapor'] = $pelapor->nik;
+                    $pelapor['nama_pelapor'] = $pelapor->nama;
+                } else {
+                    $pelapor['id_pend_Pelapor'] = null;
+                    $pelapor['nik_pelapor'] = $cetak['input'][$name_pelapor]['nik'];
+                    $pelapor['nama_pelapor'] = $cetak['input'][$name_pelapor]['nama'];
+                }
+                $log_surat['pemohon'] = json_encode(['id_pend' => $pelapor['id'], 'nik' => $pelapor['nik_pelapor'], 'nama' => $pelapor['nama_pelapor']]);
+            } else {
+                $log_surat['pemohon'] = null;
+            }
+
+            $log_surat['surat'] = $cetak['surat'];
+            $log_surat['input'] = $cetak['input'];
+            $log_surat['isi_surat'] = $this->request['isi_surat'];
+
+            $isi_surat = $this->tinymce->gantiKodeIsian($log_surat, false);
+
+            // Ubah jadi format pdf
+            $isi_cetak = $this->tinymce->formatPdf($cetak['surat']->header, $cetak['surat']->footer, $isi_surat);
+
+            $nama_surat = $this->nama_surat_arsip($cetak['surat']['url_surat'], $nik, $cetak['no_surat']);
+
+            $log_surat['nama_surat'] = $nama_surat;
+
+            unset($log_surat['surat'], $log_surat['input']);
+
+            // Replace Gambar
+            $data_gambar = KodeIsianGambar::set($cetak['surat'], $isi_cetak, $log_surat);
+            $isi_cetak = $data_gambar['result'];
+            $isi_sebelum_qr = $data_gambar['before_add_qr'];
+            $log_surat['urls_id'] = $data_gambar['urls_id'];
+
+            $margin_cm_to_mm = $cetak['surat']['margin_cm_to_mm'];
+            if ($cetak['surat']['margin_global'] == '1') {
+                $margin_cm_to_mm = setting('surat_margin_cm_to_mm');
+            }
+
+            $this->tinymce->generateSurat($isi_cetak, $cetak, $margin_cm_to_mm);
+            $this->tinymce->generateLampiran($log_surat['id_pend'], $cetak);
+
+            $this->tinymce->pdfMerge->merge('document.pdf', 'I');
+        }
+    }
+
     public function konsep(): void
     {
         $cetak = $this->session->log_surat;
@@ -500,6 +615,7 @@ class Surat extends Admin_Controller
                 'nama_pamong' => $pamong->pamong_nama,
                 'id_user' => auth()->id,
                 'tanggal' => Carbon::now(),
+                'no_surat' => $this->request['nomor'],
                 'kecamatan' => $cetak['kecamatan'],
             ];
             $log_surat['verifikasi_operator'] = 0;
@@ -578,13 +694,14 @@ class Surat extends Admin_Controller
             $pamong = Pamong::find($surat->id_pamong);
 
             $atas_nama = '';
-            if ($pamong->pamong_ttd === 1) {
-                $atas_nama .= 'a.n ' . ucwords($pamong->pamong_jabatan . ' ' . identitas()->nama_desa);
+            if ($pamong->pamong_ttd == 1) {
+                $atas_nama .= 'a.n ' . ucwords($pamong->jabatan->nama . ' ' . identitas()['nama_desa']);
             } elseif ($pamong->pamong_ub === 1) {
-                $atas_nama .= 'u.b ' . ucwords($pamong->pamong_jabatan . ' ' . identitas()->nama_desa);
+                $atas_nama .= 'u.b ' . ucwords($pamong->jabatan->nama . ' ' . identitas()['nama_desa']);
             }
 
-            $log_surat['no_surat'] = $this->surat_model->get_last_nosurat_log($surat->url_surat)['no_surat_berikutnya'];
+            $log_surat['no_surat'] = $this->surat_model->get_last_nosurat_log($surat->formatSurat->url_surat)['no_surat_berikutnya'];
+
             $log_surat['surat'] = $surat->formatSurat;
             $log_surat['input'] = [
                 'nik' => $surat->id_pend,
@@ -598,12 +715,16 @@ class Surat extends Admin_Controller
             ];
 
             if ($surat->verifikasi_operator != '-1') {
-                $log_surat['isi_surat'] = preg_replace('/\\\\/', '', setting('header_surat')) . '<!-- pagebreak -->' . ($surat->isi_surat) . '<!-- pagebreak -->' . preg_replace('/\\\\/', '', setting('footer_surat'));
+                $setting_header = setting('header_surat');
+                $setting_footer = setting('footer_surat');
+
+                $log_surat['isi_surat'] = preg_replace('/\\\\/', '', $setting_header) . '<!-- pagebreak -->' . $surat->isi_surat . '<!-- pagebreak -->' . preg_replace('/\\\\/', '', $setting_footer);
             } else {
-                $log_surat['isi_surat'] = preg_replace('/\\\\/', '', ($surat->isi_surat));
+                $log_surat['isi_surat'] = preg_replace('/\\\\/', '', $surat->isi_surat);
             }
 
             $log_surat['id'] = $surat->id;
+
             $isi_surat = $this->tinymce->gantiKodeIsian($log_surat);
 
             unset($log_surat['isi_surat']);
