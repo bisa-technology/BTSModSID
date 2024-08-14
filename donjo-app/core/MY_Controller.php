@@ -82,14 +82,14 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
         $error = $this->session->db_error;
-        if ($error['code'] == 1049 && ! $this->db) {
+        if ($error['code'] == 1049 && !$this->db) {
             return;
         }
 
         $this->cek_config();
 
         $this->controller = strtolower($this->router->fetch_class());
-        $this->request    = $this->input->post();
+        $this->request = $this->input->post();
     }
 
     // Bersihkan session cluster wilayah
@@ -105,7 +105,7 @@ class MY_Controller extends CI_Controller
     private function cek_config(): void
     {
         // jika belum install
-        if (! file_exists(DESAPATH)) {
+        if (!file_exists(DESAPATH)) {
             redirect('install');
         }
 
@@ -115,7 +115,7 @@ class MY_Controller extends CI_Controller
         // installer berhasil dijalankan dengan kondisi folder desa sudah ada.
         $this->load->model(['seeders/seeder', 'setting_model', 'anjungan_model']);
 
-        $appKey   = get_app_key();
+        $appKey = get_app_key();
         $appKeyDb = Config::first();
 
         if (Config::count() === 0) {
@@ -125,7 +125,7 @@ class MY_Controller extends CI_Controller
             $appKeyDb = Config::appKey()->first();
         }
 
-        if (! empty($appKeyDb->app_key) && $appKey !== $appKeyDb->app_key) {
+        if (!empty($appKeyDb->app_key) && $appKey !== $appKeyDb->app_key) {
             $this->session->cek_app_key = true;
             redirect('koneksi_database/config');
         }
@@ -153,7 +153,7 @@ class MY_Controller extends CI_Controller
 
             return $query->where('jabatan_id', '!=', kades()->id)->where('jabatan_id', '!=', sekdes()->id);
         })
-            ->when($next != 'verifikasi_sekdes' && $next != 'verifikasi_kades', static fn ($query) => $query->orWhereNull('pamong_id'))
+            ->when($next != 'verifikasi_sekdes' && $next != 'verifikasi_kades', static fn($query) => $query->orWhereNull('pamong_id'))
             ->get();
 
         if (is_array($isi) && $users->count() > 0) {
@@ -168,7 +168,7 @@ class MY_Controller extends CI_Controller
 
     public function kirim_notifikasi_admin($next, $pesan, $judul, $payload = ''): void
     {
-        $allToken = FcmToken::whereHas('user', static fn ($user) => $user->WhereHas('pamong', static function ($query) use ($next) {
+        $allToken = FcmToken::whereHas('user', static fn($user) => $user->WhereHas('pamong', static function ($query) use ($next) {
             if ($next == 'verifikasi_sekdes') {
                 return $query->where('jabatan_id', '=', sekdes()->id);
             }
@@ -177,12 +177,12 @@ class MY_Controller extends CI_Controller
             }
 
             return $query->where('jabatan_id', '!=', kades()->id)->where('jabatan_id', '!=', sekdes()->id);
-        })->when(next != 'verifikasi_sekdes' && $next != 'verifikasi_kades', static fn ($query) => $query->orWhereNull('pamong_id')))->get();
+        })->when(next != 'verifikasi_sekdes' && $next != 'verifikasi_kades', static fn($query) => $query->orWhereNull('pamong_id')))->get();
 
         if (cek_koneksi_internet()) {
             // kirim ke aplikasi android admin.
             try {
-                $client       = new Fcm\FcmClient(FirebaseEnum::SERVER_KEY, FirebaseEnum::SENDER_ID);
+                $client = new Fcm\FcmClient(FirebaseEnum::SERVER_KEY, FirebaseEnum::SENDER_ID);
                 $notification = new Fcm\Push\Notification();
 
                 $notification
@@ -197,10 +197,10 @@ class MY_Controller extends CI_Controller
         }
 
         $isi = [
-            'judul'      => $judul,
-            'isi'        => $pesan,
-            'payload'    => $payload,
-            'read'       => 0,
+            'judul' => $judul,
+            'isi' => $pesan,
+            'payload' => $payload,
+            'read' => 0,
             'created_at' => date('Y-m-d H:i:s'),
         ];
 
@@ -221,7 +221,7 @@ class MY_Controller extends CI_Controller
         if (cek_koneksi_internet()) {
             // kirim ke aplikasi android admin.
             try {
-                $client       = new Fcm\FcmClient(FirebaseEnum::SERVER_KEY, FirebaseEnum::SENDER_ID);
+                $client = new Fcm\FcmClient(FirebaseEnum::SERVER_KEY, FirebaseEnum::SENDER_ID);
                 $notification = new Fcm\Push\Notification();
 
                 $notification
@@ -236,12 +236,12 @@ class MY_Controller extends CI_Controller
         }
 
         $isi = [
-            'judul'           => $judul,
-            'isi'             => $pesan,
-            'payload'         => $payload,
-            'read'            => 0,
+            'judul' => $judul,
+            'isi' => $pesan,
+            'payload' => $payload,
+            'read' => 0,
             'id_user_mandiri' => $id_penduduk,
-            'created_at'      => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->create_log_notifikasi_penduduk($isi);
@@ -261,7 +261,7 @@ class Web_Controller extends MY_Controller
 
         $this->load->model('theme_model');
         $this->load->helper('theme');
-        $this->theme        = $this->theme_model->tema;
+        $this->theme = $this->theme_model->tema;
         $this->theme_folder = $this->theme_model->folder;
 
         // Variabel untuk tema
@@ -273,7 +273,7 @@ class Web_Controller extends MY_Controller
         } elseif ($this->setting->offline_mode == 1) {
             $this->load->model('user_model');
             $grup = $this->user_model->sesi_grup($this->session->sesi);
-            if (! $this->user_model->hak_akses($grup, 'web', 'b')) {
+            if (!$this->user_model->hak_akses($grup, 'web', 'b')) {
                 $this->view_maintenance();
             }
         }
@@ -309,14 +309,14 @@ class Web_Controller extends MY_Controller
         $data['statistik_pengunjung'] = $this->statistik_pengunjung_model->get_statistik();
 
         $data['latar_website'] = default_file($this->theme_model->lokasi_latar_website() . $this->setting->latar_website, DEFAULT_LATAR_WEBSITE);
-        $data['desa']          = $this->header;
-        $data['menu_atas']     = $this->first_menu_m->list_menu_atas();
-        $data['menu_kiri']     = $this->first_menu_m->list_menu_kiri();
+        $data['desa'] = $this->header;
+        $data['menu_atas'] = $this->first_menu_m->list_menu_atas();
+        $data['menu_kiri'] = $this->first_menu_m->list_menu_kiri();
         $data['teks_berjalan'] = ($this->db->field_exists('tipe', 'teks_berjalan')) ? $this->teks_berjalan_model->list_data(true, 1) : null;
         $data['slide_artikel'] = $this->first_artikel_m->slide_show();
         $data['slider_gambar'] = $this->first_artikel_m->slider_gambar();
-        $data['w_cos']         = $this->web_widget_model->get_widget_aktif();
-        $data['cek_anjungan']  = $this->cek_anjungan;
+        $data['w_cos'] = $this->web_widget_model->get_widget_aktif();
+        $data['cek_anjungan'] = $this->cek_anjungan;
 
         $this->web_widget_model->get_widget_data($data);
         $data['data_config'] = $this->header;
@@ -339,9 +339,9 @@ class Web_Controller extends MY_Controller
 
     private function view_maintenance()
     {
-        $data['jabatan']          = kades()->nama;
+        $data['jabatan'] = kades()->nama;
         $data['nama_kepala_desa'] = $this->header['nama_kepala_desa'];
-        $data['nip_kepala_desa']  = $this->header['nip_kepala_desa'];
+        $data['nip_kepala_desa'] = $this->header['nip_kepala_desa'];
 
         $this->config->set_item('views_blade', array_merge(config_item('views_blade'), ["{$this->theme_folder}/{$this->theme}"]));
 
@@ -357,14 +357,14 @@ class Mandiri_Controller extends MY_Controller
     {
         parent::__construct();
         $this->is_login = $this->session->is_login;
-        $this->header   = identitas();
+        $this->header = identitas();
 
-        if ($this->setting->layanan_mandiri == 0 && ! $this->cek_anjungan) {
+        if ($this->setting->layanan_mandiri == 0 && !$this->cek_anjungan) {
             show_404();
         }
 
         if ($this->session->mandiri != 1) {
-            if (! $this->session->login_ektp) {
+            if (!$this->session->login_ektp) {
                 redirect('layanan-mandiri/masuk');
             } else {
                 redirect('layanan-mandiri/masuk-ektp');
@@ -374,9 +374,9 @@ class Mandiri_Controller extends MY_Controller
 
     public function render($view, ?array $data = null): void
     {
-        $data['desa']         = $this->header;
+        $data['desa'] = $this->header;
         $data['cek_anjungan'] = $this->cek_anjungan;
-        $data['konten']       = $view;
+        $data['konten'] = $view;
         $this->load->view(MANDIRI . '/template', $data);
     }
 }
@@ -409,7 +409,7 @@ class Admin_Controller extends MY_Controller
 
         $this->cek_identitas_desa();
         // paksa untuk logout jika melakukan ubah password
-        if (! $this->session->change_password) {
+        if (!$this->session->change_password) {
             return;
         }
         if ($this->router->class === 'pengguna') {
@@ -434,9 +434,9 @@ class Admin_Controller extends MY_Controller
             redirect('identitas_desa');
         }
 
-        $force    = $this->session->force_change_password;
+        $force = $this->session->force_change_password;
 
-        if ($force && ! $kode_desa && $this->router->class != 'pengguna') {
+        if ($force && !$kode_desa && $this->router->class != 'pengguna') {
             redirect('pengguna#sandi');
         }
 
@@ -450,12 +450,15 @@ class Admin_Controller extends MY_Controller
         $this->grup = $this->user_model->sesi_grup($this->session->sesi);
         $this->load->model('modul_model');
         $aliasController = $this->aliasController ?? $this->controller;
-        if (! $this->modul_model->modul_aktif($aliasController)) {
-            session_error('Fitur ini tidak aktif');
-            redirect($_SERVER['HTTP_REFERER']);
+
+        if ($aliasController != 'dtks') {
+            if (!$this->modul_model->modul_aktif($aliasController)) {
+                session_error('Fitur ini tidak aktif');
+                redirect($_SERVER['HTTP_REFERER']);
+            }
         }
 
-        if (! $this->user_model->hak_akses($this->grup, $aliasController, 'b')) {
+        if (!$this->user_model->hak_akses($this->grup, $aliasController, 'b')) {
             if (empty($this->grup)) {
                 $_SESSION['request_uri'] = $_SERVER['REQUEST_URI'];
                 redirect('siteman');
@@ -466,23 +469,23 @@ class Admin_Controller extends MY_Controller
                 redirect('main');
             }
         }
-        $cek_kotak_pesan                        = $this->db->table_exists('pesan') && $this->db->table_exists('pesan_detail');
+        $cek_kotak_pesan = $this->db->table_exists('pesan') && $this->db->table_exists('pesan_detail');
         $this->header['notif_permohonan_surat'] = $this->notif_model->permohonan_surat_baru();
-        $this->header['notif_inbox']            = $this->notif_model->inbox_baru();
-        $this->header['notif_komentar']         = $this->notif_model->komentar_baru();
-        $this->header['notif_langganan']        = $this->pelanggan_model->status_langganan();
-        $this->header['notif_pesan_opendk']     = $cek_kotak_pesan ? Pesan::where('sudah_dibaca', '=', 0)->where('diarsipkan', '=', 0)->count() : 0;
-        $this->header['notif_pengumuman']       = ($kode_desa || $force) ? null : $this->cek_pengumuman();
-        $isAdmin                                = $this->session->isAdmin->pamong;
-        $this->header['notif_permohonan']       = 0;
+        $this->header['notif_inbox'] = $this->notif_model->inbox_baru();
+        $this->header['notif_komentar'] = $this->notif_model->komentar_baru();
+        $this->header['notif_langganan'] = $this->pelanggan_model->status_langganan();
+        $this->header['notif_pesan_opendk'] = $cek_kotak_pesan ? Pesan::where('sudah_dibaca', '=', 0)->where('diarsipkan', '=', 0)->count() : 0;
+        $this->header['notif_pengumuman'] = ($kode_desa || $force) ? null : $this->cek_pengumuman();
+        $isAdmin = $this->session->isAdmin->pamong;
+        $this->header['notif_permohonan'] = 0;
         if ($this->db->field_exists('verifikasi_operator', 'log_surat') && $this->db->field_exists('deleted_at', 'log_surat')) {
-            $this->header['notif_permohonan'] = LogSurat::whereNull('deleted_at')->when($isAdmin->jabatan_id == kades()->id, static fn ($q) => $q->when(setting('tte') == 1, static fn ($tte) => $tte->where('verifikasi_kades', '=', 0)->orWhere('tte', '=', 0))->when(setting('tte') == 0, static fn ($tte) => $tte->where('verifikasi_kades', '=', 0)))
-                ->when($isAdmin->jabatan_id == sekdes()->id, static fn ($q) => $q->where('verifikasi_sekdes', '=', '0'))
-                ->when($isAdmin == null || ! in_array($isAdmin->jabatan_id, [kades()->id, sekdes()->id]), static fn ($q) => $q->where('verifikasi_operator', '=', '0')->orWhere('verifikasi_operator', '=', '-1'))
+            $this->header['notif_permohonan'] = LogSurat::whereNull('deleted_at')->when($isAdmin->jabatan_id == kades()->id, static fn($q) => $q->when(setting('tte') == 1, static fn($tte) => $tte->where('verifikasi_kades', '=', 0)->orWhere('tte', '=', 0))->when(setting('tte') == 0, static fn($tte) => $tte->where('verifikasi_kades', '=', 0)))
+                ->when($isAdmin->jabatan_id == sekdes()->id, static fn($q) => $q->where('verifikasi_sekdes', '=', '0'))
+                ->when($isAdmin == null || !in_array($isAdmin->jabatan_id, [kades()->id, sekdes()->id]), static fn($q) => $q->where('verifikasi_operator', '=', '0')->orWhere('verifikasi_operator', '=', '-1'))
                 ->count();
         }
 
-        if (! config_item('demo_mode')) {
+        if (!config_item('demo_mode')) {
             $info_langganan = $this->cache->file->get_metadata('status_langganan');
 
             if ((strtotime('+30 day', $info_langganan['mtime']) < strtotime('now')) || ($this->cache->file->get_metadata('status_langganan') == false && $this->setting->layanan_opendesa_token != null)) {
@@ -519,7 +522,7 @@ class Admin_Controller extends MY_Controller
         if (empty($controller)) {
             $controller = $this->controller;
         }
-        if (! $this->user_model->hak_akses_url($this->grup, $controller, $akses)) {
+        if (!$this->user_model->hak_akses_url($this->grup, $controller, $akses)) {
             session_error('Anda tidak mempunyai akses pada fitur ini');
             if (empty($this->grup)) {
                 redirect('siteman');
@@ -535,7 +538,7 @@ class Admin_Controller extends MY_Controller
             $controller = $this->controller;
         }
 
-        if (($admin_only && $this->grup != $this->user_model->id_grup(UserGrup::ADMINISTRATOR)) || ! $this->user_model->hak_akses($this->grup, $controller, $akses)) {
+        if (($admin_only && $this->grup != $this->user_model->id_grup(UserGrup::ADMINISTRATOR)) || !$this->user_model->hak_akses($this->grup, $controller, $akses)) {
             session_error('Anda tidak mempunyai akses pada fitur ini');
 
             if (empty($this->grup)) {
@@ -590,8 +593,8 @@ class Admin_Controller extends MY_Controller
         $this->load->model('pamong_model');
 
         return [
-            'pamong'         => Pamong::penandaTangan()->get(),
-            'pamong_ttd'     => Pamong::sekretarisDesa()->first(),
+            'pamong' => Pamong::penandaTangan()->get(),
+            'pamong_ttd' => Pamong::sekretarisDesa()->first(),
             'pamong_ketahui' => Pamong::kepalaDesa()->first(),
         ];
     }
@@ -599,18 +602,18 @@ class Admin_Controller extends MY_Controller
     public function navigasi_peta()
     {
         return collect([
-            'desa'      => identitas(),
-            'wil_atas'  => identitas(),
+            'desa' => identitas(),
+            'wil_atas' => identitas(),
             'dusun_gis' => Wilayah::dusun()->get(),
-            'rw_gis'    => Wilayah::rw()->get(),
-            'rt_gis'    => Wilayah::rt()->get(),
+            'rw_gis' => Wilayah::rw()->get(),
+            'rt_gis' => Wilayah::rt()->get(),
         ])->toArray();
     }
 
     protected function set_hak_akses_rfm()
     {
         // reset dulu session yang berkaitan hak akses ubah dan hapus
-        $this->session->hapus_gambar_rfm       = false;
+        $this->session->hapus_gambar_rfm = false;
         $this->session->ubah_tambah_gambar_rfm = false;
 
         if (can('h')) {
@@ -638,7 +641,7 @@ class Anjungan_Controller extends Admin_Controller
     public function __construct()
     {
         parent::__construct();
-        if (! cek_anjungan()) {
+        if (!cek_anjungan()) {
             redirect('anjungan');
         }
     }
