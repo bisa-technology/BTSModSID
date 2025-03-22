@@ -46,61 +46,61 @@ define('JENIS_PERATURAN_DESA', serialize([
 ]));
 
 define('KATEGORI_PUBLIK', serialize([
-    'Informasi Berkala'      => '1',
-    'Informasi Serta-merta'  => '2',
-    'Informasi Setiap Saat'  => '3',
+    'Informasi Berkala' => '1',
+    'Informasi Serta-merta' => '2',
+    'Informasi Setiap Saat' => '3',
     'Informasi Dikecualikan' => '4',
 ]));
 
 define('STATUS_PERMOHONAN', serialize([
-    'Belum Lengkap'        => '0',
-    'Sedang Diperiksa'     => '1',
+    'Belum Lengkap' => '0',
+    'Sedang Diperiksa' => '1',
     'Menunggu Tandatangan' => '2',
-    'Siap Diambil'         => '3',
-    'Sudah Diambil'        => '4',
-    'Dibatalkan'           => '5',
+    'Siap Diambil' => '3',
+    'Sudah Diambil' => '4',
+    'Dibatalkan' => '5',
 ]));
 
 define('LINK_TIPE', serialize([
-    '1'  => 'Artikel Statis',
-    '8'  => 'Kategori Artikel',
-    '2'  => 'Statistik Penduduk',
-    '3'  => 'Statistik Keluarga',
-    '4'  => 'Statistik Program Bantuan',
-    '5'  => 'Halaman Statis Lainnya',
-    '6'  => 'Artikel Keuangan',
-    '7'  => 'Kelompok',
+    '1' => 'Artikel Statis',
+    '8' => 'Kategori Artikel',
+    '2' => 'Statistik Penduduk',
+    '3' => 'Statistik Keluarga',
+    '4' => 'Statistik Program Bantuan',
+    '5' => 'Halaman Statis Lainnya',
+    '6' => 'Artikel Keuangan',
+    '7' => 'Kelompok',
     '11' => 'Lembaga',
-    '9'  => 'Data Suplemen',
+    '9' => 'Data Suplemen',
     '10' => 'Status IDM',
     '99' => 'Eksternal',
 ]));
 
 // Statistik Penduduk
 define('STAT_PENDUDUK', serialize([
-    '13'               => 'Umur (Rentang)',
-    '15'               => 'Umur (Kategori)',
-    '0'                => 'Pendidikan Dalam KK',
-    '14'               => 'Pendidikan Sedang Ditempuh',
-    '1'                => 'Pekerjaan',
-    '2'                => 'Status Perkawinan',
-    '3'                => 'Agama',
-    '4'                => 'Jenis Kelamin',
-    'hubungan_kk'      => 'Hubungan Dalam KK',
-    '5'                => 'Warga Negara',
-    '6'                => 'Status Penduduk',
-    '7'                => 'Golongan Darah',
-    '9'                => 'Penyandang Cacat',
-    '10'               => 'Penyakit Menahun',
-    '16'               => 'Akseptor KB',
-    '17'               => 'Akta Kelahiran',
-    '18'               => 'Kepemilikan KTP',
-    '19'               => 'Asuransi Kesehatan',
-    'covid'            => 'Status Covid',
-    'suku'             => 'Suku / Etnis',
+    '13' => 'Umur (Rentang)',
+    '15' => 'Umur (Kategori)',
+    '0' => 'Pendidikan Dalam KK',
+    '14' => 'Pendidikan Sedang Ditempuh',
+    '1' => 'Pekerjaan',
+    '2' => 'Status Perkawinan',
+    '3' => 'Agama',
+    '4' => 'Jenis Kelamin',
+    'hubungan_kk' => 'Hubungan Dalam KK',
+    '5' => 'Warga Negara',
+    '6' => 'Status Penduduk',
+    '7' => 'Golongan Darah',
+    '9' => 'Penyandang Cacat',
+    '10' => 'Penyakit Menahun',
+    '16' => 'Akseptor KB',
+    '17' => 'Akta Kelahiran',
+    '18' => 'Kepemilikan KTP',
+    '19' => 'Asuransi Kesehatan',
+    'covid' => 'Status Covid',
+    'suku' => 'Suku / Etnis',
     'bpjs-tenagakerja' => 'BPJS Ketenagakerjaan',
-    'hamil'            => 'Status Kehamilan',
-    'buku-nikah'       => 'Buku Nikah',
+    'hamil' => 'Status Kehamilan',
+    'buku-nikah' => 'Buku Nikah',
 ]));
 
 // Statistik Keluarga
@@ -121,29 +121,30 @@ define('STAT_BANTUAN', serialize([
 
 // Statistik Lainnya
 define('STAT_LAINNYA', serialize([
-    'dpt'                     => 'Calon Pemilih',
-    'data-wilayah'            => 'Wilayah Administratif',
-    'peraturan-desa'          => 'Produk Hukum',
-    'informasi_publik'        => 'Informasi Publik',
-    'peta'                    => 'Peta',
-    'data_analisis'           => 'Data Analisis',
-    'status-sdgs'             => 'SDGs [Desa]',
-    'lapak'                   => 'Lapak [Desa]',
-    'pembangunan'             => 'Pembangunan',
-    'galeri'                  => 'Galeri',
-    'pengaduan'               => 'Pengaduan',
-    'data-vaksinasi'          => 'Vaksin',
-    'pemerintah'              => '[Pemerintah Desa]',
+    'dpt' => 'Calon Pemilih',
+    'data-wilayah' => 'Wilayah Administratif',
+    'peraturan-desa' => 'Produk Hukum',
+    'informasi_publik' => 'Informasi Publik',
+    'peta' => 'Peta',
+    'data_analisis' => 'Data Analisis',
+    'status-sdgs' => 'SDGs [Desa]',
+    'lapak' => 'Lapak [Desa]',
+    'pembangunan' => 'Pembangunan',
+    'galeri' => 'Galeri',
+    'pengaduan' => 'Pengaduan',
+    'data-vaksinasi' => 'Vaksin',
+    'pemerintah' => '[Pemerintah Desa]',
     'layanan-mandiri/beranda' => 'Layanan Mandiri',
 ]));
 
 // Jabatan Kelompok
 define('JABATAN_KELOMPOK', serialize([
-    1  => 'KETUA',
-    2  => 'WAKIL KETUA',
-    3  => 'SEKRETARIS',
-    4  => 'BENDAHARA',
+    1 => 'KETUA',
+    2 => 'WAKIL KETUA',
+    3 => 'SEKRETARIS',
+    4 => 'BENDAHARA',
     90 => 'ANGGOTA',
+    // 100 => 'CUSTOM',
 ]));
 
 // API Server
@@ -287,6 +288,6 @@ class Referensi_model extends MY_Model
     {
         $dafault = $this->list_ref(JENIS_PERATURAN_DESA);
 
-        return collect($dafault)->transform(static fn ($item) => str_replace(['Desa', 'desa'], ucwords(setting('sebutan_desa')), $item))->unique()->values();
+        return collect($dafault)->transform(static fn($item) => str_replace(['Desa', 'desa'], ucwords(setting('sebutan_desa')), $item))->unique()->values();
     }
 }

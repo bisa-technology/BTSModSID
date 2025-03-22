@@ -42,15 +42,15 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
 class Kelompok extends Admin_Controller
 {
-    private array $_set_page     = ['20', '50', '100'];
+    private array $_set_page = ['20', '50', '100'];
     private array $_list_session = ['cari', 'filter', 'penerima_bantuan', 'sex', 'status_dasar'];
-    protected $tipe              = 'kelompok';
+    protected $tipe = 'kelompok';
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model(['kelompok_model', 'pamong_model']);
-        $this->modul_ini     = 'kependudukan';
+        $this->modul_ini = 'kependudukan';
         $this->sub_modul_ini = 'kelompok';
         $this->kelompok_model->set_tipe($this->tipe);
     }
@@ -58,7 +58,7 @@ class Kelompok extends Admin_Controller
     public function clear(): void
     {
         $this->session->unset_userdata($this->_list_session);
-        $this->session->per_page     = $this->_set_page[0];
+        $this->session->per_page = $this->_set_page[0];
         $this->session->status_dasar = 1; // Rumah Tangga Aktif
 
         redirect($this->controller);
@@ -78,13 +78,13 @@ class Kelompok extends Admin_Controller
             $this->session->per_page = $per_page;
         }
 
-        $data['func']        = 'index';
-        $data['set_page']    = $this->_set_page;
-        $data['filter']      = $this->session->filter;
-        $list_data           = $this->kelompok_model->list_data($o, $p);
-        $data['paging']      = $list_data['paging'];
-        $data['main']        = $list_data['main'];
-        $data['keyword']     = $this->kelompok_model->autocomplete();
+        $data['func'] = 'index';
+        $data['set_page'] = $this->_set_page;
+        $data['filter'] = $this->session->filter;
+        $list_data = $this->kelompok_model->list_data($o, $p);
+        $data['paging'] = $list_data['paging'];
+        $data['main'] = $list_data['main'];
+        $data['keyword'] = $this->kelompok_model->autocomplete();
         $data['list_master'] = $this->kelompok_model->list_master();
 
         $this->render('kelompok/table', $data);
@@ -101,10 +101,10 @@ class Kelompok extends Admin_Controller
         }
 
         $data['set_page'] = $this->_set_page;
-        $data['paging']   = $this->kelompok_model->paging($p, $id);
-        $data['func']     = 'anggota/' . $id;
+        $data['paging'] = $this->kelompok_model->paging($p, $id);
+        $data['func'] = 'anggota/' . $id;
         $data['kelompok'] = $this->kelompok_model->get_kelompok($id) ?? show_404();
-        $data['main']     = $this->kelompok_model->list_anggota($o, $data['paging']->offset, $data['paging']->per_page, $id);
+        $data['main'] = $this->kelompok_model->list_anggota($o, $data['paging']->offset, $data['paging']->per_page, $id);
 
         $this->render('kelompok/anggota/table', $data);
     }
@@ -112,26 +112,26 @@ class Kelompok extends Admin_Controller
     public function form($p = 1, $o = 0, $id = 0): void
     {
         $this->redirect_hak_akses('u');
-        $data['p']   = $p;
-        $data['o']   = $o;
+        $data['p'] = $p;
+        $data['o'] = $o;
         $list_master = $this->kelompok_model->list_master();
 
         if (count($list_master) <= 0) {
-            $this->session->success   = -1;
+            $this->session->success = -1;
             $this->session->error_msg = "Kategori {$this->tipe} tidak tersedia, silakan tambah ketegori terlebih dahulu";
 
             redirect($this->controller);
         }
 
         if ($id) {
-            $data['kelompok']    = $this->kelompok_model->get_kelompok($id) ?? show_404();
+            $data['kelompok'] = $this->kelompok_model->get_kelompok($id) ?? show_404();
             $data['form_action'] = site_url("{$this->controller}/update/{$p}/{$o}/{$id}");
         } else {
-            $data['kelompok']    = null;
+            $data['kelompok'] = null;
             $data['form_action'] = site_url("{$this->controller}/insert");
         }
 
-        $data['list_master']   = $list_master;
+        $data['list_master'] = $list_master;
         $data['list_penduduk'] = $this->kelompok_model->list_penduduk();
         $this->render('kelompok/form', $data);
     }
@@ -147,16 +147,16 @@ class Kelompok extends Admin_Controller
     {
         KelompokAnggota::tipe()->where('id_kelompok', '=', 2)->pluck('id_penduduk');
         $this->redirect_hak_akses('u');
-        $data['kelompok']      = $id;
+        $data['kelompok'] = $id;
         $data['list_penduduk'] = $this->kelompok_model->list_penduduk($id, $id_a);
         $data['list_jabatan1'] = $this->referensi_model->list_ref(JABATAN_KELOMPOK);
         $data['list_jabatan2'] = $this->kelompok_model->list_jabatan($id);
 
         if ($id_a == 0) {
-            $data['pend']        = null;
+            $data['pend'] = null;
             $data['form_action'] = site_url("{$this->controller}/insert_a/{$id}");
         } else {
-            $data['pend']        = $this->kelompok_model->get_anggota($id, $id_a) ?? show_404();
+            $data['pend'] = $this->kelompok_model->get_anggota($id, $id_a) ?? show_404();
             $data['form_action'] = site_url("{$this->controller}/update_a/{$id}/{$id_a}");
         }
 
@@ -166,10 +166,10 @@ class Kelompok extends Admin_Controller
     public function apipendudukkelompok()
     {
         if ($this->input->is_ajax_request()) {
-            $cari     = $this->input->get('q');
-            $tipe     = $this->input->get('tipe');
+            $cari = $this->input->get('q');
+            $tipe = $this->input->get('tipe');
             $kelompok = $this->input->get('kelompok');
-            $anggota  = KelompokAnggota::tipe($tipe)->where('id_kelompok', '=', $kelompok)->pluck('id_penduduk');
+            $anggota = KelompokAnggota::tipe($tipe)->where('id_kelompok', '=', $kelompok)->pluck('id_penduduk');
 
             $penduduk = Penduduk::select(['id', 'nik', 'nama', 'id_cluster'])
                 ->when($cari, static function ($query) use ($cari): void {
@@ -181,8 +181,8 @@ class Kelompok extends Admin_Controller
 
             return json([
                 'results' => collect($penduduk->items())
-                    ->map(static fn ($item): array => [
-                        'id'   => $item->id,
+                    ->map(static fn($item): array => [
+                        'id' => $item->id,
                         'text' => 'NIK : ' . $item->nik . ' - ' . $item->nama . ' RT-' . $item->wilayah->rt . ', RW-' . $item->wilayah->rw . ', ' . strtoupper(setting('sebutan_dusun') . ' ' . $item->wilayah->dusun),
                     ]),
                 'pagination' => [
@@ -197,8 +197,8 @@ class Kelompok extends Admin_Controller
     // $aksi = cetak/unduh
     public function dialog($aksi = 'cetak'): void
     {
-        $data                = $this->modal_penandatangan();
-        $data['aksi']        = ucwords($aksi);
+        $data = $this->modal_penandatangan();
+        $data['aksi'] = ucwords($aksi);
         $data['form_action'] = site_url("{$this->controller}/daftar/{$aksi}");
 
         $this->load->view('global/ttd_pamong', $data);
@@ -206,15 +206,15 @@ class Kelompok extends Admin_Controller
 
     public function daftar($aksi = 'cetak'): void
     {
-        $post                   = $this->input->post();
-        $data['aksi']           = $aksi;
-        $data['config']         = $this->header['desa'];
-        $data['pamong_ttd']     = $this->pamong_model->get_data($post['pamong_ttd']);
+        $post = $this->input->post();
+        $data['aksi'] = $aksi;
+        $data['config'] = $this->header['desa'];
+        $data['pamong_ttd'] = $this->pamong_model->get_data($post['pamong_ttd']);
         $data['pamong_ketahui'] = $this->pamong_model->get_data($post['pamong_ketahui']);
-        $data['main']           = $this->kelompok_model->list_data();
-        $data['file']           = "Data {$this->tipe}"; // nama file
-        $data['isi']            = 'kelompok/cetak';
-        $data['letak_ttd']      = ['1', '1', '1'];
+        $data['main'] = $this->kelompok_model->list_data();
+        $data['file'] = "Data {$this->tipe}"; // nama file
+        $data['isi'] = 'kelompok/cetak';
+        $data['letak_ttd'] = ['1', '1', '1'];
 
         $this->load->view('global/format_cetak', $data);
     }
@@ -222,8 +222,8 @@ class Kelompok extends Admin_Controller
     // $aksi = cetak/unduh
     public function dialog_anggota($aksi = 'cetak', $id = 0): void
     {
-        $data                = $this->modal_penandatangan();
-        $data['aksi']        = ucwords($aksi);
+        $data = $this->modal_penandatangan();
+        $data['aksi'] = ucwords($aksi);
         $data['form_action'] = site_url("{$this->controller}/daftar_anggota/{$aksi}/{$id}");
 
         $this->load->view('global/ttd_pamong', $data);
@@ -231,16 +231,16 @@ class Kelompok extends Admin_Controller
 
     public function daftar_anggota($aksi = 'cetak', $id = 0): void
     {
-        $post                   = $this->input->post();
-        $data['aksi']           = $aksi;
-        $data['config']         = $this->header['desa'];
-        $data['pamong_ttd']     = $this->pamong_model->get_data($post['pamong_ttd']);
+        $post = $this->input->post();
+        $data['aksi'] = $aksi;
+        $data['config'] = $this->header['desa'];
+        $data['pamong_ttd'] = $this->pamong_model->get_data($post['pamong_ttd']);
         $data['pamong_ketahui'] = $this->pamong_model->get_data($post['pamong_ketahui']);
-        $data['main']           = $this->kelompok_model->list_anggota(0, 0, 0, $id);
-        $data['kelompok']       = $this->kelompok_model->get_kelompok($id) ?? show_404();
-        $data['file']           = "Laporan Data {$this->tipe} " . $data['kelompok']['nama']; // nama file
-        $data['isi']            = 'kelompok/anggota/cetak';
-        $data['letak_ttd']      = ['2', '3', '2'];
+        $data['main'] = $this->kelompok_model->list_anggota(0, 0, 0, $id);
+        $data['kelompok'] = $this->kelompok_model->get_kelompok($id) ?? show_404();
+        $data['file'] = "Laporan Data {$this->tipe} " . $data['kelompok']['nama']; // nama file
+        $data['isi'] = 'kelompok/anggota/cetak';
+        $data['letak_ttd'] = ['2', '3', '2'];
 
         $this->load->view('global/format_cetak', $data);
     }
@@ -359,7 +359,7 @@ class Kelompok extends Admin_Controller
         $this->session->sex = ($sex == 0) ? null : $sex;
 
         if ($tipe === $tipe > 50) {
-            $program_id                     = preg_replace('/^50/', '', $tipe);
+            $program_id = preg_replace('/^50/', '', $tipe);
             $this->session->program_bantuan = $program_id;
             // TODO: Sederhanakan query ini, pindahkan ke model
             $nama = $this->db
@@ -369,13 +369,13 @@ class Kelompok extends Admin_Controller
                 ->get('program')
                 ->row()
                 ->nama;
-            if (! in_array($nomor, [BELUM_MENGISI, TOTAL])) {
+            if (!in_array($nomor, [BELUM_MENGISI, TOTAL])) {
                 $this->session->status_dasar = null; // tampilkan semua peserta walaupun bukan hidup/aktif
-                $nomor                       = $program_id;
+                $nomor = $program_id;
             }
             $kategori = $nama . ' : ';
-            $session  = 'penerima_bantuan';
-            $tipe     = 'penerima_bantuan';
+            $session = 'penerima_bantuan';
+            $tipe = 'penerima_bantuan';
         }
 
         $this->session->{$session} = ($nomor != TOTAL) ? $nomor : null;

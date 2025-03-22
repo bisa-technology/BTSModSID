@@ -2,7 +2,7 @@
 	<?= $tipe = ucfirst($this->controller); ?>
 	<div class="content-wrapper">
 		<section class="content-header">
-			<h1>Data Anggota </h1>
+			<h1>Data Anggota <?= $tipe; ?></h1>
 			<ol class="breadcrumb">
 				<li><a href="<?= site_url('beranda'); ?>"><i class="fa fa-home"></i> Beranda</a></li>
 				<li><a href="<?= site_url($this->controller); ?>"> Daftar <?= $tipe; ?></a></li>

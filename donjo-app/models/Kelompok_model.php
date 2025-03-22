@@ -40,7 +40,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
 class Kelompok_model extends MY_Model
 {
     protected $table = 'kelompok';
-    protected $tipe  = 'kelompok';
+    protected $tipe = 'kelompok';
 
     public function __construct()
     {
@@ -97,7 +97,7 @@ class Kelompok_model extends MY_Model
     {
         // Yg berikut hanya untuk menampilkan peserta bantuan
         $penerima_bantuan = $this->session->penerima_bantuan;
-        if (! in_array($penerima_bantuan, [JUMLAH, BELUM_MENGISI, TOTAL])) {
+        if (!in_array($penerima_bantuan, [JUMLAH, BELUM_MENGISI, TOTAL])) {
             // Salin program_id
             $this->session->program_bantuan = $penerima_bantuan;
         }
@@ -120,7 +120,7 @@ class Kelompok_model extends MY_Model
                     ->join('program_peserta bt', 'bt.peserta = u.id', 'left')
                     ->where('bt.id is null');
             }
-        } elseif ($penerima_bantuan == JUMLAH && ! $this->session->program_bantuan) {
+        } elseif ($penerima_bantuan == JUMLAH && !$this->session->program_bantuan) {
             // Penerima bantuan mana pun
             $this->db
                 ->where('u.id IN (select peserta from program_peserta)');
@@ -156,7 +156,7 @@ class Kelompok_model extends MY_Model
 
     protected function get_sql_kolom_kode($session, $kolom)
     {
-        if (! empty($ss = $this->session->{$session})) {
+        if (!empty($ss = $this->session->{$session})) {
             if ($ss == JUMLAH) {
                 $this->db->where("{$kolom} !=", null);
             } elseif ($ss == BELUM_MENGISI) {
@@ -200,7 +200,7 @@ class Kelompok_model extends MY_Model
 
         if ($page > 0) {
             $jumlah_pilahan = $this->db->count_all_results('', false);
-            $paging         = $this->paginasi($page, $jumlah_pilahan);
+            $paging = $this->paginasi($page, $jumlah_pilahan);
             $this->db->limit($paging->per_page, $paging->offset);
         }
 
@@ -222,14 +222,14 @@ class Kelompok_model extends MY_Model
             $data['id_ketua'] = bilangan($post['id_ketua']);
         }
 
-        $data['id_master']  = bilangan($post['id_master']);
-        $data['nama']       = nama_terbatas($post['nama']);
+        $data['id_master'] = bilangan($post['id_master']);
+        $data['nama'] = nama_terbatas($post['nama']);
         $data['keterangan'] = htmlentities($post['keterangan']);
-        $data['kode']       = nomor_surat_keputusan($post['kode']);
-        $data['tipe']       = $this->tipe;
+        $data['kode'] = nomor_surat_keputusan($post['kode']);
+        $data['tipe'] = $this->tipe;
 
         if (null === $id) {
-            $data['slug']      = unique_slug($this->table, $data['nama']);
+            $data['slug'] = unique_slug($this->table, $data['nama']);
             $data['config_id'] = $this->config_id;
         }
 
@@ -246,7 +246,7 @@ class Kelompok_model extends MY_Model
             return false;
         }
 
-        $outpa     = $this->db->insert($this->table, $data);
+        $outpa = $this->db->insert($this->table, $data);
         $insert_id = $this->db->insert_id();
 
         // TODO : Ubah cara penanganan penambahan ketua kelompok, simpan di bagian kelompok anggota
@@ -269,18 +269,18 @@ class Kelompok_model extends MY_Model
             $data['id_penduduk'] = bilangan($post['id_penduduk']);
         }
 
-        $data['no_anggota']    = bilangan($post['no_anggota']);
-        $data['jabatan']       = alfanumerik_spasi($post['jabatan']);
+        $data['no_anggota'] = bilangan($post['no_anggota']);
+        $data['jabatan'] = alfanumerik_spasi($post['jabatan']);
         $data['no_sk_jabatan'] = nomor_surat_keputusan($post['no_sk_jabatan']);
-        $data['keterangan']    = htmlentities($post['keterangan']);
-        $data['tipe']          = $this->tipe;
+        $data['keterangan'] = htmlentities($post['keterangan']);
+        $data['tipe'] = $this->tipe;
 
         if ($this->tipe == 'lembaga') {
-            $data['nmr_sk_pengangkatan']  = nomor_surat_keputusan($post['nmr_sk_pengangkatan']);
-            $data['tgl_sk_pengangkatan']  = empty($post['tgl_sk_pengangkatan']) ? null : tgl_indo_in($post['tgl_sk_pengangkatan']);
+            $data['nmr_sk_pengangkatan'] = nomor_surat_keputusan($post['nmr_sk_pengangkatan']);
+            $data['tgl_sk_pengangkatan'] = empty($post['tgl_sk_pengangkatan']) ? null : tgl_indo_in($post['tgl_sk_pengangkatan']);
             $data['nmr_sk_pemberhentian'] = nomor_surat_keputusan($post['nmr_sk_pemberhentian']);
             $data['tgl_sk_pemberhentian'] = empty($post['tgl_sk_pemberhentian']) ? null : tgl_indo_in($post['tgl_sk_pemberhentian']);
-            $data['periode']              = htmlentities($post['periode']);
+            $data['periode'] = htmlentities($post['periode']);
         }
 
         if (null === $id) {
@@ -292,12 +292,12 @@ class Kelompok_model extends MY_Model
 
     public function insert_a($id = 0)
     {
-        $data                = $this->validasi_anggota($this->input->post());
+        $data = $this->validasi_anggota($this->input->post());
         $data['id_kelompok'] = $id;
         $this->ubah_jabatan($data['id_kelompok'], $data['id_penduduk'], $data['jabatan'], null);
 
         if ($data['id_kelompok']) {
-            $validasi_anggota  = $this->validasi_anggota_terdaftar('id_penduduk', $data['id_penduduk'], $data['id_kelompok']);
+            $validasi_anggota = $this->validasi_anggota_terdaftar('id_penduduk', $data['id_penduduk'], $data['id_kelompok']);
             $validasi_anggota1 = $this->validasi_anggota_terdaftar('no_anggota', $data['no_anggota'], $data['id_kelompok']);
         }
 
@@ -313,8 +313,8 @@ class Kelompok_model extends MY_Model
             return false;
         }
 
-        $outp    = $this->db->insert('kelompok_anggota', $data);
-        $id      = $this->db->insert_id();
+        $outp = $this->db->insert('kelompok_anggota', $data);
+        $id = $this->db->insert_id();
         $id_pend = $data['id_penduduk'];
         $this->get_anggota($id, $id_pend);
 
@@ -355,7 +355,7 @@ class Kelompok_model extends MY_Model
 
     public function update_a($id = 0, $id_a = 0)
     {
-        $data                = $this->validasi_anggota($this->input->post(), $id_a);
+        $data = $this->validasi_anggota($this->input->post(), $id_a);
         $data['id_kelompok'] = $id;
         $this->ubah_jabatan($id, $id_a, $data['jabatan'], $this->input->post('jabatan_lama'));
 
@@ -387,7 +387,7 @@ class Kelompok_model extends MY_Model
     {
         $this->get_kelompok($id) ?? show_404();
 
-        if (! $semua) {
+        if (!$semua) {
             $this->session->success = 1;
         }
 
@@ -417,7 +417,7 @@ class Kelompok_model extends MY_Model
 
     public function delete_anggota($id = '', $semua = false): void
     {
-        if (! $semua) {
+        if (!$semua) {
             $this->session->success = 1;
         }
 
@@ -484,8 +484,8 @@ class Kelompok_model extends MY_Model
             LEFT JOIN tweb_penduduk_sex s ON s.id = u.sex
             LEFT JOIN tweb_wil_clusterdesa wil ON wil.id = u.id_cluster
             WHERE k.id = {$id} LIMIT 1";
-        $query                  = $this->db->query($sql);
-        $data                   = $query->row_array();
+        $query = $this->db->query($sql);
+        $data = $query->row_array();
         $data['alamat_wilayah'] = $this->penduduk_model->get_alamat_wilayah($data['id']);
 
         return $data;
